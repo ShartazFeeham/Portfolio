@@ -97,18 +97,79 @@ export default function App() {
         }
 
         .paper-edge {
-          background: #fbf7f0;
+          background: linear-gradient(180deg, #ffffff 0%, #f7f3ea 100%);
           padding: 9px;
         }
 
-        .paper-inner {
-          background-color: #efe6d3;
-          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.10'/%3E%3C/svg%3E");
-          box-shadow: 0 1px 0 rgba(255,255,255,0.65) inset;
+        .paper-edge::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background:
+            radial-gradient(circle at 18% 10%, rgba(78, 50, 20, 0.16), transparent 48%),
+            radial-gradient(circle at 82% 12%, rgba(78, 50, 20, 0.12), transparent 46%),
+            radial-gradient(circle at 12% 88%, rgba(78, 50, 20, 0.13), transparent 50%),
+            radial-gradient(circle at 90% 86%, rgba(78, 50, 20, 0.16), transparent 52%);
+          mix-blend-mode: multiply;
+          opacity: 0.28;
+          pointer-events: none;
         }
 
-        .paper-inner--green { background-color: #cdd8b3; }
-        .paper-inner--tan { background-color: #e2c39d; }
+        .paper-inner {
+          background-color: #e6d3ad;
+          background-image:
+            radial-gradient(circle at 18% 22%, rgba(135, 85, 35, 0.22), transparent 46%),
+            radial-gradient(circle at 78% 28%, rgba(135, 85, 35, 0.18), transparent 48%),
+            radial-gradient(circle at 32% 82%, rgba(135, 85, 35, 0.16), transparent 54%),
+            radial-gradient(circle at 84% 86%, rgba(135, 85, 35, 0.20), transparent 56%),
+            radial-gradient(circle at 26% 58%, rgba(110, 65, 22, 0.22), transparent 40%),
+            radial-gradient(circle at 72% 66%, rgba(110, 65, 22, 0.18), transparent 44%),
+            radial-gradient(circle at 58% 32%, rgba(255,255,255,0.20), transparent 52%),
+            linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.02) 45%, rgba(0,0,0,0.10) 100%),
+            url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.14'/%3E%3C/svg%3E");
+          box-shadow:
+            0 1px 0 rgba(255,255,255,0.55) inset,
+            0 -1px 0 rgba(0,0,0,0.06) inset;
+          filter: sepia(0.70) saturate(0.55) contrast(1.12) brightness(0.95);
+        }
+
+        .paper-inner::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background:
+            /* edge burn / grime */
+            radial-gradient(closest-side at 10% 10%, rgba(0,0,0,0.22), transparent 70%),
+            radial-gradient(closest-side at 90% 10%, rgba(0,0,0,0.18), transparent 68%),
+            radial-gradient(closest-side at 10% 90%, rgba(0,0,0,0.18), transparent 72%),
+            radial-gradient(closest-side at 90% 90%, rgba(0,0,0,0.22), transparent 74%),
+            /* foxing spots */
+            radial-gradient(circle at 22% 22%, rgba(110, 70, 25, 0.22) 0 6px, transparent 7px),
+            radial-gradient(circle at 30% 18%, rgba(110, 70, 25, 0.18) 0 4px, transparent 5px),
+            radial-gradient(circle at 64% 26%, rgba(110, 70, 25, 0.20) 0 5px, transparent 6px),
+            radial-gradient(circle at 78% 22%, rgba(110, 70, 25, 0.16) 0 3px, transparent 4px),
+            radial-gradient(circle at 26% 74%, rgba(110, 70, 25, 0.20) 0 5px, transparent 6px),
+            radial-gradient(circle at 72% 78%, rgba(110, 70, 25, 0.18) 0 4px, transparent 5px);
+          mix-blend-mode: multiply;
+          opacity: 0.65;
+          pointer-events: none;
+        }
+
+        .paper-inner::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 220'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.25' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.15  0 0 0 0 0.12  0 0 0 0 0.06  0 0 0 0.45 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)' opacity='0.35'/%3E%3C/svg%3E");
+          mix-blend-mode: multiply;
+          opacity: 0.85;
+          pointer-events: none;
+        }
+
+        .paper-inner--green { background-color: #c8d1aa; }
+        .paper-inner--tan { background-color: #dcc09b; }
+
+        .paper-inner--green { filter: sepia(0.70) saturate(0.50) contrast(1.12) brightness(0.95); }
+        .paper-inner--tan { filter: sepia(0.75) saturate(0.55) contrast(1.12) brightness(0.95); }
 
         .tear-mask-a { clip-path: polygon(2% 10%, 10% 2%, 98% 0%, 96% 18%, 100% 32%, 94% 48%, 99% 66%, 92% 84%, 98% 98%, 82% 100%, 0% 96%, 3% 74%, 0% 56%, 4% 36%); }
         .tear-mask-b { clip-path: polygon(6% 0%, 98% 6%, 94% 20%, 100% 34%, 93% 50%, 99% 62%, 91% 78%, 97% 94%, 78% 100%, 0% 95%, 3% 74%, 0% 58%, 4% 40%, 0% 18%); }
@@ -116,10 +177,7 @@ export default function App() {
         .tear-mask-d { clip-path: polygon(4% 6%, 98% 1%, 100% 20%, 95% 36%, 99% 52%, 94% 68%, 98% 84%, 90% 98%, 74% 100%, 0% 94%, 3% 78%, 0% 60%, 5% 40%); }
 
         .newsprint {
-          background-image:
-            repeating-linear-gradient(90deg, rgba(44,42,37,0.10) 0 1px, transparent 1px 18px),
-            repeating-linear-gradient(0deg, rgba(44,42,37,0.06) 0 1px, transparent 1px 14px);
-          background-blend-mode: multiply;
+          background-image: none;
         }
 
         .scrap-title {
