@@ -73,7 +73,6 @@ export default function App() {
 
     const key = "portfolio:vintageCursorIndex";
     const DEFAULT_IDX = 3; // Option D (always start here)
-    const CLICKABLE_IDX = 1; // Option B (for clickable elements)
     const PRESS_IDX = 1; // Option B (while pressed)
     let baseIdx = DEFAULT_IDX;
     let idx = DEFAULT_IDX;
@@ -82,9 +81,11 @@ export default function App() {
       const c = cursors[nextIdx];
       const cursorValue = `url("${c.url}") ${c.x} ${c.y}, auto`;
       document.documentElement.style.setProperty("--vintage-cursor", cursorValue);
-      const clickable = cursors[CLICKABLE_IDX];
-      const clickableValue = `url("${clickable.url}") ${clickable.x} ${clickable.y}, pointer`;
-      document.documentElement.style.setProperty("--vintage-cursor-clickable", clickableValue);
+      // Clickables: use the 👆 emoji as-is
+      document.documentElement.style.setProperty(
+        "--vintage-cursor-clickable",
+        `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Ctext x='4' y='38' font-size='34'%3E%F0%9F%91%86%3C/text%3E%3C/svg%3E") 12 12, pointer`
+      );
       if (persist) localStorage.setItem(key, String(nextIdx));
     };
 
@@ -154,6 +155,9 @@ export default function App() {
           font-family: 'UnifrakturMaguntia', cursive; 
           font-weight: 400;
         }
+
+        html { scroll-behavior: smooth; }
+        section[id] { scroll-margin-top: 18px; }
 
         .newspaper-texture {
             background-color: #e8e1cf;
@@ -291,6 +295,14 @@ export default function App() {
           font-size: 12px;
         }
 
+        .quicklink-title {
+          font-family: 'Playfair Display', serif;
+          font-weight: 900;
+          text-transform: none;
+          letter-spacing: 0.06em;
+          font-size: 12px;
+        }
+
         .scrap-body {
           font-family: 'Tinos', 'Times New Roman', serif;
           font-size: 12px;
@@ -356,6 +368,33 @@ export default function App() {
 
         .scrap-body p { margin: 0; }
 
+        /* Masthead ticker */
+        @keyframes mastheadMarquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+
+        .masthead-ticker {
+          position: relative;
+          overflow: hidden;
+          white-space: nowrap;
+        }
+
+        .masthead-ticker__track {
+          display: flex;
+          width: max-content;
+          animation: mastheadMarquee 42s linear infinite;
+        }
+
+        .masthead-ticker__item {
+          flex: 0 0 auto;
+          padding-right: 48px;
+        }
+
+        .masthead-ticker:hover .masthead-ticker__track {
+          animation-play-state: paused;
+        }
+
         /* Vintage cursor (right-click cycles variants) */
         :root {
           --vintage-cursor: auto;
@@ -394,10 +433,21 @@ export default function App() {
             </div>
           </div>
 
-          <div className="w-full border-y-[2px] border-[#2c2a25] flex justify-between items-center py-1 px-4 mb-8 font-headline text-[9px] md:text-[10px] font-bold uppercase tracking-widest mt-1">
-            <span className="w-1/3 text-left">VOL. 127 · NO. 39</span>
-            <span className="w-1/3 text-center">DHAKA, {currentDate}</span>
-            <span className="w-1/3 text-right">PRICE 10 CENTS</span>
+          <div className="w-full border-y-[2px] border-[#2c2a25] flex justify-between items-center py-1 px-4 mb-8 font-headline text-[9px] md:text-[10px] font-bold uppercase tracking-widest mt-1 gap-4">
+            <span className="w-1/3 text-left">DHAKA, THURSDAY 16 APRIL 2026</span>
+
+            <span className="w-1/3 text-center masthead-ticker">
+              <span className="masthead-ticker__track">
+                <span className="masthead-ticker__item">
+                  Backend-focused software engineer with over 3 years of professional experience, Shartaz Feeham is a specialist in crafting highly scalable and resilient distributed systems. His technical arsenal is centered on the Java/Spring Boot ecosystem, complemented by a mastery of Microservices, Kafka, Docker, and PostgreSQL. Having contributed to the architectural backbone of a billion-dollar Japanese e-commerce giant and a Fintech platform serving 80 million users, Feeham’s track record in mission-critical environments is extensive
+                </span>
+                <span className="masthead-ticker__item" aria-hidden="true">
+                  Backend-focused software engineer with over 3 years of professional experience, Shartaz Feeham is a specialist in crafting highly scalable and resilient distributed systems. His technical arsenal is centered on the Java/Spring Boot ecosystem, complemented by a mastery of Microservices, Kafka, Docker, and PostgreSQL. Having contributed to the architectural backbone of a billion-dollar Japanese e-commerce giant and a Fintech platform serving 80 million users, Feeham’s track record in mission-critical environments is extensive
+                </span>
+              </span>
+            </span>
+
+            <span className="w-1/3 text-right">VOL. 127 · NO. 39</span>
           </div>
         </header>
 
@@ -469,6 +519,23 @@ export default function App() {
                 </div>
 
                 <div className="quicklinks-float-wrap">
+                  <div className="paper-scrap w-[180px] md:w-[190px]" style={{ "--rot": "-2deg", transform: "rotate(-2deg) translateY(8px)" }}>
+                    <div className="paper-edge tear-mask-c">
+                      <svg className="pin pin--tm" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
+                      </svg>
+                      <a className="paper-inner tear-mask-c p-3 block" href="#" onClick={(e) => e.preventDefault()}>
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="quicklink-title">Resume</div>
+                          <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
+                            <path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4.01 4a1 1 0 0 1-1.38 0l-4.01-4a1 1 0 1 1 1.4-1.42L11 13.59V4a1 1 0 0 1 1-1z"/>
+                            <path fill="currentColor" d="M5 19a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1z"/>
+                          </svg>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+
                   <div className="paper-scrap w-[180px] md:w-[190px]" style={{ "--rot": "-6deg", transform: "rotate(-6deg) translateY(4px)" }}>
                     <div className="paper-edge tear-mask-a">
                       <svg className="pin pin--tl" viewBox="0 0 24 24" aria-hidden="true">
@@ -476,7 +543,7 @@ export default function App() {
                       </svg>
                       <a className="paper-inner tear-mask-a p-3 block" href="https://github.com/ShartazFeeham" target="_blank" rel="noreferrer">
                         <div className="flex items-center justify-between gap-2">
-                          <div className="scrap-title">GitHub</div>
+                          <div className="quicklink-title">GitHub</div>
                           <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
                             <path fill="currentColor" d="M12 .5C5.73.5.75 5.6.75 12c0 5.1 3.18 9.43 7.6 10.96.56.11.77-.25.77-.56 0-.28-.01-1.02-.02-2-3.09.69-3.74-1.53-3.74-1.53-.5-1.32-1.24-1.67-1.24-1.67-1.01-.72.08-.71.08-.71 1.12.08 1.7 1.17 1.7 1.17.99 1.75 2.6 1.25 3.24.96.1-.74.38-1.25.7-1.54-2.46-.29-5.05-1.26-5.05-5.62 0-1.24.42-2.25 1.12-3.05-.11-.28-.49-1.42.11-2.96 0 0 .92-.3 3.01 1.16a10.2 10.2 0 0 1 2.74-.38c.93 0 1.87.13 2.74.38 2.09-1.46 3.01-1.16 3.01-1.16.6 1.54.22 2.68.11 2.96.7.8 1.12 1.81 1.12 3.05 0 4.37-2.6 5.33-5.08 5.61.39.35.74 1.05.74 2.12 0 1.53-.02 2.76-.02 3.14 0 .31.2.68.78.56 4.41-1.53 7.59-5.86 7.59-10.96C23.25 5.6 18.27.5 12 .5z"/>
                           </svg>
@@ -492,26 +559,9 @@ export default function App() {
                       </svg>
                       <a className="paper-inner tear-mask-b p-3 block" href="https://linkedin.com/in/shartaz-feeham" target="_blank" rel="noreferrer">
                         <div className="flex items-center justify-between gap-2">
-                          <div className="scrap-title">LinkedIn</div>
+                          <div className="quicklink-title">LinkedIn</div>
                           <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
                             <path fill="currentColor" d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 23.5h4V7.98h-4V23.5zM8 7.98h3.83v2.12h.05c.53-1 1.83-2.12 3.77-2.12 4.03 0 4.78 2.65 4.78 6.1v9.42h-4v-8.35c0-1.99-.04-4.56-2.78-4.56-2.78 0-3.2 2.17-3.2 4.41v8.5H8V7.98z"/>
-                          </svg>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="paper-scrap w-[180px] md:w-[190px]" style={{ "--rot": "-2deg", transform: "rotate(-2deg) translateY(8px)" }}>
-                    <div className="paper-edge tear-mask-c">
-                      <svg className="pin pin--tm" viewBox="0 0 24 24" aria-hidden="true">
-                        <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
-                      </svg>
-                      <a className="paper-inner tear-mask-c p-3 block" href="#" onClick={(e) => e.preventDefault()}>
-                        <div className="flex items-center justify-between gap-2">
-                          <div className="scrap-title">Resume</div>
-                          <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
-                            <path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4.01 4a1 1 0 0 1-1.38 0l-4.01-4a1 1 0 1 1 1.4-1.42L11 13.59V4a1 1 0 0 1 1-1z"/>
-                            <path fill="currentColor" d="M5 19a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1z"/>
                           </svg>
                         </div>
                       </a>
@@ -526,12 +576,11 @@ export default function App() {
                       <svg className="pin pin--tr" viewBox="0 0 24 24" aria-hidden="true">
                         <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
                       </svg>
-                      <a className="paper-inner tear-mask-d p-3 block" href="#" onClick={(e) => e.preventDefault()}>
+                      <a className="paper-inner tear-mask-d p-3 block" href="mailto:mdfeeham@gmail.com">
                         <div className="flex items-center justify-between gap-2">
-                          <div className="scrap-title">Projects</div>
+                          <div className="quicklink-title">E-mail</div>
                           <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
-                            <path fill="currentColor" d="M4 6a2 2 0 0 1 2-2h6v2H6v12h12v-6h2v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6z"/>
-                            <path fill="currentColor" d="M14 4h6v6h-2V7.41l-7.29 7.3-1.42-1.42 7.3-7.29H14V4z"/>
+                            <path fill="currentColor" d="M4 6h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zm0 2v.2l8 5.3 8-5.3V8H4zm16 10V10.6l-7.5 5a1 1 0 0 1-1.1 0L4 10.6V18h16z"/>
                           </svg>
                         </div>
                       </a>
@@ -544,15 +593,30 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="pt-8 w-full">
-                <h4 className="font-headline text-sm font-black uppercase bg-[#2c2a25] text-[#e8e1cf] px-2 py-1 mb-3">Today's Index</h4>
+              <div id="index" className="pt-8 w-full">
+                <h4 className="font-headline text-sm font-black uppercase bg-[#2c2a25] text-[#e8e1cf] px-2 py-1 mb-3">Index</h4>
                 <ul className="font-headline text-xs font-bold uppercase space-y-3">
-                  <li className="flex justify-between border-b border-dashed border-[#2c2a25]"><span>Professional experience</span><span>P. 2</span></li>
-                  <li className="flex justify-between border-b border-dashed border-[#2c2a25]"><span>Skills & Expertise</span><span>P. 4</span></li>
-                  <li className="flex justify-between border-b border-dashed border-[#2c2a25]"><span>Education</span><span>P. 5</span></li>
-                  <li className="flex justify-between border-b border-dashed border-[#2c2a25]"><span>Programming skills</span><span>P. 7</span></li>
-                  <li className="flex justify-between border-b border-dashed border-[#2c2a25]"><span>Personal projects</span><span>P. 9</span></li>
-                  <li className="flex justify-between border-b border-dashed border-[#2c2a25]"><span>Others</span><span></span></li>
+                  <li className="flex justify-between border-b border-dashed border-[#2c2a25]">
+                    <a className="flex justify-between w-full" href="#professional-experience"><span>Professional experience</span><span>P. 1</span></a>
+                  </li>
+                  <li className="flex justify-between border-b border-dashed border-[#2c2a25]">
+                    <a className="flex justify-between w-full" href="#skills-expertise"><span>Skills & Expertise</span><span>P. 2</span></a>
+                  </li>
+                  <li className="flex justify-between border-b border-dashed border-[#2c2a25]">
+                    <a className="flex justify-between w-full" href="#education"><span>Education</span><span>P. 3</span></a>
+                  </li>
+                  <li className="flex justify-between border-b border-dashed border-[#2c2a25]">
+                    <a className="flex justify-between w-full" href="#programming-skills"><span>Programming skills</span><span>P. 4</span></a>
+                  </li>
+                  <li className="flex justify-between border-b border-dashed border-[#2c2a25]">
+                    <a className="flex justify-between w-full" href="#personal-projects"><span>Personal projects</span><span>P. 5</span></a>
+                  </li>
+                  <li className="flex justify-between border-b border-dashed border-[#2c2a25]">
+                    <a className="flex justify-between w-full" href="#contact"><span>Contact</span><span>P. 6</span></a>
+                  </li>
+                  <li className="flex justify-between border-b border-dashed border-[#2c2a25]">
+                    <a className="flex justify-between w-full" href="#others"><span>Others</span><span>P. 7</span></a>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -562,9 +626,9 @@ export default function App() {
         <hr className="border-t-[3px] border-[#2c2a25] mt-2 mb-1" />
 
         {/* --- PROFESSIONAL EXPERIENCES SECTION --- */}
-        <section className="flex flex-col gap-4">
+        <section id="professional-experience" className="flex flex-col gap-4">
           <h2 className="font-headline font-black text-xl md:text-2xl uppercase leading-none text-[#2c2a25]">
-            PROFESSIONAL EXPERIENCES
+            <a href="#index">PROFESSIONAL EXPERIENCES</a>
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -647,7 +711,10 @@ export default function App() {
         <hr className="border-t-[3px] border-[#2c2a25] my-2" />
 
         {/* --- SKILLS & EXPERTISE --- */}
-        <section className="flex flex-col gap-4">
+        <section id="skills-expertise" className="flex flex-col gap-4">
+          <h2 className="font-headline font-black text-xl md:text-2xl uppercase leading-none text-[#2c2a25]">
+            <a href="#index">SKILLS &amp; EXPERTISE</a>
+          </h2>
           <div className="skills-collage p-2 md:p-4">
             <div className="skills-float-wrap">
               {/* Large scraps with actual resume content */}
@@ -772,9 +839,9 @@ export default function App() {
         <hr className="border-t-[3px] border-[#2c2a25] my-2" />
 
         {/* --- EDUCATION --- */}
-        <section className="flex flex-col gap-4">
+        <section id="education" className="flex flex-col gap-4">
           <h2 className="font-headline font-black text-xl md:text-2xl uppercase leading-none text-[#2c2a25]">
-            EDUCATION
+            <a href="#index">EDUCATION</a>
           </h2>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -815,9 +882,9 @@ export default function App() {
         <hr className="border-t-[3px] border-[#2c2a25] my-2" />
 
         {/* --- PROGRAMMING SKILLS --- */}
-        <section className="flex flex-col gap-3">
+        <section id="programming-skills" className="flex flex-col gap-3">
           <h2 className="font-headline font-black text-xl md:text-2xl uppercase leading-none text-[#2c2a25]">
-            PROGRAMMING SKILLS
+            <a href="#index">PROGRAMMING SKILLS</a>
           </h2>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             <article className="lg:col-span-8 font-times text-[13px] md:text-[14px] leading-relaxed text-justify">
@@ -841,9 +908,9 @@ export default function App() {
         <hr className="border-t-[3px] border-[#2c2a25] my-2" />
 
         {/* --- PERSONAL PROJECTS --- */}
-        <section className="flex flex-col gap-4">
+        <section id="personal-projects" className="flex flex-col gap-4">
           <h2 className="font-headline font-black text-xl md:text-2xl uppercase leading-none text-[#2c2a25]">
-            PERSONAL PROJECTS
+            <a href="#index">PERSONAL PROJECTS</a>
           </h2>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -931,6 +998,72 @@ export default function App() {
         </section>
 
         <hr className="border-t-[3px] border-[#2c2a25] my-2" />
+
+        {/* --- CONTACT --- */}
+        <section id="contact" className="flex flex-col gap-4">
+          <h2 className="font-headline font-black text-xl md:text-2xl uppercase leading-none text-[#2c2a25]">
+            <a href="#index">CONTACT</a>
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-times text-[13px] md:text-[14px]">
+            <div className="md:border-r-2 md:border-[#2c2a25] md:pr-6">
+              <div className="flex justify-between border-b border-dashed border-[#2c2a25] py-2">
+                <span className="font-headline font-bold uppercase text-[11px] tracking-widest">E-mail</span>
+                <a className="underline font-bold" href="mailto:mdfeeham@gmail.com">mdfeeham@gmail.com</a>
+              </div>
+              <div className="flex justify-between border-b border-dashed border-[#2c2a25] py-2">
+                <span className="font-headline font-bold uppercase text-[11px] tracking-widest">Phone</span>
+                <a className="underline font-bold" href="tel:+8801819853595">+8801819853595</a>
+              </div>
+              <div className="flex justify-between border-b border-dashed border-[#2c2a25] py-2">
+                <span className="font-headline font-bold uppercase text-[11px] tracking-widest">Location</span>
+                <span className="font-bold">Dhaka, Bangladesh</span>
+              </div>
+            </div>
+            <div className="md:pl-6">
+              <div className="flex justify-between border-b border-dashed border-[#2c2a25] py-2">
+                <span className="font-headline font-bold uppercase text-[11px] tracking-widest">GitHub</span>
+                <a className="underline font-bold" href="https://github.com/ShartazFeeham" target="_blank" rel="noreferrer">github.com/ShartazFeeham</a>
+              </div>
+              <div className="flex justify-between border-b border-dashed border-[#2c2a25] py-2">
+                <span className="font-headline font-bold uppercase text-[11px] tracking-widest">LinkedIn</span>
+                <a className="underline font-bold" href="https://linkedin.com/in/shartaz-feeham" target="_blank" rel="noreferrer">linkedin.com/in/shartaz-feeham</a>
+              </div>
+              <div className="flex justify-between border-b border-dashed border-[#2c2a25] py-2">
+                <span className="font-headline font-bold uppercase text-[11px] tracking-widest">Date of birth</span>
+                <span className="font-bold">13 July 2000</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <hr className="border-t-[3px] border-[#2c2a25] my-2" />
+
+        {/* --- OTHERS --- */}
+        <section id="others" className="flex flex-col gap-4">
+          <h2 className="font-headline font-black text-xl md:text-2xl uppercase leading-none text-[#2c2a25]">
+            <a href="#index">OTHERS</a>
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="md:border-r-2 md:border-[#2c2a25] md:pr-6">
+              <h5 className="font-headline font-black text-xs uppercase bg-[#2c2a25] text-[#e8e1cf] px-2 py-1 inline-block mb-2">Languages</h5>
+              <p className="font-times text-[13px] md:text-[14px] leading-snug text-justify">
+                English (Fluent), Bengali (Native)
+              </p>
+            </div>
+            <div className="md:border-r-2 md:border-[#2c2a25] md:px-6">
+              <h5 className="font-headline font-black text-xs uppercase bg-[#2c2a25] text-[#e8e1cf] px-2 py-1 inline-block mb-2">Publication</h5>
+              <p className="font-times text-[13px] md:text-[14px] leading-snug text-justify">
+                Risk Analysis and Support System for Autistic Children using IoT
+              </p>
+            </div>
+            <div className="md:pl-6">
+              <h5 className="font-headline font-black text-xs uppercase bg-[#2c2a25] text-[#e8e1cf] px-2 py-1 inline-block mb-2">Note</h5>
+              <p className="font-times text-[13px] md:text-[14px] leading-snug text-justify">
+                Clippings, pins, and dispatches are editorial style elements — arranged to mimic a broadsheet special edition.
+              </p>
+            </div>
+          </div>
+        </section>
 
         {/* --- REVISED FOOTER --- */}
         <section className="flex items-center justify-between pb-4">
