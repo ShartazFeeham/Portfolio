@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 // Unified Telegraph Icon - Resized for better balance (w-12 h-12)
 const TelegraphIcon = ({ className = "w-12 h-12" }) => (
@@ -37,6 +37,100 @@ const CameraIcon = () => (
 );
 
 export default function App() {
+  useEffect(() => {
+    const cursors = [
+      // A — Fountain pen nib
+      {
+        url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath fill='%232c2a25' d='M16 2l7 7-8 16-6 2 2-6 16-8-7-7z'/%3E%3Ccircle cx='16' cy='16' r='2.2' fill='%23e8e1cf'/%3E%3Cpath d='M14 18l4-4' stroke='%23e8e1cf' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E",
+        x: 6,
+        y: 26,
+      },
+      // B — Quill feather
+      {
+        url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 32 32'%3E%3Cpath fill='%235b3a1d' d='M26 6c-7 1-12 6-14 14l-4 6 6-4c8-2 13-7 14-14-1-1-2-2-2-2z'/%3E%3Cpath d='M10 22c6-6 10-10 16-16' stroke='%238a5a34' stroke-width='1.3' stroke-linecap='round' opacity='0.9'/%3E%3Cpath d='M12 23c5.6-5.6 9.4-9.6 15-15' stroke='%238a5a34' stroke-width='0.8' stroke-linecap='round' opacity='0.55'/%3E%3Cpath d='M14 20l-3 3' stroke='%238a5a34' stroke-width='1.2' stroke-linecap='round' opacity='0.9'/%3E%3C/svg%3E",
+        x: 4,
+        y: 26,
+      },
+      // C — Wax seal stamp
+      {
+        url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 32 32'%3E%3Cpath fill='%235b3a1d' d='M12 2h8v8l-2 2v6h-4v-6l-2-2V2z'/%3E%3Cpath d='M13 3.5h6' stroke='%238a5a34' stroke-width='1.2' stroke-linecap='round'/%3E%3Cpath d='M13 6.5h6' stroke='%238a5a34' stroke-width='1.0' stroke-linecap='round' opacity='0.85'/%3E%3Cpath d='M13 9.5h6' stroke='%238a5a34' stroke-width='0.9' stroke-linecap='round' opacity='0.75'/%3E%3Ccircle cx='16' cy='26' r='6.6' fill='%238b1a1a'/%3E%3Cpath d='M12.6 24.7c2.2-2 4.8-2.6 7.8-1.6' stroke='%235a0d0d' stroke-width='1.2' stroke-linecap='round' opacity='0.65'/%3E%3Cpath d='M13 26h6' stroke='%23ffebcc' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E",
+        x: 16,
+        y: 28,
+      },
+      // D — Newspaper pointer
+      {
+        url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 32 32'%3E%3Cpath fill='%235b3a1d' d='M5 3l9 22 3-7 7-3L5 3z'/%3E%3Cpath d='M7 7l12 12' stroke='%238a5a34' stroke-width='1.3' stroke-linecap='round' opacity='0.85'/%3E%3Cpath d='M8.5 5.8l14 14' stroke='%238a5a34' stroke-width='0.9' stroke-linecap='round' opacity='0.55'/%3E%3Cpath d='M6.2 9.2l10.6 10.6' stroke='%238a5a34' stroke-width='0.7' stroke-linecap='round' opacity='0.45'/%3E%3Cpath fill='%23e8e1cf' d='M18 21h10v2H18zm0 4h8v2h-8z'/%3E%3C/svg%3E",
+        x: 4,
+        y: 4,
+      },
+      // E — Typewriter caret
+      {
+        url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath fill='%232c2a25' d='M14 4h4v2h-1v20h1v2h-4v-2h1V6h-1V4z'/%3E%3Cpath fill='%23e8e1cf' d='M10 6h4v2h-4zm0 18h4v2h-4zm8-18h4v2h-4zm0 18h4v2h-4z'/%3E%3C/svg%3E",
+        x: 16,
+        y: 16,
+      },
+    ];
+
+    const key = "portfolio:vintageCursorIndex";
+    const DEFAULT_IDX = 3; // Option D (always start here)
+    const CLICKABLE_IDX = 1; // Option B (for clickable elements)
+    const PRESS_IDX = 1; // Option B (while pressed)
+    let baseIdx = DEFAULT_IDX;
+    let idx = DEFAULT_IDX;
+
+    const applyCursor = (nextIdx, { persist } = { persist: true }) => {
+      const c = cursors[nextIdx];
+      const cursorValue = `url("${c.url}") ${c.x} ${c.y}, auto`;
+      document.documentElement.style.setProperty("--vintage-cursor", cursorValue);
+      const clickable = cursors[CLICKABLE_IDX];
+      const clickableValue = `url("${clickable.url}") ${clickable.x} ${clickable.y}, pointer`;
+      document.documentElement.style.setProperty("--vintage-cursor-clickable", clickableValue);
+      if (persist) localStorage.setItem(key, String(nextIdx));
+    };
+
+    // Always start on Option D (override any previously saved value).
+    applyCursor(DEFAULT_IDX, { persist: true });
+
+    const onContextMenu = (e) => {
+      // right-click cycles cursor
+      e.preventDefault();
+      baseIdx = (baseIdx + 1) % cursors.length;
+      idx = baseIdx;
+      applyCursor(idx);
+    };
+
+    const onPick = (e) => {
+      const next = Number(e?.detail);
+      if (!Number.isFinite(next)) return;
+      baseIdx = ((next % cursors.length) + cursors.length) % cursors.length;
+      idx = baseIdx;
+      applyCursor(idx);
+    };
+
+    const onPressStart = () => {
+      // Momentarily show Option C while pressed (no persistence)
+      applyCursor(PRESS_IDX, { persist: false });
+    };
+
+    const onPressEnd = () => {
+      // Revert back to the base cursor (persisted)
+      applyCursor(baseIdx, { persist: false });
+    };
+
+    window.addEventListener("contextmenu", onContextMenu, { capture: true });
+    window.addEventListener("portfolio:cursorPick", onPick);
+    window.addEventListener("pointerdown", onPressStart, { capture: true });
+    window.addEventListener("pointerup", onPressEnd, { capture: true });
+    window.addEventListener("pointercancel", onPressEnd, { capture: true });
+    return () => {
+      window.removeEventListener("contextmenu", onContextMenu, { capture: true });
+      window.removeEventListener("portfolio:cursorPick", onPick);
+      window.removeEventListener("pointerdown", onPressStart, { capture: true });
+      window.removeEventListener("pointerup", onPressEnd, { capture: true });
+      window.removeEventListener("pointercancel", onPressEnd, { capture: true });
+    };
+  }, []);
+
   const currentDate = new Date().toLocaleDateString('en-GB', {
     weekday: 'long',
     day: 'numeric',
@@ -165,11 +259,20 @@ export default function App() {
           pointer-events: none;
         }
 
-        .paper-inner--green { background-color: #c8d1aa; }
-        .paper-inner--tan { background-color: #dcc09b; }
-
-        .paper-inner--green { filter: sepia(0.70) saturate(0.50) contrast(1.12) brightness(0.95); }
-        .paper-inner--tan { filter: sepia(0.75) saturate(0.55) contrast(1.12) brightness(0.95); }
+        /* Vintage tint variants (skills scraps only) */
+        .paper-inner--tan { background-color: #d7b88f; filter: sepia(0.78) saturate(0.62) contrast(1.12) brightness(0.95) hue-rotate(-6deg); }
+        .paper-inner--green { background-color: #bccaa0; filter: sepia(0.72) saturate(0.55) contrast(1.12) brightness(0.95) hue-rotate(-12deg); }
+        .paper-inner--ivory { background-color: #e7d9bf; filter: sepia(0.70) saturate(0.52) contrast(1.12) brightness(0.96) hue-rotate(2deg); }
+        .paper-inner--mint { background-color: #b8c9b0; filter: sepia(0.68) saturate(0.58) contrast(1.12) brightness(0.95) hue-rotate(-18deg); }
+        .paper-inner--rose { background-color: #d2b6a4; filter: sepia(0.72) saturate(0.55) contrast(1.12) brightness(0.95) hue-rotate(10deg); }
+        .paper-inner--kraft { background-color: #c7b096; filter: sepia(0.85) saturate(0.52) contrast(1.12) brightness(0.93) hue-rotate(-2deg); }
+        .quicklinks-float-wrap {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          align-items: flex-start;
+          justify-content: center;
+        }
 
         .tear-mask-a { clip-path: polygon(2% 10%, 10% 2%, 98% 0%, 96% 18%, 100% 32%, 94% 48%, 99% 66%, 92% 84%, 98% 98%, 82% 100%, 0% 96%, 3% 74%, 0% 56%, 4% 36%); }
         .tear-mask-b { clip-path: polygon(6% 0%, 98% 6%, 94% 20%, 100% 34%, 93% 50%, 99% 62%, 91% 78%, 97% 94%, 78% 100%, 0% 95%, 3% 74%, 0% 58%, 4% 40%, 0% 18%); }
@@ -216,7 +319,56 @@ export default function App() {
           bottom: auto !important;
         }
 
+        .skills-float-wrap .paper-scrap {
+          transition: transform 180ms ease, filter 180ms ease;
+        }
+
+        .skills-float-wrap .paper-scrap:hover {
+          transform: translateY(-6px) rotate(var(--rot, 0deg)) !important;
+          filter: drop-shadow(0 26px 28px rgba(0,0,0,0.78));
+        }
+
+        .paper-edge { position: relative; }
+
+        .pin {
+          position: absolute;
+          width: 18px;
+          height: 18px;
+          z-index: 5;
+          color: #7b0f0f; /* default vintage red */
+          filter: drop-shadow(0 2px 1px rgba(0,0,0,0.45));
+          transition: color 180ms ease, transform 180ms ease, filter 180ms ease;
+        }
+
+        .pin--tl { top: 6px; left: 10px; transform: rotate(-12deg); }
+        .pin--tr { top: 8px; right: 12px; transform: rotate(18deg); }
+        .pin--tm { top: 6px; left: 50%; transform: translateX(-50%) rotate(8deg); }
+
+        .paper-scrap:hover .pin {
+          color: #1a4f7a; /* hover blue-ish ink */
+          filter: drop-shadow(0 3px 2px rgba(0,0,0,0.55));
+          transform: translateY(-1px) rotate(var(--pinrot, 0deg));
+        }
+
+        .paper-scrap:hover .pin--tl { --pinrot: -12deg; }
+        .paper-scrap:hover .pin--tr { --pinrot: 18deg; }
+        .paper-scrap:hover .pin--tm { --pinrot: 8deg; }
+
         .scrap-body p { margin: 0; }
+
+        /* Vintage cursor (right-click cycles variants) */
+        :root {
+          --vintage-cursor: auto;
+          --vintage-cursor-clickable: pointer;
+        }
+
+        body {
+          cursor: var(--vintage-cursor);
+        }
+
+        a, button, [role='button'] {
+          cursor: var(--vintage-cursor-clickable);
+        }
       `}} />
 
       {/* Main Newspaper Container */}
@@ -308,35 +460,87 @@ export default function App() {
           <aside className="lg:col-span-4 h-full border-l-2 border-[#2c2a25] pl-6 ml-2">
             <div className="flex flex-col items-center">
               
-              <div className="relative w-full transition-transform hover:rotate-0" style={{ transform: 'rotate(2deg)' }}>
-                <div className="absolute -top-3 -left-4 w-12 h-6 bg-cyan-400/30 border border-cyan-300/10 backdrop-blur-[1px] z-30 rotate-[-25deg]"></div>
-                <div className="absolute -top-2 right-12 w-10 h-6 bg-cyan-400/30 border border-cyan-300/10 backdrop-blur-[1px] z-30 rotate-[15deg]"></div>
+              {/* Quick Links (torn collage) */}
+              <div className="w-full">
+                <div className="border-b-2 border-[#2c2a25] mb-3 pb-1">
+                  <h2 className="font-headline font-black text-3xl md:text-4xl tracking-tighter uppercase leading-none">
+                    QUICK LINKS
+                  </h2>
+                </div>
 
-                <div className="bg-white p-[2px] shadow-xl" style={{ clipPath: resumeRipPath }}>
-                  <div 
-                    className="bg-[#f2f0e6] p-5 pr-8 min-h-[350px]" 
-                    style={{ 
-                      clipPath: resumeRipPath,
-                      backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E")`
-                    }}
-                  >
-                    <div className="border-b-2 border-[#2c2a25] mb-4 pb-1">
-                      <h2 className="font-headline font-black text-3xl md:text-4xl tracking-tighter uppercase leading-none">
-                        QUICK LINKS
-                      </h2>
-                    </div>
-
-                    <div className="font-times text-[11px] md:text-[12.5px] leading-[1.4] text-justify text-[#2c2a25] space-y-4">
-                      <p>Feeham's personal works and opensource projects are a good place to find his skills and programming detail.</p>
-                      <p>In his <a href="#" className="underline decoration-2 font-bold">GitHub Profile</a>, he contributes consistently to building robust backend utilities.</p>
-                      <p>For a detailed professional history, his <a href="#" className="underline decoration-2 font-bold">LinkedIn Profile</a> provides a view into his journey.</p>
-                      <p>Alternatively, <a href="#" className="underline decoration-2 font-bold italic">Download the Resume</a> for a concise summary of his technical expertise.</p>
-                    </div>
-                    
-                    <div className="mt-8 pt-2 border-t border-[#2c2a25]/20 text-[7px] uppercase tracking-tighter font-bold opacity-60">
-                      End of Dispatches · Reference 402-A
+                <div className="quicklinks-float-wrap">
+                  <div className="paper-scrap w-[180px] md:w-[190px]" style={{ "--rot": "-6deg", transform: "rotate(-6deg) translateY(4px)" }}>
+                    <div className="paper-edge tear-mask-a">
+                      <svg className="pin pin--tl" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
+                      </svg>
+                      <a className="paper-inner tear-mask-a p-3 block" href="https://github.com/ShartazFeeham" target="_blank" rel="noreferrer">
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="scrap-title">GitHub</div>
+                          <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
+                            <path fill="currentColor" d="M12 .5C5.73.5.75 5.6.75 12c0 5.1 3.18 9.43 7.6 10.96.56.11.77-.25.77-.56 0-.28-.01-1.02-.02-2-3.09.69-3.74-1.53-3.74-1.53-.5-1.32-1.24-1.67-1.24-1.67-1.01-.72.08-.71.08-.71 1.12.08 1.7 1.17 1.7 1.17.99 1.75 2.6 1.25 3.24.96.1-.74.38-1.25.7-1.54-2.46-.29-5.05-1.26-5.05-5.62 0-1.24.42-2.25 1.12-3.05-.11-.28-.49-1.42.11-2.96 0 0 .92-.3 3.01 1.16a10.2 10.2 0 0 1 2.74-.38c.93 0 1.87.13 2.74.38 2.09-1.46 3.01-1.16 3.01-1.16.6 1.54.22 2.68.11 2.96.7.8 1.12 1.81 1.12 3.05 0 4.37-2.6 5.33-5.08 5.61.39.35.74 1.05.74 2.12 0 1.53-.02 2.76-.02 3.14 0 .31.2.68.78.56 4.41-1.53 7.59-5.86 7.59-10.96C23.25 5.6 18.27.5 12 .5z"/>
+                          </svg>
+                        </div>
+                      </a>
                     </div>
                   </div>
+
+                  <div className="paper-scrap w-[180px] md:w-[190px]" style={{ "--rot": "5deg", transform: "rotate(5deg) translateY(-6px)" }}>
+                    <div className="paper-edge tear-mask-b">
+                      <svg className="pin pin--tr" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
+                      </svg>
+                      <a className="paper-inner tear-mask-b p-3 block" href="https://linkedin.com/in/shartaz-feeham" target="_blank" rel="noreferrer">
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="scrap-title">LinkedIn</div>
+                          <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
+                            <path fill="currentColor" d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 23.5h4V7.98h-4V23.5zM8 7.98h3.83v2.12h.05c.53-1 1.83-2.12 3.77-2.12 4.03 0 4.78 2.65 4.78 6.1v9.42h-4v-8.35c0-1.99-.04-4.56-2.78-4.56-2.78 0-3.2 2.17-3.2 4.41v8.5H8V7.98z"/>
+                          </svg>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="paper-scrap w-[180px] md:w-[190px]" style={{ "--rot": "-2deg", transform: "rotate(-2deg) translateY(8px)" }}>
+                    <div className="paper-edge tear-mask-c">
+                      <svg className="pin pin--tm" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
+                      </svg>
+                      <a className="paper-inner tear-mask-c p-3 block" href="#" onClick={(e) => e.preventDefault()}>
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="scrap-title">Resume</div>
+                          <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
+                            <path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4.01 4a1 1 0 0 1-1.38 0l-4.01-4a1 1 0 1 1 1.4-1.42L11 13.59V4a1 1 0 0 1 1-1z"/>
+                            <path fill="currentColor" d="M5 19a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1z"/>
+                          </svg>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="paper-scrap w-[180px] md:w-[190px]" style={{ "--rot": "8deg", transform: "rotate(8deg) translateY(2px)" }}>
+                    <div className="paper-edge tear-mask-d">
+                      <svg className="pin pin--tl" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
+                      </svg>
+                      <svg className="pin pin--tr" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
+                      </svg>
+                      <a className="paper-inner tear-mask-d p-3 block" href="#" onClick={(e) => e.preventDefault()}>
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="scrap-title">Projects</div>
+                          <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
+                            <path fill="currentColor" d="M4 6a2 2 0 0 1 2-2h6v2H6v12h12v-6h2v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6z"/>
+                            <path fill="currentColor" d="M14 4h6v6h-2V7.41l-7.29 7.3-1.42-1.42 7.3-7.29H14V4z"/>
+                          </svg>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-3 pt-2 border-t border-[#2c2a25]/20 text-[7px] uppercase tracking-tighter font-bold opacity-60 text-center">
+                  End of Dispatches · Reference 402-A
                 </div>
               </div>
 
@@ -447,8 +651,14 @@ export default function App() {
           <div className="skills-collage p-2 md:p-4">
             <div className="skills-float-wrap">
               {/* Large scraps with actual resume content */}
-              <div className="paper-scrap w-[230px] md:w-[280px]" style={{ transform: "rotate(-8deg) translateY(4px)" }}>
+              <div className="paper-scrap w-[230px] md:w-[280px]" style={{ "--rot": "-8deg", transform: "rotate(-8deg) translateY(4px)" }}>
                 <div className="paper-edge tear-mask-a">
+                  <svg className="pin pin--tl" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
+                  </svg>
+                  <svg className="pin pin--tr" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
+                  </svg>
                   <div className="paper-inner paper-inner--tan newsprint tear-mask-a p-4">
                     <div className="scrap-title mb-2">Programming</div>
                     <div className="scrap-body scrap-columns">
@@ -459,9 +669,12 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="paper-scrap w-[250px] md:w-[310px]" style={{ transform: "rotate(5deg) translateY(-8px)" }}>
+              <div className="paper-scrap w-[250px] md:w-[310px]" style={{ "--rot": "5deg", transform: "rotate(5deg) translateY(-8px)" }}>
                 <div className="paper-edge tear-mask-b">
-                  <div className="paper-inner newsprint tear-mask-b p-4">
+                  <svg className="pin pin--tm" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
+                  </svg>
+                  <div className="paper-inner paper-inner--ivory newsprint tear-mask-b p-4">
                     <div className="scrap-title mb-2">Database &amp; ORM</div>
                     <div className="scrap-body">
                       PostgreSQL, MySQL, JPA, Hibernate
@@ -472,8 +685,11 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="paper-scrap w-[210px] md:w-[260px]" style={{ transform: "rotate(12deg) translateY(10px)" }}>
+              <div className="paper-scrap w-[210px] md:w-[260px]" style={{ "--rot": "12deg", transform: "rotate(12deg) translateY(10px)" }}>
                 <div className="paper-edge tear-mask-c">
+                  <svg className="pin pin--tl" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
+                  </svg>
                   <div className="paper-inner paper-inner--green newsprint tear-mask-c p-4">
                     <div className="scrap-title mb-2">Tools</div>
                     <div className="scrap-body">
@@ -485,9 +701,12 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="paper-scrap w-[220px] md:w-[260px]" style={{ transform: "rotate(-6deg) translateY(-2px)" }}>
+              <div className="paper-scrap w-[220px] md:w-[260px]" style={{ "--rot": "-6deg", transform: "rotate(-6deg) translateY(-2px)" }}>
                 <div className="paper-edge tear-mask-d">
-                  <div className="paper-inner paper-inner--green newsprint tear-mask-d p-4">
+                  <svg className="pin pin--tr" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
+                  </svg>
+                  <div className="paper-inner paper-inner--mint newsprint tear-mask-d p-4">
                     <div className="scrap-title mb-2">Languages</div>
                     <div className="scrap-body">
                       English (Fluent)
@@ -499,8 +718,11 @@ export default function App() {
               </div>
 
               {/* Extra dummy scraps to match the reference collage density */}
-              <div className="paper-scrap w-[180px] md:w-[210px]" style={{ transform: "rotate(2deg) translateY(14px)" }}>
+              <div className="paper-scrap w-[180px] md:w-[210px]" style={{ "--rot": "2deg", transform: "rotate(2deg) translateY(14px)" }}>
                 <div className="paper-edge tear-mask-b">
+                  <svg className="pin pin--tl" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
+                  </svg>
                   <div className="paper-inner paper-inner--tan newsprint tear-mask-b p-3">
                     <div className="scrap-title mb-1">NEWS</div>
                     <div className="scrap-body scrap-columns" style={{ fontSize: "11px" }}>
@@ -511,9 +733,12 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="paper-scrap w-[170px] md:w-[200px]" style={{ transform: "rotate(-10deg) translateY(-10px)" }}>
+              <div className="paper-scrap w-[170px] md:w-[200px]" style={{ "--rot": "-10deg", transform: "rotate(-10deg) translateY(-10px)" }}>
                 <div className="paper-edge tear-mask-a">
-                  <div className="paper-inner newsprint tear-mask-a p-3">
+                  <svg className="pin pin--tm" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
+                  </svg>
+                  <div className="paper-inner paper-inner--rose newsprint tear-mask-a p-3">
                     <div className="scrap-title mb-1">TOP NEWS</div>
                     <div className="scrap-body scrap-columns" style={{ fontSize: "11px" }}>
                       <p>Solid fundamentals. Practical tooling. Fast iteration.</p>
@@ -523,9 +748,15 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="paper-scrap w-[160px] md:w-[190px]" style={{ transform: "rotate(9deg) translateY(6px)" }}>
+              <div className="paper-scrap w-[160px] md:w-[190px]" style={{ "--rot": "9deg", transform: "rotate(9deg) translateY(6px)" }}>
                 <div className="paper-edge tear-mask-c">
-                  <div className="paper-inner paper-inner--green newsprint tear-mask-c p-3">
+                  <svg className="pin pin--tl" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
+                  </svg>
+                  <svg className="pin pin--tr" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
+                  </svg>
+                  <div className="paper-inner paper-inner--kraft newsprint tear-mask-c p-3">
                     <div className="scrap-title mb-1">BUSINESS</div>
                     <div className="scrap-body scrap-columns" style={{ fontSize: "11px" }}>
                       <p>Reliable systems, clear interfaces, durable delivery.</p>
@@ -708,6 +939,65 @@ export default function App() {
               <div className="font-headline text-[10px] font-black uppercase border-b border-[#2c2a25] mb-1">Shartaz Feeham</div>
               <div className="font-times text-[9px] italic">All Rights Reserved © 2022-2026</div>
            </div>
+        </section>
+
+        {/* Cursor picker (bottom strip) */}
+        <section className="mt-2 pt-2 border-t border-[#2c2a25]/40">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="font-headline text-[10px] font-black uppercase tracking-widest opacity-70">
+              Cursor selector
+              <span className="font-times normal-case font-normal opacity-70"> (right-click also cycles)</span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              {[
+                { id: 0, label: "A" },
+                { id: 1, label: "B" },
+                { id: 2, label: "C" },
+                { id: 3, label: "D" },
+                { id: 4, label: "E" },
+              ].map((c) => (
+                <button
+                  key={c.id}
+                  type="button"
+                  onClick={() => window.dispatchEvent(new CustomEvent("portfolio:cursorPick", { detail: c.id }))}
+                  className="group flex items-center gap-1.5 px-2 py-1 border border-[#2c2a25]/40 bg-[#f2f0e6] hover:bg-[#e8e1cf] shadow-sm"
+                >
+                  <span className="font-headline text-[10px] font-black uppercase">{c.label}</span>
+                  <span className="w-4 h-4 text-[#2c2a25] group-hover:text-[#8b1a1a]">
+                    {c.id === 0 && (
+                      <svg viewBox="0 0 32 32" className="w-4 h-4 fill-current" aria-hidden="true">
+                        <path d="M16 2l7 7-8 16-6 2 2-6 16-8-7-7z" />
+                        <circle cx="16" cy="16" r="2.2" className="fill-[#e8e1cf]" />
+                      </svg>
+                    )}
+                    {c.id === 1 && (
+                      <svg viewBox="0 0 32 32" className="w-4 h-4 fill-current" aria-hidden="true">
+                        <path d="M26 6c-7 1-12 6-14 14l-4 6 6-4c8-2 13-7 14-14-1-1-2-2-2-2z" />
+                      </svg>
+                    )}
+                    {c.id === 2 && (
+                      <svg viewBox="0 0 32 32" className="w-4 h-4 fill-current" aria-hidden="true">
+                        <path d="M12 2h8v8l-2 2v6h-4v-6l-2-2V2z" />
+                        <circle cx="16" cy="26" r="6.5" className="fill-[#8b1a1a]" />
+                      </svg>
+                    )}
+                    {c.id === 3 && (
+                      <svg viewBox="0 0 32 32" className="w-4 h-4 fill-current" aria-hidden="true">
+                        <path d="M5 3l9 22 3-7 7-3L5 3z" />
+                        <path d="M18 21h10v2H18zm0 4h8v2h-8z" className="fill-[#e8e1cf]" />
+                      </svg>
+                    )}
+                    {c.id === 4 && (
+                      <svg viewBox="0 0 32 32" className="w-4 h-4 fill-current" aria-hidden="true">
+                        <path d="M14 4h4v2h-1v20h1v2h-4v-2h1V6h-1V4z" />
+                      </svg>
+                    )}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
         </section>
       </div>
     </div>
