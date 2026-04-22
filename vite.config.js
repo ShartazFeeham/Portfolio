@@ -4,8 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  // GitHub Pages serves your site from `/<repo>/`, not `/`.
-  // If your repository name is not "Portfolio", change this to `/<your-repo-name>/`.
-  base: '/Portfolio/',
+  // Using a custom domain (www.feeham.com), so the site is served from `/`.
+  base: '/',
   plugins: [react(), tailwindcss()],
 })
