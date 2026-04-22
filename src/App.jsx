@@ -1,149 +1,17 @@
-import React, { useEffect } from 'react';
-
-// Unified Telegraph Icon - Resized for better balance (w-12 h-12)
-const TelegraphIcon = ({ className = "w-12 h-12" }) => (
-  <svg viewBox="0 0 100 100" className={`${className} fill-current text-[#2c2a25]`}>
-    <path d="M10 80h80v10H10z" />
-    <path d="M20 70h60v10H20z" />
-    <path d="M70 40h10v30H70z" />
-    <circle cx="75" cy="35" r="8" />
-    <path d="M30 60 L70 45" stroke="currentColor" strokeWidth="4" />
-    <rect x="25" y="55" width="10" height="15" />
-    <circle cx="30" cy="50" r="5" />
-    <path d="M85 70 Q95 60 90 50" fill="none" stroke="currentColor" strokeWidth="2" strokeDasharray="4,2" />
-    <path d="M80 60 Q95 40 85 30" fill="none" stroke="currentColor" strokeWidth="2" strokeDasharray="4,2" />
-  </svg>
-);
-
-const GramophoneIcon = () => (
-  <svg viewBox="0 0 100 100" className="w-12 h-12 fill-current text-[#2c2a25]">
-    <path d="M20 60h40v30H20z" />
-    <path d="M15 90h50v5H15z" />
-    <circle cx="40" cy="60" r="25" fill="none" stroke="currentColor" strokeWidth="3" transform="scale(1, 0.3) translate(0, 100)" />
-    <path d="M40 60 Q 70 30 90 10" fill="none" stroke="currentColor" strokeWidth="4" />
-    <path d="M80 5 Q 95 0 95 20 Q 95 35 75 25 Z" />
-  </svg>
-);
-
-const CameraIcon = () => (
-  <svg viewBox="0 0 100 100" className="w-12 h-12 fill-current text-[#2c2a25]">
-    <rect x="20" y="40" width="50" height="40" rx="2" />
-    <circle cx="35" cy="25" r="12" fill="none" stroke="currentColor" strokeWidth="4" />
-    <circle cx="65" cy="25" r="12" fill="none" stroke="currentColor" strokeWidth="4" />
-    <rect x="70" y="50" width="20" height="20" rx="2" />
-    <circle cx="80" cy="60" r="6" fill="#e8e1cf" />
-    <path d="M45 40 L50 30 L60 30" fill="none" stroke="currentColor" strokeWidth="3" />
-  </svg>
-);
-
-const VintageLetter = ({ children, className = "" }) => (
-  <div
-    className={`vintage-letter ${className}`}
-    aria-label="Handwritten letter note"
-  >
-    <div className="vintage-letter__paper">
-      <div className="vintage-letter__content">{children}</div>
-    </div>
-  </div>
-);
+import React from "react";
+import { useVintageCursor } from "./hooks/useVintageCursor";
+import { Masthead } from "./components/layout/Masthead";
+import { BreakingNews } from "./components/layout/BreakingNews";
+import { CursorPicker } from "./components/layout/CursorPicker";
+import { ProfessionalExperienceSection } from "./components/sections/ProfessionalExperienceSection";
+import { ProgrammingSkillsSection } from "./components/sections/ProgrammingSkillsSection";
+import { ContactSection } from "./components/sections/ContactSection";
+import { OthersSection } from "./components/sections/OthersSection";
 
 export default function App() {
-  useEffect(() => {
-    const cursors = [
-      // A — Fountain pen nib
-      {
-        url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath fill='%232c2a25' d='M16 2l7 7-8 16-6 2 2-6 16-8-7-7z'/%3E%3Ccircle cx='16' cy='16' r='2.2' fill='%23e8e1cf'/%3E%3Cpath d='M14 18l4-4' stroke='%23e8e1cf' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E",
-        x: 6,
-        y: 26,
-      },
-      // B — Quill feather
-      {
-        url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 32 32'%3E%3Cpath fill='%235b3a1d' d='M26 6c-7 1-12 6-14 14l-4 6 6-4c8-2 13-7 14-14-1-1-2-2-2-2z'/%3E%3Cpath d='M10 22c6-6 10-10 16-16' stroke='%238a5a34' stroke-width='1.3' stroke-linecap='round' opacity='0.9'/%3E%3Cpath d='M12 23c5.6-5.6 9.4-9.6 15-15' stroke='%238a5a34' stroke-width='0.8' stroke-linecap='round' opacity='0.55'/%3E%3Cpath d='M14 20l-3 3' stroke='%238a5a34' stroke-width='1.2' stroke-linecap='round' opacity='0.9'/%3E%3C/svg%3E",
-        x: 4,
-        y: 26,
-      },
-      // C — Wax seal stamp
-      {
-        url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 32 32'%3E%3Cpath fill='%235b3a1d' d='M12 2h8v8l-2 2v6h-4v-6l-2-2V2z'/%3E%3Cpath d='M13 3.5h6' stroke='%238a5a34' stroke-width='1.2' stroke-linecap='round'/%3E%3Cpath d='M13 6.5h6' stroke='%238a5a34' stroke-width='1.0' stroke-linecap='round' opacity='0.85'/%3E%3Cpath d='M13 9.5h6' stroke='%238a5a34' stroke-width='0.9' stroke-linecap='round' opacity='0.75'/%3E%3Ccircle cx='16' cy='26' r='6.6' fill='%238b1a1a'/%3E%3Cpath d='M12.6 24.7c2.2-2 4.8-2.6 7.8-1.6' stroke='%235a0d0d' stroke-width='1.2' stroke-linecap='round' opacity='0.65'/%3E%3Cpath d='M13 26h6' stroke='%23ffebcc' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E",
-        x: 16,
-        y: 28,
-      },
-      // D — Newspaper pointer
-      {
-        url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 32 32'%3E%3Cpath fill='%235b3a1d' d='M5 3l9 22 3-7 7-3L5 3z'/%3E%3Cpath d='M7 7l12 12' stroke='%238a5a34' stroke-width='1.3' stroke-linecap='round' opacity='0.85'/%3E%3Cpath d='M8.5 5.8l14 14' stroke='%238a5a34' stroke-width='0.9' stroke-linecap='round' opacity='0.55'/%3E%3Cpath d='M6.2 9.2l10.6 10.6' stroke='%238a5a34' stroke-width='0.7' stroke-linecap='round' opacity='0.45'/%3E%3Cpath fill='%23e8e1cf' d='M18 21h10v2H18zm0 4h8v2h-8z'/%3E%3C/svg%3E",
-        x: 4,
-        y: 4,
-      },
-      // E — Typewriter caret
-      {
-        url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath fill='%232c2a25' d='M14 4h4v2h-1v20h1v2h-4v-2h1V6h-1V4z'/%3E%3Cpath fill='%23e8e1cf' d='M10 6h4v2h-4zm0 18h4v2h-4zm8-18h4v2h-4zm0 18h4v2h-4z'/%3E%3C/svg%3E",
-        x: 16,
-        y: 16,
-      },
-    ];
+  useVintageCursor();
 
-    const key = "portfolio:vintageCursorIndex";
-    const DEFAULT_IDX = 3; // Option D (always start here)
-    const PRESS_IDX = 1; // Option B (while pressed)
-    let baseIdx = DEFAULT_IDX;
-    let idx = DEFAULT_IDX;
-
-    const applyCursor = (nextIdx, { persist } = { persist: true }) => {
-      const c = cursors[nextIdx];
-      const cursorValue = `url("${c.url}") ${c.x} ${c.y}, auto`;
-      document.documentElement.style.setProperty("--vintage-cursor", cursorValue);
-      // Clickables: use the 👆 emoji as-is
-      document.documentElement.style.setProperty(
-        "--vintage-cursor-clickable",
-        `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Ctext x='4' y='38' font-size='34'%3E%F0%9F%91%86%3C/text%3E%3C/svg%3E") 12 12, pointer`
-      );
-      if (persist) localStorage.setItem(key, String(nextIdx));
-    };
-
-    // Always start on Option D (override any previously saved value).
-    applyCursor(DEFAULT_IDX, { persist: true });
-
-    const onContextMenu = (e) => {
-      // right-click cycles cursor
-      e.preventDefault();
-      baseIdx = (baseIdx + 1) % cursors.length;
-      idx = baseIdx;
-      applyCursor(idx);
-    };
-
-    const onPick = (e) => {
-      const next = Number(e?.detail);
-      if (!Number.isFinite(next)) return;
-      baseIdx = ((next % cursors.length) + cursors.length) % cursors.length;
-      idx = baseIdx;
-      applyCursor(idx);
-    };
-
-    const onPressStart = () => {
-      // Momentarily show Option C while pressed (no persistence)
-      applyCursor(PRESS_IDX, { persist: false });
-    };
-
-    const onPressEnd = () => {
-      // Revert back to the base cursor (persisted)
-      applyCursor(baseIdx, { persist: false });
-    };
-
-    window.addEventListener("contextmenu", onContextMenu, { capture: true });
-    window.addEventListener("portfolio:cursorPick", onPick);
-    window.addEventListener("pointerdown", onPressStart, { capture: true });
-    window.addEventListener("pointerup", onPressEnd, { capture: true });
-    window.addEventListener("pointercancel", onPressEnd, { capture: true });
-    return () => {
-      window.removeEventListener("contextmenu", onContextMenu, { capture: true });
-      window.removeEventListener("portfolio:cursorPick", onPick);
-      window.removeEventListener("pointerdown", onPressStart, { capture: true });
-      window.removeEventListener("pointerup", onPressEnd, { capture: true });
-      window.removeEventListener("pointercancel", onPressEnd, { capture: true });
-    };
-  }, []);
-
-  const currentDate = new Date().toLocaleDateString('en-GB', {
+  const issueDateLabel = new Date().toLocaleDateString("en-GB", {
     weekday: 'long',
     day: 'numeric',
     month: 'long',
@@ -529,96 +397,12 @@ export default function App() {
         
         <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-black/10 to-transparent"></div>
 
-        {/* --- MASTHEAD --- */}
-        <header className="flex flex-col items-center w-full border-t border-[#2c2a25] pt-4">
-          <div className="w-full flex justify-between items-center mb-1">
-            <div className="hidden md:block w-32 text-[9px] md:text-[10px] leading-[1.1] font-bold uppercase text-left">
-              Largest Tech<br/>Circulation<br/>In South Asia<br/>
-              <span className="text-[7px] font-normal tracking-tighter opacity-70">Est. MCMXCIII</span>
-            </div>
-
-            <h1 className="font-masthead masthead-title text-center whitespace-nowrap px-4 leading-[1.0] flex-1">
-              The <span className="drop-letter">s</span>ilicon <span className="drop-letter">t</span>imes
-            </h1>
-
-            <div className="hidden md:block w-32 text-[9px] md:text-[10px] leading-[1.1] font-bold uppercase text-right">
-              Innovating<br/>Since Birth,<br/>Pages 15 and 16<br/>
-              <span className="text-[7px] font-normal tracking-tighter opacity-70">Only Today</span>
-            </div>
-          </div>
-
-          <div className="w-full border-y-[2px] border-[#2c2a25] flex justify-between items-center py-1 px-4 mb-8 font-headline text-[9px] md:text-[10px] font-bold uppercase tracking-widest mt-1 gap-4">
-            <span className="w-1/3 text-left">DHAKA, THURSDAY 16 APRIL 2026</span>
-
-            <span className="w-1/3 text-center masthead-ticker">
-              <span className="masthead-ticker__track">
-                <span className="masthead-ticker__item">
-                  Backend-focused software engineer with over 3 years of professional experience, Shartaz Feeham is a specialist in crafting highly scalable and resilient distributed systems. His technical arsenal is centered on the Java/Spring Boot ecosystem, complemented by a mastery of Microservices, Kafka, Docker, and PostgreSQL. Having contributed to the architectural backbone of a billion-dollar Japanese e-commerce giant and a Fintech platform serving 80 million users, Feeham’s track record in mission-critical environments is extensive
-                </span>
-                <span className="masthead-ticker__item" aria-hidden="true">
-                  Backend-focused software engineer with over 3 years of professional experience, Shartaz Feeham is a specialist in crafting highly scalable and resilient distributed systems. His technical arsenal is centered on the Java/Spring Boot ecosystem, complemented by a mastery of Microservices, Kafka, Docker, and PostgreSQL. Having contributed to the architectural backbone of a billion-dollar Japanese e-commerce giant and a Fintech platform serving 80 million users, Feeham’s track record in mission-critical environments is extensive
-                </span>
-              </span>
-            </span>
-
-            <span className="w-1/3 text-right">VOL. 127 · NO. 39</span>
-          </div>
-        </header>
+        <Masthead issueDateLabel={issueDateLabel} />
 
         {/* --- MAIN SECTION --- */}
         <main className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          {/* LEFT SIDE: BREAKING NEWS */}
-          <article className="lg:col-span-8 flex flex-col gap-4">
-            <div className="text-center mb-6">
-              <h3 className="font-headline text-5xl md:text-7xl font-black uppercase leading-[0.9] tracking-tight">
-                BREAKING NEWS!
-              </h3>
-              <div className="mt-2 mb-1 px-6">
-                <p className="font-body-straight text-xl md:text-2xl leading-tight text-gray-800">
-                  Elusive Software Engineer Found After Years of Searching
-                </p>
-              </div>
-              <div className="mt-1">
-                <h4 className="font-headline text-2xl md:text-4xl font-black uppercase tracking-normal">
-                  Shartaz Feeham
-                </h4>
-              </div>
-            </div>
-            
-            <div className="block text-sm md:text-base text-justify leading-relaxed">
-              <div className="float-left mr-6 mb-2 w-1/4 max-w-[180px]">
-                <div className="p-0.5 border-[4px] border-[#2c2a25] bg-[#e8e1cf] relative shadow-lg">
-                  <div className="absolute -top-4 -right-4 wax-seal w-16 h-16 rounded-full flex items-center justify-center rotate-12 z-20 border-double border-2 border-[#ffebcc]/40">
-                    <div className="text-[#ffebcc] font-headline font-black text-center leading-none flex flex-col items-center">
-                      <span className="mb-0.5 border-b border-[#ffebcc]/50 pb-0.5 text-[10px] uppercase">WANTED</span>
-                      <span className="text-xs">$$$</span>
-                    </div>
-                  </div>
-                  
-                  <div className="relative w-full aspect-[4/5] bg-[#d3c9b3] overflow-hidden grayscale contrast-125 brightness-90">
-                    <img 
-                      src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&auto=format&fit=crop" 
-                      alt="Portrait of Shartaz Feeham" 
-                      className="object-cover w-full h-full mix-blend-multiply"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="font-times text-[16px] md:text-[18px]">
-                <p className="mb-4">
-                  <span className="float-left text-5xl font-headline font-black leading-none pr-2 pt-1">B</span>
-                  ackend-focused software engineer with over 3 years of professional experience, Shartaz Feeham is a specialist in crafting highly scalable and resilient distributed systems. His technical arsenal is centered on the <b>Java/Spring Boot</b> ecosystem, complemented by a mastery of <b>Microservices, Kafka, Docker, and PostgreSQL</b>. Having contributed to the architectural backbone of a <b>billion-dollar Japanese e-commerce giant</b> and a <b>Fintech platform serving 80 million users</b>, Feeham’s track record in mission-critical environments is extensive. 
-                </p>
-
-                <p className="font-body italic text-sm text-center my-4">
-                  "Programming is more art than engineering. And a programmer is nothing but an artist who draws solutions."
-                </p>
-              </div>
-            </div>
-          </article>
+          <BreakingNews />
 
           {/* --- RIGHT SIDE: QUICK LINKS & INDEX --- */}
           <aside className="lg:col-span-4 h-full border-l-2 border-[#2c2a25] pl-6 ml-2">
@@ -739,94 +523,7 @@ export default function App() {
 
         <hr className="border-t-[3px] border-[#2c2a25] mt-2 mb-1" />
 
-        {/* --- PROFESSIONAL EXPERIENCES SECTION --- */}
-        <section id="professional-experience" className="flex flex-col gap-4">
-          <h2 className="font-headline font-black text-xl md:text-2xl uppercase leading-none text-[#2c2a25]">
-            <a href="#index">PROFESSIONAL EXPERIENCES</a>
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Column 1: Exabyting */}
-            <div className="md:border-r-2 md:border-[#2c2a25] md:pr-6">
-              <div className="flex justify-between items-start mb-2">
-                <h5 className="font-headline font-black text-xs uppercase bg-[#2c2a25] text-[#e8e1cf] px-2 py-1 inline-block">Exabyting</h5>
-                <span className="text-[12px] md:text-[13px] font-bold font-times">Oct 2025 – Pres.</span>
-              </div>
-              <div className="flex gap-3 items-start">
-                <div className="flex-grow">
-                  <p className="font-times text-[10px] leading-snug text-justify mb-2">
-                    <b className="block text-[13px] md:text-[14px] leading-none mb-1">Software Engineer</b>
-                  </p>
-                  <VintageLetter className="mb-2">
-                    <p>
-                      Working on one of Bangladesh&apos;s most used applications with an 80 million user base, contributing to end-to-end development across multiple microservices. Ensuring optimization and coding standards, while maintaining code quality and knowledge sharing.
-                    </p>
-                    <ul>
-                      <li>Gathere requirements from the client and develop business logic &amp; REST API&apos;s ensuring optimization, coding-standards &amp; test coverage through Unit and Integration testing.</li>
-                    </ul>
-                  </VintageLetter>
-                  <p className="text-[12px] md:text-[13px] font-bold uppercase tracking-tighter border-t border-dashed border-[#2c2a25] pt-1">
-                    Tech stack: Java, Spring Boot, Microservices, PostgreSQL, Git, Jira, Confluence.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Column 2: BJIT Limited */}
-            <div className="md:border-r-2 md:border-[#2c2a25] md:px-6">
-              <div className="flex justify-between items-start mb-2">
-                <h5 className="font-headline font-black text-xs uppercase bg-[#2c2a25] text-[#e8e1cf] px-2 py-1 inline-block">BJIT Limited</h5>
-                <span className="text-[12px] md:text-[13px] font-bold font-times">Aug 2023 – Sep 2025</span>
-              </div>
-              <div className="flex gap-3 items-start">
-                <div className="flex-grow">
-                  <p className="font-times text-[10px] leading-snug text-justify mb-2">
-                    <b className="block text-[13px] md:text-[14px] leading-none mb-1">Software Engineer</b>
-                  </p>
-                  <VintageLetter className="mb-2">
-                    <p>
-                      Worked as an offshore member of a global team of a Japanese e-commerce giant platform&apos;s microservices projects. Responsibilities include -
-                    </p>
-                    <ul>
-                      <li>Contributed in BFF (Backend for Frontend) and Generic Gateway application that communicates with various microservices &amp; aggregates results.</li>
-                      <li>Contributed in a migration of projects from Reactive (Java 11) to Virtual threads (Java 21).</li>
-                    </ul>
-                  </VintageLetter>
-                  <p className="text-[12px] md:text-[13px] font-bold uppercase tracking-tighter border-t border-dashed border-[#2c2a25] pt-1">
-                    Tech stack: Java, Spring Boot, Microservices, PostgreSQL, Git, Jira, Confluence.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Column 3: Astha IT */}
-            <div className="md:pl-6">
-              <div className="flex justify-between items-start mb-2">
-                <h5 className="font-headline font-black text-xs uppercase bg-[#2c2a25] text-[#e8e1cf] px-2 py-1 inline-block">Astha IT</h5>
-                <span className="text-[12px] md:text-[13px] font-bold font-times">Aug 2022 – Nov 2022</span>
-              </div>
-              <div className="flex gap-3 items-start">
-                <div className="flex-grow">
-                  <p className="font-times text-[10px] leading-snug text-justify mb-2">
-                    <b className="block text-[13px] md:text-[14px] leading-none mb-1">Intern Software Engineer</b>
-                  </p>
-                  <VintageLetter className="mb-2">
-                    <p>
-                      Gained foundational experience in .NET and React development with C# and Javascript through hands-on training and project involvement.
-                    </p>
-                    <ul>
-                      <li>Focused on learning core concepts of software lifecycle, front end &amp; back end development.</li>
-                      <li>Contributed to projects and participated in various challenges.</li>
-                    </ul>
-                  </VintageLetter>
-                  <p className="text-[12px] md:text-[13px] font-bold uppercase tracking-tighter border-t border-dashed border-[#2c2a25] pt-1">
-                    Tech stack: .NET, C#, React, Javascript
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <ProfessionalExperienceSection />
 
         <hr className="border-t-[3px] border-[#2c2a25] my-2" />
 
@@ -1001,29 +698,7 @@ export default function App() {
 
         <hr className="border-t-[3px] border-[#2c2a25] my-2" />
 
-        {/* --- PROGRAMMING SKILLS --- */}
-        <section id="programming-skills" className="flex flex-col gap-3">
-          <h2 className="font-headline font-black text-xl md:text-2xl uppercase leading-none text-[#2c2a25]">
-            <a href="#index">PROGRAMMING SKILLS</a>
-          </h2>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            <article className="lg:col-span-8 font-times text-[13px] md:text-[14px] leading-relaxed text-justify">
-              <p>
-                My passion for DSA is exemplified through my expertise on LeetCode, GFG, and HackerRank, where I have solved over 700 problems. I’m committed to expanding my knowledge and skills in DSA to continue tackling complex problems. See my online Judges profiles &amp; stats:
-              </p>
-              <p className="mt-3 border-t border-dashed border-[#2c2a25] pt-2 font-headline text-[11px] md:text-[12px] uppercase tracking-widest font-bold">
-                Leetcode: Handle - Feeham · Hackerrank: Handle - Feeham · GFG: Handle - Feeham
-              </p>
-            </article>
-
-            <aside className="lg:col-span-4 border-l-2 border-[#2c2a25] pl-6 ml-2">
-              <h4 className="font-headline text-sm font-black uppercase bg-[#2c2a25] text-[#e8e1cf] px-2 py-1 mb-3">Editor’s Note</h4>
-              <p className="font-times text-[13px] md:text-[14px] leading-snug text-justify">
-                A steady appetite for algorithms, careful problem decomposition, and consistency in practice — the quiet habits behind reliable engineering.
-              </p>
-            </aside>
-          </div>
-        </section>
+        <ProgrammingSkillsSection />
 
         <hr className="border-t-[3px] border-[#2c2a25] my-2" />
 
@@ -1119,71 +794,11 @@ export default function App() {
 
         <hr className="border-t-[3px] border-[#2c2a25] my-2" />
 
-        {/* --- CONTACT --- */}
-        <section id="contact" className="flex flex-col gap-4">
-          <h2 className="font-headline font-black text-xl md:text-2xl uppercase leading-none text-[#2c2a25]">
-            <a href="#index">CONTACT</a>
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-times text-[13px] md:text-[14px]">
-            <div className="md:border-r-2 md:border-[#2c2a25] md:pr-6">
-              <div className="flex justify-between border-b border-dashed border-[#2c2a25] py-2">
-                <span className="font-headline font-bold uppercase text-[11px] tracking-widest">E-mail</span>
-                <a className="underline font-bold" href="mailto:mdfeeham@gmail.com">mdfeeham@gmail.com</a>
-              </div>
-              <div className="flex justify-between border-b border-dashed border-[#2c2a25] py-2">
-                <span className="font-headline font-bold uppercase text-[11px] tracking-widest">Phone</span>
-                <a className="underline font-bold" href="tel:+8801819853595">+8801819853595</a>
-              </div>
-              <div className="flex justify-between border-b border-dashed border-[#2c2a25] py-2">
-                <span className="font-headline font-bold uppercase text-[11px] tracking-widest">Location</span>
-                <span className="font-bold">Dhaka, Bangladesh</span>
-              </div>
-            </div>
-            <div className="md:pl-6">
-              <div className="flex justify-between border-b border-dashed border-[#2c2a25] py-2">
-                <span className="font-headline font-bold uppercase text-[11px] tracking-widest">GitHub</span>
-                <a className="underline font-bold" href="https://github.com/ShartazFeeham" target="_blank" rel="noreferrer">github.com/ShartazFeeham</a>
-              </div>
-              <div className="flex justify-between border-b border-dashed border-[#2c2a25] py-2">
-                <span className="font-headline font-bold uppercase text-[11px] tracking-widest">LinkedIn</span>
-                <a className="underline font-bold" href="https://linkedin.com/in/shartaz-feeham" target="_blank" rel="noreferrer">linkedin.com/in/shartaz-feeham</a>
-              </div>
-              <div className="flex justify-between border-b border-dashed border-[#2c2a25] py-2">
-                <span className="font-headline font-bold uppercase text-[11px] tracking-widest">Date of birth</span>
-                <span className="font-bold">13 July 2000</span>
-              </div>
-            </div>
-          </div>
-        </section>
+        <ContactSection />
 
         <hr className="border-t-[3px] border-[#2c2a25] my-2" />
 
-        {/* --- OTHERS --- */}
-        <section id="others" className="flex flex-col gap-4">
-          <h2 className="font-headline font-black text-xl md:text-2xl uppercase leading-none text-[#2c2a25]">
-            <a href="#index">OTHERS</a>
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="md:border-r-2 md:border-[#2c2a25] md:pr-6">
-              <h5 className="font-headline font-black text-xs uppercase bg-[#2c2a25] text-[#e8e1cf] px-2 py-1 inline-block mb-2">Languages</h5>
-              <p className="font-times text-[13px] md:text-[14px] leading-snug text-justify">
-                English (Fluent), Bengali (Native)
-              </p>
-            </div>
-            <div className="md:border-r-2 md:border-[#2c2a25] md:px-6">
-              <h5 className="font-headline font-black text-xs uppercase bg-[#2c2a25] text-[#e8e1cf] px-2 py-1 inline-block mb-2">Publication</h5>
-              <p className="font-times text-[13px] md:text-[14px] leading-snug text-justify">
-                Risk Analysis and Support System for Autistic Children using IoT
-              </p>
-            </div>
-            <div className="md:pl-6">
-              <h5 className="font-headline font-black text-xs uppercase bg-[#2c2a25] text-[#e8e1cf] px-2 py-1 inline-block mb-2">Note</h5>
-              <p className="font-times text-[13px] md:text-[14px] leading-snug text-justify">
-                Clippings, pins, and dispatches are editorial style elements — arranged to mimic a broadsheet special edition.
-              </p>
-            </div>
-          </div>
-        </section>
+        <OthersSection />
 
         {/* --- REVISED FOOTER --- */}
         <section className="flex items-center justify-between pb-4">
@@ -1194,64 +809,7 @@ export default function App() {
            </div>
         </section>
 
-        {/* Cursor picker (bottom strip) */}
-        <section className="mt-2 pt-2 border-t border-[#2c2a25]/40">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div className="font-headline text-[10px] font-black uppercase tracking-widest opacity-70">
-              Cursor selector
-              <span className="font-times normal-case font-normal opacity-70"> (right-click also cycles)</span>
-            </div>
-
-            <div className="flex items-center gap-2">
-              {[
-                { id: 0, label: "A" },
-                { id: 1, label: "B" },
-                { id: 2, label: "C" },
-                { id: 3, label: "D" },
-                { id: 4, label: "E" },
-              ].map((c) => (
-                <button
-                  key={c.id}
-                  type="button"
-                  onClick={() => window.dispatchEvent(new CustomEvent("portfolio:cursorPick", { detail: c.id }))}
-                  className="group flex items-center gap-1.5 px-2 py-1 border border-[#2c2a25]/40 bg-[#f2f0e6] hover:bg-[#e8e1cf] shadow-sm"
-                >
-                  <span className="font-headline text-[10px] font-black uppercase">{c.label}</span>
-                  <span className="w-4 h-4 text-[#2c2a25] group-hover:text-[#8b1a1a]">
-                    {c.id === 0 && (
-                      <svg viewBox="0 0 32 32" className="w-4 h-4 fill-current" aria-hidden="true">
-                        <path d="M16 2l7 7-8 16-6 2 2-6 16-8-7-7z" />
-                        <circle cx="16" cy="16" r="2.2" className="fill-[#e8e1cf]" />
-                      </svg>
-                    )}
-                    {c.id === 1 && (
-                      <svg viewBox="0 0 32 32" className="w-4 h-4 fill-current" aria-hidden="true">
-                        <path d="M26 6c-7 1-12 6-14 14l-4 6 6-4c8-2 13-7 14-14-1-1-2-2-2-2z" />
-                      </svg>
-                    )}
-                    {c.id === 2 && (
-                      <svg viewBox="0 0 32 32" className="w-4 h-4 fill-current" aria-hidden="true">
-                        <path d="M12 2h8v8l-2 2v6h-4v-6l-2-2V2z" />
-                        <circle cx="16" cy="26" r="6.5" className="fill-[#8b1a1a]" />
-                      </svg>
-                    )}
-                    {c.id === 3 && (
-                      <svg viewBox="0 0 32 32" className="w-4 h-4 fill-current" aria-hidden="true">
-                        <path d="M5 3l9 22 3-7 7-3L5 3z" />
-                        <path d="M18 21h10v2H18zm0 4h8v2h-8z" className="fill-[#e8e1cf]" />
-                      </svg>
-                    )}
-                    {c.id === 4 && (
-                      <svg viewBox="0 0 32 32" className="w-4 h-4 fill-current" aria-hidden="true">
-                        <path d="M14 4h4v2h-1v20h1v2h-4v-2h1V6h-1V4z" />
-                      </svg>
-                    )}
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>
-        </section>
+        <CursorPicker />
       </div>
     </div>
   );
