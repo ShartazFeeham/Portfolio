@@ -36,6 +36,17 @@ const CameraIcon = () => (
   </svg>
 );
 
+const VintageLetter = ({ children, className = "" }) => (
+  <div
+    className={`vintage-letter ${className}`}
+    aria-label="Handwritten letter note"
+  >
+    <div className="vintage-letter__paper">
+      <div className="vintage-letter__content">{children}</div>
+    </div>
+  </div>
+);
+
 export default function App() {
   useEffect(() => {
     const cursors = [
@@ -144,12 +155,13 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#2a241d] p-4 md:p-8 lg:p-12 flex justify-center items-start font-serif selection:bg-[#2c2a25] selection:text-[#e8e1cf]">
       <style dangerouslySetInnerHTML={{__html: `
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=UnifrakturMaguntia&family=Tinos:ital,wght@0,400;0,700;1,400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=UnifrakturMaguntia&family=Tinos:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500;700&display=swap');
         
         .font-headline { font-family: 'Playfair Display', serif; }
         .font-body { font-family: 'Merriweather', serif; }
         .font-body-straight { font-family: 'Merriweather', serif; font-style: normal; }
         .font-times { font-family: 'Tinos', 'Times New Roman', serif; }
+        .font-hand { font-family: 'Caveat', 'Tinos', 'Times New Roman', serif; }
         
         .font-masthead { 
           font-family: 'UnifrakturMaguntia', cursive; 
@@ -158,6 +170,108 @@ export default function App() {
 
         html { scroll-behavior: smooth; }
         section[id] { scroll-margin-top: 18px; }
+
+        /* Handwritten letter note */
+        .vintage-letter {
+          position: relative;
+          transform: rotate(-0.6deg);
+        }
+
+        .vintage-letter::after { content: none; }
+
+        .vintage-letter__paper {
+          position: relative;
+          filter: none;
+          border-radius: 3px;
+        }
+
+        .vintage-letter__paper .vintage-letter__content { position: relative; }
+
+        /* Bottom-right corner page stack (thin slivers, like right side) */
+        .vintage-letter__paper .vintage-letter__content::after {
+          content: "";
+          position: absolute;
+          right: -6px;
+          bottom: -10px;
+          width: 3px;
+          height: 3px;
+          border-radius: 2px;
+          background:
+            linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0.12) 100%),
+            url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.07'/%3E%3C/svg%3E");
+          background-color: #ead9b8;
+          box-shadow:
+            /* diagonal slivers extending left/down */
+            -2px 2px 0 rgba(0,0,0,0.10),
+            -4px 4px 0 rgba(0,0,0,0.08),
+            -6px 6px 0 rgba(0,0,0,0.06),
+            -8px 8px 0 rgba(0,0,0,0.05);
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .vintage-letter__paper::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          border-radius: 3px;
+          background-color: #efe2c6;
+          background-image:
+            /* slightly darker ruled lines */
+            repeating-linear-gradient(0deg, rgba(44,42,37,0.085) 0 1px, transparent 1px 22px),
+            /* mild paper aging */
+            radial-gradient(circle at 22% 18%, rgba(120, 70, 25, 0.10), transparent 60%),
+            radial-gradient(circle at 78% 28%, rgba(120, 70, 25, 0.08), transparent 64%),
+            radial-gradient(circle at 30% 86%, rgba(120, 70, 25, 0.07), transparent 68%),
+            linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.02) 55%, rgba(0,0,0,0.10) 100%),
+            url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.18'/%3E%3C/svg%3E");
+          box-shadow:
+            0 14px 18px rgba(0,0,0,0.22),
+            0 1px 0 rgba(255,255,255,0.18) inset;
+          pointer-events: none;
+        }
+
+        .vintage-letter__paper::after {
+          content: "";
+          position: absolute;
+          /* stacked pages peeking ONLY on the right side */
+          top: 8px;
+          bottom: -8px;
+          right: -3px;
+          width: 3px;
+          border-radius: 3px;
+          background:
+            linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(0,0,0,0.10) 100%),
+            url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.08'/%3E%3C/svg%3E");
+          background-color: #ead9b8;
+          box-shadow:
+            /* thin stacked page edges */
+            2px 2px 0 rgba(0,0,0,0.10),
+            4px 4px 0 rgba(0,0,0,0.08),
+            6px 6px 0 rgba(0,0,0,0.06),
+            8px 8px 0 rgba(0,0,0,0.05),
+            0 10px 14px rgba(0,0,0,0.12);
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .vintage-letter__content {
+          font-family: 'Caveat', 'Tinos', 'Times New Roman', serif;
+          position: relative;
+          z-index: 2;
+          padding: 18px 20px;
+          font-size: 19px;
+          line-height: 1.18;
+          color: #2c2a25;
+          filter: sepia(0.62) saturate(0.75) contrast(1.08);
+        }
+
+        .vintage-letter__content::before { content: none; }
+
+        .vintage-letter__content p { margin: 0; }
+        .vintage-letter__content p + p { margin-top: 8px; }
+        .vintage-letter__content ul { margin: 8px 0 0; padding-left: 18px; }
+        .vintage-letter__content li { margin: 4px 0; }
 
         .newspaper-texture {
             background-color: #e8e1cf;
@@ -643,12 +757,14 @@ export default function App() {
                   <p className="font-times text-[10px] leading-snug text-justify mb-2">
                     <b className="block text-[13px] md:text-[14px] leading-none mb-1">Software Engineer</b>
                   </p>
-                  <p className="font-times text-[13px] md:text-[14px] leading-snug text-justify mb-2">
-                    Working on one of Bangladesh&apos;s most used applications with an 80 million user base, contributing to end-to-end development across multiple microservices. Ensuring optimization and coding standards, while maintaining code quality and knowledge sharing.
-                  </p>
-                  <ul className="font-times text-[13px] md:text-[14px] leading-snug text-justify mb-2 list-disc pl-4">
-                    <li>Gathere requirements from the client and develop business logic & REST API&apos;s ensuring optimization, coding-standards & test coverage through Unit and Integration testing.</li>
-                  </ul>
+                  <VintageLetter className="mb-2">
+                    <p>
+                      Working on one of Bangladesh&apos;s most used applications with an 80 million user base, contributing to end-to-end development across multiple microservices. Ensuring optimization and coding standards, while maintaining code quality and knowledge sharing.
+                    </p>
+                    <ul>
+                      <li>Gathere requirements from the client and develop business logic &amp; REST API&apos;s ensuring optimization, coding-standards &amp; test coverage through Unit and Integration testing.</li>
+                    </ul>
+                  </VintageLetter>
                   <p className="text-[12px] md:text-[13px] font-bold uppercase tracking-tighter border-t border-dashed border-[#2c2a25] pt-1">
                     Tech stack: Java, Spring Boot, Microservices, PostgreSQL, Git, Jira, Confluence.
                   </p>
@@ -667,13 +783,15 @@ export default function App() {
                   <p className="font-times text-[10px] leading-snug text-justify mb-2">
                     <b className="block text-[13px] md:text-[14px] leading-none mb-1">Software Engineer</b>
                   </p>
-                  <p className="font-times text-[13px] md:text-[14px] leading-snug text-justify mb-2">
-                    Worked as an offshore member of a global team of a Japanese e-commerce giant platform&apos;s microservices projects. Responsibilities include -
-                  </p>
-                  <ul className="font-times text-[13px] md:text-[14px] leading-snug text-justify mb-2 list-disc pl-4">
-                    <li>Contributed in BFF (Backend for Frontend) and Generic Gateway application that communicates with various microservices & aggregates results.</li>
-                    <li>Contributed in a migration of projects from Reactive (Java 11) to Virtual threads (Java 21).</li>
-                  </ul>
+                  <VintageLetter className="mb-2">
+                    <p>
+                      Worked as an offshore member of a global team of a Japanese e-commerce giant platform&apos;s microservices projects. Responsibilities include -
+                    </p>
+                    <ul>
+                      <li>Contributed in BFF (Backend for Frontend) and Generic Gateway application that communicates with various microservices &amp; aggregates results.</li>
+                      <li>Contributed in a migration of projects from Reactive (Java 11) to Virtual threads (Java 21).</li>
+                    </ul>
+                  </VintageLetter>
                   <p className="text-[12px] md:text-[13px] font-bold uppercase tracking-tighter border-t border-dashed border-[#2c2a25] pt-1">
                     Tech stack: Java, Spring Boot, Microservices, PostgreSQL, Git, Jira, Confluence.
                   </p>
@@ -692,13 +810,15 @@ export default function App() {
                   <p className="font-times text-[10px] leading-snug text-justify mb-2">
                     <b className="block text-[13px] md:text-[14px] leading-none mb-1">Intern Software Engineer</b>
                   </p>
-                  <p className="font-times text-[13px] md:text-[14px] leading-snug text-justify mb-2">
-                    Gained foundational experience in .NET and React development with C# and Javascript through hands-on training and project involvement.
-                  </p>
-                  <ul className="font-times text-[13px] md:text-[14px] leading-snug text-justify mb-2 list-disc pl-4">
-                    <li>Focused on learning core concepts of software lifecycle, front end & back end development.</li>
-                    <li>Contributed to projects and participated in various challenges.</li>
-                  </ul>
+                  <VintageLetter className="mb-2">
+                    <p>
+                      Gained foundational experience in .NET and React development with C# and Javascript through hands-on training and project involvement.
+                    </p>
+                    <ul>
+                      <li>Focused on learning core concepts of software lifecycle, front end &amp; back end development.</li>
+                      <li>Contributed to projects and participated in various challenges.</li>
+                    </ul>
+                  </VintageLetter>
                   <p className="text-[12px] md:text-[13px] font-bold uppercase tracking-tighter border-t border-dashed border-[#2c2a25] pt-1">
                     Tech stack: .NET, C#, React, Javascript
                   </p>
