@@ -209,8 +209,10 @@ export default function App() {
         }
 
         .paper-edge {
-          background: linear-gradient(180deg, #fbf4e6 0%, #f2e7d2 100%);
-          padding: 9px;
+          background:
+            linear-gradient(180deg, rgba(95, 58, 24, 0.022) 0%, rgba(80, 48, 18, 0.028) 100%),
+            linear-gradient(180deg, #fbf6ee 0%, #f4ebde 100%);
+          padding: 7px;
         }
 
         .paper-edge::before {
@@ -228,6 +230,7 @@ export default function App() {
         }
 
         .paper-inner {
+          position: relative;
           background-color: #e6d3ad;
           background-image:
             radial-gradient(circle at 18% 22%, rgba(135, 85, 35, 0.22), transparent 46%),
@@ -329,6 +332,29 @@ export default function App() {
           .quicklinks-float-wrap .paper-scrap:active {
             filter: none;
           }
+
+          /*
+           * iOS/WebKit: mix-blend-mode on layers inside clip-path tears can fill concave
+           * cutouts with a flat wash. Isolate + normal blending keeps tears visually empty.
+           */
+          .quicklinks-float-wrap .paper-edge,
+          .quicklinks-float-wrap .paper-inner {
+            isolation: isolate;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+          }
+          .quicklinks-float-wrap .paper-inner::before {
+            mix-blend-mode: normal;
+            opacity: 0.38;
+          }
+          .quicklinks-float-wrap .paper-inner::after {
+            mix-blend-mode: normal;
+            opacity: 0.42;
+          }
+          .quicklinks-float-wrap .paper-edge::before {
+            mix-blend-mode: normal;
+            opacity: 0.1;
+          }
         }
 
         .quicklinks-float-wrap .paper-edge,
@@ -336,9 +362,11 @@ export default function App() {
           transition: background-color 120ms linear, color 120ms linear;
         }
 
-        /* Quick Links: brighter “stock” border (less yellow than default edge) */
+        /* Quick Links: stock border — very light + hint of sepia */
         .quicklinks-float-wrap .paper-edge {
-          background: linear-gradient(180deg, #fffef9 0%, #faf6eb 55%, #f5eedc 100%);
+          background:
+            linear-gradient(180deg, rgba(90, 55, 22, 0.018) 0%, rgba(75, 45, 14, 0.024) 100%),
+            linear-gradient(180deg, #fffefb 0%, #faf5eb 55%, #f3ebe0 100%);
         }
 
         .quicklinks-float-wrap .paper-edge::before {
@@ -352,8 +380,7 @@ export default function App() {
         }
 
         .quicklinks-float-wrap .paper-scrap.ql-invert .paper-edge {
-          background-color: #e6d3ad !important;
-          background-image: none !important;
+          background: #e9d9bf !important;
         }
 
         .tear-mask-a { clip-path: polygon(2% 10%, 10% 2%, 98% 0%, 96% 18%, 100% 32%, 94% 48%, 99% 66%, 92% 84%, 98% 98%, 82% 100%, 0% 96%, 3% 74%, 0% 56%, 4% 36%); }
@@ -383,11 +410,14 @@ export default function App() {
         }
         .tear-mask-ql-c {
           clip-path: polygon(
-            /* Resume: deep angular tear (~30° feel), wide mouth top + bottom, skew R→L */
+            /* Resume: angular tear + thin top/side branches + inner jags along the gash */
             6% 2%, 16% 0%, 30% 2%,
-            36% 0%, 39% 0%,
-            40% 9%, 47% 48%, 41% 86%,
-            54% 46%, 60% 10%, 64% 0%, 70% 1%,
+            36% 0%, 37.2% 5%, 36.3% 8%, 38.4% 4%, 39% 0%,
+            40% 9%,
+            42% 18%, 41.1% 26%, 42.9% 29%, 44.8% 39%, 47% 48%,
+            41% 86%,
+            54% 46%, 60% 10%,
+            59% 5%, 61.2% 11%, 62.2% 6%, 64% 0%, 70% 1%,
             84% 0%, 93% 5%, 98% 0%,
             95% 14%, 100% 26%, 92% 44%, 99% 60%, 92% 76%, 97% 90%,
             86% 100%, 72% 96%, 58% 100%, 44% 94%, 31% 99%, 18% 95%, 5% 100%, 1% 97%,
@@ -395,45 +425,107 @@ export default function App() {
           );
         }
 
-        /* GitHub: no bottom tear; two big top tears */
+        /* GitHub: top tears as before; bottom edge = branch tear (inner jags into gash, not mail rim) */
         .tear-mask-ql-gh {
           clip-path: polygon(
             2% 10%,
             12% 2%, 20% 10%,
-            28% 0%, 34% 18%, 40% 1%,
-            62% 0%, 69% 19%, 76% 2%,
+            28% 0%,
+            26.2% 6%, 27.8% 11%, 29.2% 7%, 31.2% 13%, 34% 18%,
+            36.2% 12%, 38% 7%, 39.2% 4%, 40% 1%,
+            62% 0%,
+            64% 3%, 66% 9%, 68% 15%, 69% 19%,
+            67.5% 24%, 68.4% 29%, 69.6% 26%, 71.2% 29%, 72% 24%,
+            73% 16%, 75% 8%, 76% 2%,
             98% 0%,
             96% 18%, 100% 32%, 94% 48%, 99% 66%, 92% 84%, 98% 98%,
-            0% 100%,
+            92% 100%, 86% 97%, 80% 100%, 74% 98%, 68% 100%,
+            64% 100%, 62.2% 88%, 60.8% 80%, 62.4% 84%, 61% 92%, 58.6% 86%, 57.2% 94%, 55% 100%,
+            48% 99%, 40% 100%, 32% 97%, 24% 100%, 14% 98%, 4% 100%, 0% 99%,
             0% 96%, 3% 74%, 0% 56%, 4% 36%
           );
         }
 
-        /* LinkedIn: former E-mail tear (top + bottom cuts) */
+        /* LinkedIn: top + deep bottom gash; bottom-left/right = extra branch tears (ql-c style micro jags) */
         .tear-mask-ql-li {
           clip-path: polygon(
             4% 6%,
-            20% 2%, 32% 10%, 44% 3%,
-            56% 2%, 62% 30%, 68% 1%,
-            76% 8%, 88% 2%, 98% 1%,
+            5% 2%, 11% 9%, 19% 2%,
+            31% 2%,
+            29.5% 7%, 31% 11%, 32.5% 6%, 34.2% 15%, 37% 30%,
+            35.5% 37%, 36.4% 44%, 37.1% 38%, 38.6% 44%, 39.2% 32%, 41.6% 17%, 43% 1%,
+            53% 8%, 65% 2%, 98% 1%,
             100% 20%, 95% 36%, 99% 52%, 94% 68%, 98% 84%, 90% 98%,
-            74% 100%,
-            78% 100%, 72% 74%, 66% 100%,
+            86% 100%, 82% 96%, 78.5% 100%, 76% 97%, 74% 100%,
+            78% 100%,
+            76.8% 93%, 75% 89%, 76.2% 85%, 74.5% 100%, 72% 74%,
+            71.2% 82%, 70.5% 88%, 71.6% 83%, 69.2% 100%, 66% 100%,
+            62% 100%, 58.5% 94%, 56.2% 88%, 57.4% 92%, 55.1% 97%, 52% 100%,
             46% 100%, 32% 93%, 19% 99%, 6% 95%, 0% 94%,
             3% 78%, 0% 60%, 5% 40%
           );
         }
 
-        /* E-mail: former LinkedIn tear (wide torn-off top + deep notch) */
+        /* E-mail: simple double top; fibrous bottom rim only (deep notch + inner jags unchanged below) */
         .tear-mask-ql-mail {
           clip-path: polygon(
             6% 0%,
-            34% 0%, 36% 0%, 38% 10%, 44% 48%, 50% 66%, 56% 48%, 62% 10%, 64% 0%, 66% 0%,
-            98% 6%,
+            9% 2%, 14% 4%, 21% 12%,
+            27% 0%, 32% 15%, 41% 3%,
+            56% 1%, 64% 21%, 72% 4%,
+            88% 2%, 98% 6%,
             94% 20%, 100% 34%, 93% 50%, 99% 62%, 91% 78%, 97% 94%,
-            78% 100%, 63% 97%, 49% 100%, 35% 94%, 21% 99%, 9% 96%, 0% 95%,
+            82% 100%, 80% 97.5%, 81.2% 100%, 79% 97%, 77.5% 100%, 76% 97.8%, 74.5% 100%, 73% 97%, 71.5% 100%, 70% 98.5%, 68.5% 100%, 67% 97.5%, 65.5% 100%, 64% 100%,
+            62.5% 97.8%, 63.2% 100%, 61% 97.5%, 60% 100%, 58.5% 97%, 57.5% 100%, 56.2% 97.8%, 55% 99%, 54.2% 97%, 53.6% 88%,
+            53.1% 83%, 53.8% 79%, 53% 75%, 53.6% 71%, 52.8% 67%, 53.3% 64%, 52.7% 62%,
+            52.9% 66%, 52.4% 63%, 52.8% 58%, 52.2% 50%, 51.7% 45%, 52.3% 42%, 51.4% 38%, 51% 35%, 50.4% 31%, 50% 29%,
+            49.4% 33%, 49.9% 39%, 49.1% 44%, 48.5% 48%, 47.9% 52%,
+            48.1% 48%, 47.7% 50%, 47.2% 58%, 46.7% 70%, 46.3% 82%, 45.9% 90%, 45.4% 96%, 44.9% 99%, 44% 100%, 38% 100%,
+            21% 99%, 9% 96%, 0% 95%,
             3% 74%, 0% 58%, 4% 40%, 0% 18%
           );
+        }
+
+        /*
+         * Phone: all rips on top; bottom edge straight (no notch).
+         * LinkedIn: desktop top + former bottom jag lifted to upper edge; flat bottom.
+         * E-mail: desktop double top + full big bottom tear reflected to top; flat bottom.
+         */
+        @media (max-width: 767px) {
+          .tear-mask-ql-li {
+            clip-path: polygon(
+              4% 6%,
+              5% 2%, 11% 9%, 19% 2%,
+              31% 2%,
+              29.5% 7%, 31% 11%, 32.5% 6%, 34.2% 15%, 37% 30%,
+              35.5% 37%, 36.4% 44%, 37.1% 38%, 38.6% 44%, 39.2% 32%, 41.6% 17%, 43% 1%,
+              48% 0%,
+              46.6% 6%, 48.2% 12%, 50% 7%, 51.6% 15%, 52% 10%,
+              50.5% 18%, 51.4% 24%, 52.1% 18%, 53.6% 24%, 54% 12%, 56% 2%,
+              62% 0%, 65% 2%,
+              66.2% 12%, 65.4% 18%, 66.3% 14%, 67.8% 20%, 68.2% 11%, 71% 6%, 74% 1%, 98% 1%,
+              100% 20%, 95% 36%, 99% 52%, 94% 68%, 98% 84%, 100% 100%,
+              0% 100%,
+              0% 94%, 3% 78%, 0% 60%, 5% 40%
+            );
+          }
+          .tear-mask-ql-mail {
+            clip-path: polygon(
+              6% 0%,
+              9% 2%, 14% 4%, 21% 12%,
+              27% 0%,
+              25.8% 5%, 27.3% 10%, 28.8% 5%, 30.6% 14%, 32% 15%,
+              30.3% 21%, 31.2% 27%, 32% 22%, 33.6% 27%, 34.1% 17%, 37.5% 9%, 41% 3%,
+              43% 1%, 44% 0%,
+              44.9% 1%, 45.4% 4%, 45.9% 10%, 46.3% 18%, 46.7% 30%, 46.4% 36%, 47% 40%, 47.2% 42%, 47.7% 50%, 48.1% 52%, 47.9% 48%, 48.3% 56%, 48.9% 64%, 49.5% 69%, 50% 71%, 50.4% 69%, 51% 65%, 51.6% 58%, 52.2% 50%, 52.8% 42%, 52.4% 37%, 52.9% 34%, 52.7% 38%, 53.1% 26%, 53.6% 12%, 54.2% 3%, 55% 0%, 57% 0%,
+              55.2% 4%, 56.8% 10%, 58.2% 5%, 60% 13%, 62% 17%, 64% 21%,
+              62.3% 28%, 63.3% 34%, 64% 28%, 65.6% 34%, 66% 22%, 69% 12%, 72% 4%,
+              88% 2%, 98% 6%,
+              94% 20%, 100% 34%, 93% 50%, 99% 62%, 91% 78%, 97% 94%,
+              100% 100%, 0% 100%,
+              0% 95%, 3% 74%, 0% 58%, 4% 40%, 0% 18%
+            );
+          }
         }
         .tear-mask-ql-d {
           clip-path: polygon(

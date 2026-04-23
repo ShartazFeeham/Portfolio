@@ -10,3 +10,27 @@ body {
   margin: 0;
   background: #e8e1cf;
 }
+
+/* WANTED wax seal: hinged at top, bottom swings (pendulum in breeze) */
+@keyframes wanted-seal-swing {
+  0%,
+  100% {
+    transform: rotate(-13deg);
+  }
+  50% {
+    transform: rotate(13deg);
+  }
+}
+
+.wanted-seal-pendulum {
+  transform-origin: 50% 0%;
+  animation: wanted-seal-swing 3.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wanted-seal-pendulum {
+    animation: none;
+    transform: rotate(12deg);
+  }
+}
+
