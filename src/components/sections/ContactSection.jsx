@@ -32,7 +32,7 @@ export function ContactSection() {
               className="underline font-bold"
               href="https://github.com/ShartazFeeham"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               github.com/ShartazFeeham
             </a>
@@ -43,9 +43,9 @@ export function ContactSection() {
             </span>
             <a
               className="underline font-bold"
-              href="https://linkedin.com/in/shartaz-feeham"
+              href="https://www.linkedin.com/in/shartaz-feeham"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               linkedin.com/in/shartaz-feeham
             </a>

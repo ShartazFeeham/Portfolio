@@ -38,10 +38,11 @@ export default function App() {
     year: 'numeric'
   }).toUpperCase();
 
-  const resumeRipPath = "polygon(1% 1%, 99% 0%, 96% 15%, 100% 30%, 94% 45%, 98% 60%, 91% 75%, 96% 88%, 85% 100%, 0% 100%)";
-
   return (
     <div className="min-h-screen bg-[#e8e1cf] px-0 pt-0 pb-[5px] md:px-8 md:pb-8 md:pt-[10px] lg:px-12 lg:pb-12 lg:pt-[10px] flex justify-center items-start font-serif selection:bg-[#2c2a25] selection:text-[#e8e1cf]">
+      <a href="#main-content" className="skip-to-main">
+        Skip to main content
+      </a>
       <style dangerouslySetInnerHTML={{__html: `
         .font-headline { font-family: 'Playfair Display', serif; }
         .font-body { font-family: 'Merriweather', serif; }
@@ -1101,7 +1102,7 @@ export default function App() {
         <Masthead issueDateLabel={issueDateLabel} />
 
         {/* --- MAIN SECTION --- */}
-        <main className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <main id="main-content" className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           <BreakingNews />
 
@@ -1146,7 +1147,7 @@ export default function App() {
                       <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9 .2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
                     </svg>
                     <div className="paper-edge tear-mask-ql-gh">
-                      <a className="paper-inner tear-mask-ql-gh p-3 block" href="https://github.com/ShartazFeeham" target="_blank" rel="noreferrer" onPointerDown={flashQuickLinkInvert} onClick={toggleQuickLinkInvert}>
+                      <a className="paper-inner tear-mask-ql-gh p-3 block" href="https://github.com/ShartazFeeham" target="_blank" rel="noopener noreferrer" onPointerDown={flashQuickLinkInvert} onClick={toggleQuickLinkInvert}>
                         <div className="flex items-center justify-between gap-2">
                           <div className="quicklink-title">GitHub</div>
                           <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
@@ -1165,7 +1166,7 @@ export default function App() {
                       <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9 .2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
                     </svg>
                     <div className="paper-edge tear-mask-ql-li">
-                      <a className="paper-inner tear-mask-ql-li p-3 block" href="https://linkedin.com/in/shartaz-feeham" target="_blank" rel="noreferrer" onPointerDown={flashQuickLinkInvert} onClick={toggleQuickLinkInvert}>
+                      <a className="paper-inner tear-mask-ql-li p-3 block" href="https://www.linkedin.com/in/shartaz-feeham" target="_blank" rel="noopener noreferrer" onPointerDown={flashQuickLinkInvert} onClick={toggleQuickLinkInvert}>
                         <div className="flex items-center justify-between gap-2">
                           <div className="quicklink-title">LinkedIn</div>
                           <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
@@ -1391,7 +1392,7 @@ export default function App() {
                 <div className="relative w-full aspect-[4/3] bg-[#d3c9b3] overflow-hidden grayscale contrast-125 brightness-90">
                   <img
                     src="/images/campus.jpg"
-                    alt="University archival photograph"
+                    alt="Green University of Bangladesh campus, vintage-style archival photograph"
                     className="object-cover w-full h-full mix-blend-multiply"
                     loading="lazy"
                     decoding="async"
@@ -1440,7 +1441,7 @@ export default function App() {
                   <span className="text-[12px] md:text-[13px] font-bold font-times">Oct 2023 – Dec 2023 · Team: 4</span>
                 </div>
                 <p className="font-times text-[13px] md:text-[14px] leading-snug text-justify mb-2">
-                  This is a multi-aspect healthcare platform that offers both doctor and patient-oriented services and functionalities including appointment scheduling, doctor &amp; patient profiles, progress &amp; achievement tracking, community forums, file storing, real-time notifications, secured account management, internationalization for multi-language support, admin dashboard, help/​search index &amp; more.
+                  This is a multi-aspect healthcare platform that offers both doctor and patient-oriented services and functionalities including appointment scheduling, doctor &amp; patient profiles, progress &amp; achievement tracking, community forums, file storing, real-time notifications, secured account management, internationalization for multi-language support, admin dashboard, help/search index &amp; more.
                 </p>
                 <p className="font-times text-[13px] md:text-[14px] leading-snug text-justify mb-2">
                   <b>Technologies:</b> [Backend] Java (21) &amp; Spring Boot, [Frontend] React, CSS, HTML, [Architecture] Microservices, [Database &amp; ORM] PostgreSQL, Spring Data JPA, [Inter-Service Communication] Feign Client, Discovery Server &amp; API Gateway [Security] Spring Security, JWT for user auth&apos;s
@@ -1456,7 +1457,7 @@ export default function App() {
                 <div className="relative w-full aspect-[4/3] bg-[#d3c9b3] overflow-hidden grayscale contrast-125 brightness-90">
                   <img
                     src="/images/team.jpg"
-                    alt="Project editorial photograph"
+                    alt="Software team at work, editorial-style project photograph"
                     className="object-cover w-full h-full mix-blend-multiply"
                     loading="lazy"
                     decoding="async"
@@ -1469,7 +1470,7 @@ export default function App() {
                 <div className="relative w-full aspect-[4/3] bg-[#d3c9b3] overflow-hidden grayscale contrast-125 brightness-90">
                   <img
                     src="/images/desk.jpg"
-                    alt="Engineering desk photograph"
+                    alt="Software engineering workspace and desk, archival-style photograph"
                     className="object-cover w-full h-full mix-blend-multiply"
                     loading="lazy"
                     decoding="async"

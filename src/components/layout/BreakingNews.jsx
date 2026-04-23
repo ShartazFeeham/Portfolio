@@ -28,9 +28,7 @@ function BreakingNameHeading() {
     typeof window !== "undefined" &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches,
   );
-  const startMs = useRef(
-    typeof performance !== "undefined" ? performance.now() : 0,
-  );
+  const startMs = useRef(0);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -41,6 +39,7 @@ function BreakingNameHeading() {
 
   useEffect(() => {
     if (reduceMotion) return;
+    startMs.current = performance.now();
     let id;
     const tick = () => {
       const t = (performance.now() - startMs.current) % NAME_CYCLE_MS;

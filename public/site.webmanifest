@@ -1,6 +1,8 @@
 {
   "name": "Shartaz Feeham",
   "short_name": "Feeham",
+  "lang": "en",
+  "description": "Portfolio of Shartaz Feeham — backend software engineer (Java, Spring Boot, microservices, Kafka, PostgreSQL).",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#2a241d",

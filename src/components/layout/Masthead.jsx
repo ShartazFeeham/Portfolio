@@ -12,10 +12,10 @@ export function Masthead({ issueDateLabel }) {
           <span className="text-[7px] font-normal tracking-tighter opacity-70">Est. MCMXCIII</span>
         </div>
 
-        <h1 className="font-masthead masthead-title text-center whitespace-nowrap px-4 leading-[1.0] flex-1">
+        <p className="font-masthead masthead-title text-center whitespace-nowrap px-4 leading-[1.0] flex-1">
           The <span className="drop-letter">s</span>ilicon{" "}
           <span className="drop-letter">t</span>imes
-        </h1>
+        </p>
 
         <div className="hidden md:block w-32 text-[9px] md:text-[10px] leading-[1.1] font-bold uppercase text-right">
           Innovating

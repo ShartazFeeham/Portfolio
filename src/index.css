@@ -1,5 +1,29 @@
 @import "tailwindcss";
 
+/* Keyboard / screen-reader: jump past decorative chrome */
+.skip-to-main {
+  position: absolute;
+  left: -9999px;
+  top: 0.75rem;
+  z-index: 10000;
+  padding: 0.45rem 0.85rem;
+  background: #2c2a25;
+  color: #e8e1cf;
+  font-family: "Playfair Display", serif;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 2px solid #2c2a25;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+.skip-to-main:focus {
+  left: 0.75rem;
+  outline: 2px solid #e8e1cf;
+  outline-offset: 3px;
+}
+
 html,
 body,
 #root {
