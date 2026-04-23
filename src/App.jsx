@@ -180,6 +180,220 @@ export default function App() {
           border: 2px solid #a31f1f;
         }
 
+        /* Fantasy tomes: left-hinged cover (page turn), parchment, RB corner shades, auto-fit type */
+        .fantasy-book-scene {
+          width: 100%;
+          max-width: min(100%, 28rem);
+        }
+        .fantasy-book-3d {
+          perspective: 1600px;
+          perspective-origin: 56% 40%;
+          width: 100%;
+        }
+        .fantasy-book-stage {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 3 / 4;
+          transform-style: preserve-3d;
+        }
+        .fantasy-book-paper {
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+          transform: translateZ(0.5px);
+          border-radius: 5px;
+          background:
+            radial-gradient(ellipse at 26% 8%, rgba(120, 80, 40, 0.11), transparent 52%),
+            linear-gradient(180deg, #f6eede 0%, #e8dcc8 55%, #dcc9ae 100%);
+          border: 2px solid #5c4830;
+          box-shadow: inset 0 0 26px rgba(60, 40, 20, 0.1);
+          overflow: hidden;
+        }
+        .fantasy-book-page-shade--rb {
+          position: absolute;
+          right: 0;
+          bottom: 0;
+          width: 44%;
+          height: 40%;
+          background: linear-gradient(
+            315deg,
+            rgba(32, 20, 12, 0.2) 0%,
+            rgba(32, 20, 12, 0.07) 45%,
+            transparent 74%
+          );
+          border-radius: 0 0 5px 0;
+          pointer-events: none;
+          z-index: 3;
+        }
+        .fantasy-book-page-shade--cover.fantasy-book-page-shade--rb {
+          z-index: 6;
+          background: linear-gradient(
+            315deg,
+            rgba(0, 0, 0, 0.48) 0%,
+            rgba(0, 0, 0, 0.14) 46%,
+            transparent 78%
+          );
+        }
+        .fantasy-book-measure-shell {
+          position: relative;
+          z-index: 2;
+          height: 100%;
+          min-height: 0;
+          padding: 9px 8px 10px 9px;
+          box-sizing: border-box;
+        }
+        .fantasy-book-scroll-inner {
+          height: 100%;
+          max-height: 100%;
+          overflow-y: auto;
+          overflow-x: hidden;
+          text-align: left;
+          -webkit-overflow-scrolling: touch;
+        }
+        .fantasy-book-scroll-inner ul {
+          margin: 0.55em 0 0;
+          padding-left: 1.1em;
+        }
+        .fantasy-book-scroll-inner li {
+          margin: 0.45em 0;
+        }
+        .fantasy-book-scroll-inner .fantasy-book-tech {
+          margin-top: 0.75em;
+          margin-bottom: 0;
+          padding-top: 0.55em;
+          border-top: 1px dashed rgba(44, 42, 37, 0.5);
+          font-weight: 700;
+          font-size: 0.88em;
+          line-height: 1.35;
+          text-transform: uppercase;
+          letter-spacing: 0.04em;
+        }
+        .fantasy-book-cover-wrap {
+          position: absolute;
+          inset: 0;
+          z-index: 5;
+          transform-origin: left center;
+          transform-style: preserve-3d;
+          transform: rotateY(0deg);
+          transition: transform 1.08s cubic-bezier(0.2, 0.82, 0.24, 1);
+        }
+        .fantasy-book-stage.is-open .fantasy-book-cover-wrap {
+          transform: rotateY(-176deg);
+          pointer-events: none;
+        }
+        .fantasy-book-cover {
+          position: relative;
+          height: 100%;
+          border-radius: 5px;
+          background:
+            linear-gradient(165deg, rgba(255,255,255,0.06) 0%, transparent 42%),
+            linear-gradient(135deg, #4a3018 0%, #2c1810 28%, #3d2614 52%, #1f120c 100%);
+          border: 2px solid #8a6a2a;
+          box-shadow:
+            inset 0 0 40px rgba(0,0,0,0.55),
+            inset 0 -12px 24px rgba(0,0,0,0.35),
+            6px 10px 22px rgba(0,0,0,0.42);
+          color: #e8d5a8;
+        }
+        .fantasy-book-cover::before {
+          content: "";
+          position: absolute;
+          inset: 10px;
+          border: 1px solid rgba(200, 170, 100, 0.28);
+          border-radius: 3px;
+          pointer-events: none;
+          z-index: 2;
+        }
+        .fantasy-book-spine {
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 14%;
+          background: linear-gradient(90deg, #1a0f08 0%, #3d2818 45%, #2a1a10 100%);
+          border-radius: 4px 0 0 4px;
+          box-shadow: inset -4px 0 8px rgba(0,0,0,0.5);
+        }
+        .fantasy-book-ornament {
+          position: absolute;
+          width: 18px;
+          height: 18px;
+          border: 1px solid rgba(200, 170, 100, 0.4);
+          border-radius: 2px;
+          pointer-events: none;
+        }
+        .fantasy-book-ornament--tl { top: 14px; right: 14px; }
+        .fantasy-book-ornament--tr { top: 14px; left: 18%; }
+        .fantasy-book-ornament--bl { bottom: 14px; right: 14px; }
+        .fantasy-book-ornament--br { bottom: 14px; left: 18%; }
+        .fantasy-book-cover-inner {
+          position: relative;
+          z-index: 1;
+          display: flex;
+          height: 100%;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          padding: 14px 6px 14px 20%;
+        }
+        .fantasy-book-sigil {
+          font-size: 22px;
+          line-height: 1;
+          margin-bottom: 8px;
+          opacity: 0.85;
+          text-shadow: 0 0 12px rgba(200, 160, 80, 0.35);
+        }
+        .fantasy-book-cover-title {
+          font-family: 'Playfair Display', serif;
+          font-weight: 900;
+          font-size: 11px;
+          line-height: 1.2;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+          color: #f0e4c8;
+          text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+        }
+        .fantasy-book-cover-company {
+          display: block;
+          margin-top: 6px;
+          font-family: 'Playfair Display', serif;
+          font-weight: 700;
+          font-size: 12px;
+          line-height: 1.15;
+          letter-spacing: 0.02em;
+          text-transform: none;
+          color: #f5ebd4;
+          text-shadow: 0 2px 5px rgba(0,0,0,0.55);
+        }
+        .fantasy-book-cover-sub {
+          display: block;
+          margin-top: 8px;
+          font-family: 'Tinos', 'Times New Roman', serif;
+          font-size: 9px;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: rgba(232, 213, 168, 0.72);
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .fantasy-book-cover-wrap {
+            transform: none !important;
+            transition: opacity 0.28s ease !important;
+          }
+          .fantasy-book-stage:not(.is-open) .fantasy-book-paper {
+            opacity: 0;
+            pointer-events: none;
+          }
+          .fantasy-book-stage.is-open .fantasy-book-paper {
+            opacity: 1;
+            pointer-events: auto;
+          }
+          .fantasy-book-stage.is-open .fantasy-book-cover-wrap {
+            opacity: 0;
+            pointer-events: none;
+          }
+        }
+
         .skills-collage {
           position: relative;
           overflow: visible;
