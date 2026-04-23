@@ -1,0 +1,12 @@
+/* TEAM */
+Name: Shartaz Feeham
+AKA: Feeham
+Location: Dhaka, Bangladesh
+Email: mdfeeham@gmail.com
+GitHub: https://github.com/ShartazFeeham
+LinkedIn: https://linkedin.com/in/shartaz-feeham
+Website: https://feeham.com/
+
+/* SITE */
+Stack: Vite + React + Tailwind CSS
+Language: English

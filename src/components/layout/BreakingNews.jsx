@@ -31,9 +31,11 @@ export function BreakingNews() {
 
             <div className="relative w-full aspect-[4/5] bg-[#d3c9b3] overflow-hidden grayscale contrast-125 brightness-90">
               <img
-                src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&auto=format&fit=crop"
+                src="/images/portrait.jpg"
                 alt="Portrait of Shartaz Feeham"
                 className="object-cover w-full h-full mix-blend-multiply"
+                decoding="async"
+                fetchPriority="high"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
             </div>

@@ -21,10 +21,8 @@ export default function App() {
   const resumeRipPath = "polygon(1% 1%, 99% 0%, 96% 15%, 100% 30%, 94% 45%, 98% 60%, 91% 75%, 96% 88%, 85% 100%, 0% 100%)";
 
   return (
-    <div className="min-h-screen bg-[#2a241d] p-4 md:p-8 lg:p-12 flex justify-center items-start font-serif selection:bg-[#2c2a25] selection:text-[#e8e1cf]">
+    <div className="min-h-screen bg-[#e8e1cf] p-[5px] md:p-8 lg:p-12 flex justify-center items-start font-serif selection:bg-[#2c2a25] selection:text-[#e8e1cf]">
       <style dangerouslySetInnerHTML={{__html: `
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=UnifrakturMaguntia&family=Tinos:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500;700&display=swap');
-        
         .font-headline { font-family: 'Playfair Display', serif; }
         .font-body { font-family: 'Merriweather', serif; }
         .font-body-straight { font-family: 'Merriweather', serif; font-style: normal; }
@@ -394,7 +392,74 @@ export default function App() {
 
       {/* Main Newspaper Container */}
       <div className="newspaper-texture text-[#2c2a25] w-full max-w-5xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-[#c1b59f] p-4 md:p-8 flex flex-col gap-4 relative overflow-hidden">
+        <h1 className="sr-only">Shartaz Feeham (Feeham) — Software Engineer Portfolio</h1>
         
+        {/* Page/book edge shading (all 4 sides) */}
+        {/* Right */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute top-0 bottom-0 right-0 w-10 md:w-12"
+          style={{
+            background:
+              "linear-gradient(270deg, rgba(0,0,0,0.24) 0%, rgba(0,0,0,0.12) 22%, rgba(0,0,0,0.06) 40%, rgba(0,0,0,0) 78%)",
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute top-0 bottom-0 right-0 w-2 md:w-3 opacity-70"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0.05) 40%, rgba(0,0,0,0.10) 100%)",
+            boxShadow:
+              "inset 1px 0 0 rgba(255,255,255,0.18), inset -1px 0 0 rgba(0,0,0,0.14)",
+          }}
+        />
+
+        {/* Left */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute top-0 bottom-0 left-0 w-7 md:w-9"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(0,0,0,0.14) 0%, rgba(0,0,0,0.07) 35%, rgba(0,0,0,0) 78%)",
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute top-0 bottom-0 left-0 w-[1px] opacity-50"
+          style={{ background: "rgba(0,0,0,0.18)" }}
+        />
+
+        {/* Top */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-0 right-0 top-0 h-7 md:h-9"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.06) 40%, rgba(0,0,0,0) 78%)",
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-0 right-0 top-0 h-[1px] opacity-60"
+          style={{ background: "rgba(255,255,255,0.30)" }}
+        />
+
+        {/* Bottom */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-0 right-0 bottom-0 h-8 md:h-10"
+          style={{
+            background:
+              "linear-gradient(0deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.09) 36%, rgba(0,0,0,0) 80%)",
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-0 right-0 bottom-0 h-[1px] opacity-50"
+          style={{ background: "rgba(0,0,0,0.18)" }}
+        />
+
         <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-black/10 to-transparent"></div>
 
         <Masthead issueDateLabel={issueDateLabel} />
@@ -682,9 +747,11 @@ export default function App() {
               <div className="p-0.5 border-[3px] border-[#2c2a25] bg-[#e8e1cf] shadow-lg">
                 <div className="relative w-full aspect-[4/3] bg-[#d3c9b3] overflow-hidden grayscale contrast-125 brightness-90">
                   <img
-                    src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=600&auto=format&fit=crop"
+                    src="/images/campus.jpg"
                     alt="University archival photograph"
                     className="object-cover w-full h-full mix-blend-multiply"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                 </div>
@@ -745,9 +812,11 @@ export default function App() {
               <div className="p-0.5 border-[3px] border-[#2c2a25] bg-[#e8e1cf] shadow-lg">
                 <div className="relative w-full aspect-[4/3] bg-[#d3c9b3] overflow-hidden grayscale contrast-125 brightness-90">
                   <img
-                    src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=600&auto=format&fit=crop"
+                    src="/images/team.jpg"
                     alt="Project editorial photograph"
                     className="object-cover w-full h-full mix-blend-multiply"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                 </div>
@@ -756,9 +825,11 @@ export default function App() {
               <div className="mt-6 p-0.5 border-[3px] border-[#2c2a25] bg-[#e8e1cf] shadow-lg">
                 <div className="relative w-full aspect-[4/3] bg-[#d3c9b3] overflow-hidden grayscale contrast-125 brightness-90">
                   <img
-                    src="https://images.unsplash.com/photo-1522252234503-e356532cafd5?q=80&w=600&auto=format&fit=crop"
+                    src="/images/desk.jpg"
                     alt="Engineering desk photograph"
                     className="object-cover w-full h-full mix-blend-multiply"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                 </div>
