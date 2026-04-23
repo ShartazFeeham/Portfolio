@@ -21,7 +21,7 @@ export default function App() {
   const resumeRipPath = "polygon(1% 1%, 99% 0%, 96% 15%, 100% 30%, 94% 45%, 98% 60%, 91% 75%, 96% 88%, 85% 100%, 0% 100%)";
 
   return (
-    <div className="min-h-screen bg-[#e8e1cf] p-[5px] md:p-8 lg:p-12 flex justify-center items-start font-serif selection:bg-[#2c2a25] selection:text-[#e8e1cf]">
+    <div className="min-h-screen bg-[#e8e1cf] px-0 pt-0 pb-[5px] md:px-8 md:pb-8 md:pt-[10px] lg:px-12 lg:pb-12 lg:pt-[10px] flex justify-center items-start font-serif selection:bg-[#2c2a25] selection:text-[#e8e1cf]">
       <style dangerouslySetInnerHTML={{__html: `
         .font-headline { font-family: 'Playfair Display', serif; }
         .font-body { font-family: 'Merriweather', serif; }
@@ -396,9 +396,10 @@ export default function App() {
         
         {/* Page/book edge shading (all 4 sides) */}
         {/* Right */}
+        {/* Mobile (strong book edge) */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute top-0 bottom-0 right-0 w-10 md:w-12"
+          className="pointer-events-none absolute top-0 bottom-0 right-0 w-10 md:hidden"
           style={{
             background:
               "linear-gradient(270deg, rgba(0,0,0,0.24) 0%, rgba(0,0,0,0.12) 22%, rgba(0,0,0,0.06) 40%, rgba(0,0,0,0) 78%)",
@@ -406,19 +407,51 @@ export default function App() {
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute top-0 bottom-0 right-0 w-2 md:w-3 opacity-70"
+          className="pointer-events-none absolute top-0 bottom-0 right-0 w-2 opacity-70 md:hidden"
           style={{
             background:
               "linear-gradient(180deg, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0.05) 40%, rgba(0,0,0,0.10) 100%)",
-            boxShadow:
-              "inset 1px 0 0 rgba(255,255,255,0.18), inset -1px 0 0 rgba(0,0,0,0.14)",
           }}
         />
 
-        {/* Left */}
+        {/* Desktop (subtle edge) */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute top-0 bottom-0 left-0 w-7 md:w-9"
+          className="pointer-events-none absolute top-0 bottom-0 right-0 w-10 md:w-12 hidden md:block"
+          style={{
+            background:
+              "linear-gradient(270deg, rgba(0,0,0,0.14) 0%, rgba(0,0,0,0.07) 35%, rgba(0,0,0,0) 78%)",
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute top-0 bottom-0 right-0 w-[1px] opacity-50 hidden md:block"
+          style={{ background: "rgba(0,0,0,0.18)" }}
+        />
+
+        {/* Left */}
+        {/* Mobile (match strong right edge on both sides) */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute top-0 bottom-0 left-0 w-10 md:hidden"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(0,0,0,0.24) 0%, rgba(0,0,0,0.12) 22%, rgba(0,0,0,0.06) 40%, rgba(0,0,0,0) 78%)",
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute top-0 bottom-0 left-0 w-2 opacity-70 md:hidden"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0.05) 40%, rgba(0,0,0,0.10) 100%)",
+          }}
+        />
+
+        {/* Desktop (current subtle left edge) */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute top-0 bottom-0 left-0 w-7 md:w-9 hidden md:block"
           style={{
             background:
               "linear-gradient(90deg, rgba(0,0,0,0.14) 0%, rgba(0,0,0,0.07) 35%, rgba(0,0,0,0) 78%)",
@@ -426,14 +459,33 @@ export default function App() {
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute top-0 bottom-0 left-0 w-[1px] opacity-50"
+          className="pointer-events-none absolute top-0 bottom-0 left-0 w-[1px] opacity-50 hidden md:block"
           style={{ background: "rgba(0,0,0,0.18)" }}
         />
 
         {/* Top */}
+        {/* Mobile (strong bevel) */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute left-0 right-0 top-0 h-7 md:h-9"
+          className="pointer-events-none absolute left-0 right-0 top-0 h-8 md:hidden"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.10) 30%, rgba(0,0,0,0) 78%)",
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-0 right-0 top-0 h-2 opacity-70 md:hidden"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.05) 45%, rgba(0,0,0,0.10) 100%)",
+          }}
+        />
+
+        {/* Desktop/tablet (subtle) */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-0 right-0 top-0 h-7 md:h-9 hidden md:block"
           style={{
             background:
               "linear-gradient(180deg, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.06) 40%, rgba(0,0,0,0) 78%)",
@@ -441,14 +493,33 @@ export default function App() {
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute left-0 right-0 top-0 h-[1px] opacity-60"
+          className="pointer-events-none absolute left-0 right-0 top-0 h-[1px] opacity-60 hidden md:block"
           style={{ background: "rgba(255,255,255,0.30)" }}
         />
 
         {/* Bottom */}
+        {/* Mobile (strong bevel) */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute left-0 right-0 bottom-0 h-8 md:h-10"
+          className="pointer-events-none absolute left-0 right-0 bottom-0 h-10 md:hidden"
+          style={{
+            background:
+              "linear-gradient(0deg, rgba(0,0,0,0.24) 0%, rgba(0,0,0,0.12) 32%, rgba(0,0,0,0) 82%)",
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-0 right-0 bottom-0 h-2 opacity-70 md:hidden"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 45%, rgba(0,0,0,0.10) 100%)",
+          }}
+        />
+
+        {/* Desktop/tablet (subtle) */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-0 right-0 bottom-0 h-8 md:h-10 hidden md:block"
           style={{
             background:
               "linear-gradient(0deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.09) 36%, rgba(0,0,0,0) 80%)",
@@ -456,7 +527,7 @@ export default function App() {
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute left-0 right-0 bottom-0 h-[1px] opacity-50"
+          className="pointer-events-none absolute left-0 right-0 bottom-0 h-[1px] opacity-50 hidden md:block"
           style={{ background: "rgba(0,0,0,0.18)" }}
         />
 
@@ -470,7 +541,7 @@ export default function App() {
           <BreakingNews />
 
           {/* --- RIGHT SIDE: QUICK LINKS & INDEX --- */}
-          <aside className="lg:col-span-4 h-full border-l-2 border-[#2c2a25] pl-6 ml-2">
+          <aside className="lg:col-span-4 h-full lg:border-l-2 lg:border-[#2c2a25] lg:pl-6 lg:ml-2">
             <div className="flex flex-col items-center">
               
               {/* Quick Links (torn collage) */}
@@ -743,7 +814,7 @@ export default function App() {
               </p>
             </article>
 
-            <aside className="lg:col-span-4 border-l-2 border-[#2c2a25] pl-6 ml-2">
+            <aside className="lg:col-span-4 lg:border-l-2 lg:border-[#2c2a25] lg:pl-6 lg:ml-2">
               <div className="p-0.5 border-[3px] border-[#2c2a25] bg-[#e8e1cf] shadow-lg">
                 <div className="relative w-full aspect-[4/3] bg-[#d3c9b3] overflow-hidden grayscale contrast-125 brightness-90">
                   <img
@@ -808,7 +879,7 @@ export default function App() {
               </div>
             </article>
 
-            <aside className="lg:col-span-4 border-l-2 border-[#2c2a25] pl-6 ml-2">
+            <aside className="lg:col-span-4 lg:border-l-2 lg:border-[#2c2a25] lg:pl-6 lg:ml-2">
               <div className="p-0.5 border-[3px] border-[#2c2a25] bg-[#e8e1cf] shadow-lg">
                 <div className="relative w-full aspect-[4/3] bg-[#d3c9b3] overflow-hidden grayscale contrast-125 brightness-90">
                   <img
