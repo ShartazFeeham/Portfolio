@@ -11,6 +11,26 @@ import { OthersSection } from "./components/sections/OthersSection";
 export default function App() {
   useVintageCursor();
 
+  const toggleQuickLinkInvert = (e) => {
+    const scrap = e.currentTarget?.closest?.(".paper-scrap");
+    if (!scrap) return;
+    scrap.classList.add("ql-invert");
+    window.setTimeout(() => {
+      scrap.classList.remove("ql-invert");
+    }, 180);
+  };
+
+  // For mobile: trigger immediately on press, before navigation happens.
+  const flashQuickLinkInvert = (e) => {
+    const scrap = e.currentTarget?.closest?.(".paper-scrap");
+    if (!scrap) return;
+
+    scrap.classList.add("ql-invert");
+    window.setTimeout(() => {
+      scrap.classList.remove("ql-invert");
+    }, 180);
+  };
+
   const issueDateLabel = new Date().toLocaleDateString("en-GB", {
     weekday: 'long',
     day: 'numeric',
@@ -174,8 +194,22 @@ export default function App() {
           filter: drop-shadow(0 18px 20px rgba(0,0,0,0.70));
         }
 
+        /* Touch devices: avoid filter drop-shadow tap "square" artifacts */
+        @media (hover: none) and (pointer: coarse) {
+          .paper-scrap {
+            filter: none !important;
+            /* Bottom-only shadow (avoid side/top) */
+            box-shadow: 0 20px 22px -18px rgba(0,0,0,0.55);
+          }
+
+          .paper-edge {
+            /* paper-edge is clipped (tear masks), so avoid shadow here */
+            box-shadow: none;
+          }
+        }
+
         .paper-edge {
-          background: linear-gradient(180deg, #ffffff 0%, #f7f3ea 100%);
+          background: linear-gradient(180deg, #fbf4e6 0%, #f2e7d2 100%);
           padding: 9px;
         }
 
@@ -256,12 +290,159 @@ export default function App() {
           gap: 10px;
           align-items: flex-start;
           justify-content: center;
+          --pin-drop: 360px;
+        }
+
+        .quicklinks-float-wrap a {
+          color: #2c2a25;
+          -webkit-tap-highlight-color: transparent;
+          transition: color 160ms ease;
+          outline: none;
+          touch-action: manipulation;
+        }
+
+        /* Quick Links: text + icon become the pin color */
+        .quicklinks-float-wrap .paper-scrap:hover a,
+        .quicklinks-float-wrap .paper-scrap:active a,
+        .quicklinks-float-wrap .paper-scrap:focus-within a {
+          color: var(--pin-color, #1a4f7a);
+          text-shadow: 0 0.5px 0 rgba(0,0,0,0.18);
+        }
+
+        /* Mobile tap: prevent grey/square tap artifacts */
+        .quicklinks-float-wrap .paper-scrap,
+        .quicklinks-float-wrap .paper-edge,
+        .quicklinks-float-wrap .paper-inner {
+          -webkit-tap-highlight-color: transparent;
+        }
+
+        .quicklinks-float-wrap a:focus {
+          outline: none;
+        }
+
+        .quicklinks-float-wrap a:active {
+          background-color: transparent;
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+          /* iOS Safari can render filter/tap feedback as square; keep it stable on touch */
+          .quicklinks-float-wrap .paper-scrap:active {
+            filter: none;
+          }
+        }
+
+        .quicklinks-float-wrap .paper-edge,
+        .quicklinks-float-wrap .paper-inner {
+          transition: background-color 120ms linear, color 120ms linear;
+        }
+
+        /* Quick Links: brighter “stock” border (less yellow than default edge) */
+        .quicklinks-float-wrap .paper-edge {
+          background: linear-gradient(180deg, #fffef9 0%, #faf6eb 55%, #f5eedc 100%);
+        }
+
+        .quicklinks-float-wrap .paper-edge::before {
+          opacity: 0.14;
+        }
+
+        .quicklinks-float-wrap .paper-scrap.ql-invert .paper-inner {
+          background-color: #ffffff !important;
+          background-image: none !important;
+          filter: none !important;
+        }
+
+        .quicklinks-float-wrap .paper-scrap.ql-invert .paper-edge {
+          background-color: #e6d3ad !important;
+          background-image: none !important;
         }
 
         .tear-mask-a { clip-path: polygon(2% 10%, 10% 2%, 98% 0%, 96% 18%, 100% 32%, 94% 48%, 99% 66%, 92% 84%, 98% 98%, 82% 100%, 0% 96%, 3% 74%, 0% 56%, 4% 36%); }
         .tear-mask-b { clip-path: polygon(6% 0%, 98% 6%, 94% 20%, 100% 34%, 93% 50%, 99% 62%, 91% 78%, 97% 94%, 78% 100%, 0% 95%, 3% 74%, 0% 58%, 4% 40%, 0% 18%); }
         .tear-mask-c { clip-path: polygon(6% 2%, 98% 0%, 95% 14%, 100% 26%, 92% 44%, 99% 60%, 92% 76%, 97% 90%, 86% 100%, 1% 97%, 0% 76%, 3% 58%, 0% 42%, 4% 24%); }
         .tear-mask-d { clip-path: polygon(4% 6%, 98% 1%, 100% 20%, 95% 36%, 99% 52%, 94% 68%, 98% 84%, 90% 98%, 74% 100%, 0% 94%, 3% 78%, 0% 60%, 5% 40%); }
+
+        /*
+         * Quick Links: same winding as tear-mask-a–d, but top/bottom use irregular “bitten”
+         * tears (uneven x steps, varying notch depth) — not smooth waves.
+         */
+        .tear-mask-ql-a {
+          clip-path: polygon(
+            2% 10%, 10% 2%, 16% 9%, 23% 1%, 29% 8%, 37% 3%, 46% 11%, 53% 2%, 61% 7%, 71% 0%, 79% 6%, 88% 2%, 98% 0%,
+            96% 18%, 100% 32%, 94% 48%, 99% 66%, 92% 84%, 98% 98%,
+            82% 100%, 67% 96%, 54% 100%, 43% 93%, 31% 99%, 17% 95%, 7% 100%, 0% 96%,
+            3% 74%, 0% 56%, 4% 36%
+          );
+        }
+        .tear-mask-ql-b {
+          clip-path: polygon(
+            6% 0%, 15% 7%, 24% 1%, 33% 8%, 44% 2%, 56% 9%, 67% 3%, 79% 7%, 91% 1%, 98% 6%,
+            94% 20%, 100% 34%, 93% 50%, 99% 62%, 91% 78%, 97% 94%,
+            78% 100%, 63% 97%, 49% 100%, 35% 94%, 21% 99%, 9% 96%, 0% 95%,
+            3% 74%, 0% 58%, 4% 40%, 0% 18%
+          );
+        }
+        .tear-mask-ql-c {
+          clip-path: polygon(
+            /* Resume: deep angular tear (~30° feel), wide mouth top + bottom, skew R→L */
+            6% 2%, 16% 0%, 30% 2%,
+            36% 0%, 39% 0%,
+            40% 9%, 47% 48%, 41% 86%,
+            54% 46%, 60% 10%, 64% 0%, 70% 1%,
+            84% 0%, 93% 5%, 98% 0%,
+            95% 14%, 100% 26%, 92% 44%, 99% 60%, 92% 76%, 97% 90%,
+            86% 100%, 72% 96%, 58% 100%, 44% 94%, 31% 99%, 18% 95%, 5% 100%, 1% 97%,
+            0% 76%, 3% 58%, 0% 42%, 4% 24%
+          );
+        }
+
+        /* GitHub: no bottom tear; two big top tears */
+        .tear-mask-ql-gh {
+          clip-path: polygon(
+            2% 10%,
+            12% 2%, 20% 10%,
+            28% 0%, 34% 18%, 40% 1%,
+            62% 0%, 69% 19%, 76% 2%,
+            98% 0%,
+            96% 18%, 100% 32%, 94% 48%, 99% 66%, 92% 84%, 98% 98%,
+            0% 100%,
+            0% 96%, 3% 74%, 0% 56%, 4% 36%
+          );
+        }
+
+        /* LinkedIn: former E-mail tear (top + bottom cuts) */
+        .tear-mask-ql-li {
+          clip-path: polygon(
+            4% 6%,
+            20% 2%, 32% 10%, 44% 3%,
+            56% 2%, 62% 30%, 68% 1%,
+            76% 8%, 88% 2%, 98% 1%,
+            100% 20%, 95% 36%, 99% 52%, 94% 68%, 98% 84%, 90% 98%,
+            74% 100%,
+            78% 100%, 72% 74%, 66% 100%,
+            46% 100%, 32% 93%, 19% 99%, 6% 95%, 0% 94%,
+            3% 78%, 0% 60%, 5% 40%
+          );
+        }
+
+        /* E-mail: former LinkedIn tear (wide torn-off top + deep notch) */
+        .tear-mask-ql-mail {
+          clip-path: polygon(
+            6% 0%,
+            34% 0%, 36% 0%, 38% 10%, 44% 48%, 50% 66%, 56% 48%, 62% 10%, 64% 0%, 66% 0%,
+            98% 6%,
+            94% 20%, 100% 34%, 93% 50%, 99% 62%, 91% 78%, 97% 94%,
+            78% 100%, 63% 97%, 49% 100%, 35% 94%, 21% 99%, 9% 96%, 0% 95%,
+            3% 74%, 0% 58%, 4% 40%, 0% 18%
+          );
+        }
+        .tear-mask-ql-d {
+          clip-path: polygon(
+            4% 6%, 13% 1%, 21% 9%, 30% 2%, 40% 10%, 51% 3%, 62% 8%, 72% 1%, 83% 7%, 92% 2%, 98% 1%,
+            100% 20%, 95% 36%, 99% 52%, 94% 68%, 98% 84%, 90% 98%,
+            74% 100%, 59% 96%, 46% 100%, 32% 93%, 19% 99%, 6% 95%, 0% 94%,
+            3% 78%, 0% 60%, 5% 40%
+          );
+        }
 
         .newsprint {
           background-image: none;
@@ -315,9 +496,24 @@ export default function App() {
           transition: transform 180ms ease, filter 180ms ease;
         }
 
-        .skills-float-wrap .paper-scrap:hover {
-          transform: translateY(-6px) rotate(var(--rot, 0deg)) !important;
-          filter: drop-shadow(0 26px 28px rgba(0,0,0,0.78));
+        /* Prevent "sticky hover" artifacts on touch devices */
+        @media (hover: hover) and (pointer: fine) {
+          .quicklinks-float-wrap .paper-scrap {
+            transition: transform 220ms ease, filter 220ms ease;
+            transform-origin: center;
+          }
+
+          /* Quick Links: "stretch" on hover without reflow */
+          .quicklinks-float-wrap .paper-scrap:hover {
+            transform: rotate(var(--rot, 0deg)) translateY(-8px) scaleX(1.5) !important;
+            filter: drop-shadow(0 24px 26px rgba(0,0,0,0.65));
+            z-index: 10;
+          }
+
+          .skills-float-wrap .paper-scrap:hover {
+            transform: translateY(-6px) rotate(var(--rot, 0deg)) !important;
+            filter: drop-shadow(0 26px 28px rgba(0,0,0,0.78));
+          }
         }
 
         .paper-edge { position: relative; }
@@ -329,22 +525,58 @@ export default function App() {
           z-index: 5;
           color: #7b0f0f; /* default vintage red */
           filter: drop-shadow(0 2px 1px rgba(0,0,0,0.45));
-          transition: color 180ms ease, transform 180ms ease, filter 180ms ease;
+          transition: color 180ms ease, transform 180ms ease, filter 180ms ease, opacity 180ms ease;
+          opacity: 1;
         }
 
         .pin--tl { top: 6px; left: 10px; transform: rotate(-12deg); }
         .pin--tr { top: 8px; right: 12px; transform: rotate(18deg); }
         .pin--tm { top: 6px; left: 50%; transform: translateX(-50%) rotate(8deg); }
 
-        .paper-scrap:hover .pin {
-          color: #1a4f7a; /* hover blue-ish ink */
-          filter: drop-shadow(0 3px 2px rgba(0,0,0,0.55));
-          transform: translateY(-1px) rotate(var(--pinrot, 0deg));
+        @media (hover: hover) and (pointer: fine) {
+          /* Only apply the "hover ink" pin effect to the skills collage scraps */
+          .skills-float-wrap .paper-scrap:hover .pin {
+            color: #1a4f7a; /* hover blue-ish ink */
+            filter: drop-shadow(0 3px 2px rgba(0,0,0,0.55));
+            transform: translateY(-1px) rotate(var(--pinrot, 0deg));
+          }
+
+          .skills-float-wrap .paper-scrap:hover .pin--tl { --pinrot: -12deg; }
+          .skills-float-wrap .paper-scrap:hover .pin--tr { --pinrot: 18deg; }
+          .skills-float-wrap .paper-scrap:hover .pin--tm { --pinrot: 8deg; }
         }
 
-        .paper-scrap:hover .pin--tl { --pinrot: -12deg; }
-        .paper-scrap:hover .pin--tr { --pinrot: 18deg; }
-        .paper-scrap:hover .pin--tm { --pinrot: 8deg; }
+        @media (hover: hover) and (pointer: fine) {
+          .quicklinks-float-wrap .paper-scrap:hover > .pin {
+            filter: drop-shadow(0 2px 1px rgba(0,0,0,0.35));
+            opacity: 1;
+            /* keep pin color; only animate movement */
+            /* override generic .paper-scrap:hover pin transform */
+            transform: none;
+            will-change: transform, opacity;
+          }
+
+          .quicklinks-float-wrap .paper-scrap:hover > .pin--tl {
+            animation-name: quicklinksPinSlashLeft;
+            animation-duration: 720ms;
+            animation-delay: 0ms;
+            animation-timing-function: cubic-bezier(0.22, 0.9, 0.22, 1);
+            animation-fill-mode: forwards;
+          }
+
+          .quicklinks-float-wrap .paper-scrap:hover > .pin--tr {
+            animation-name: quicklinksPinSlashRight;
+            animation-duration: 720ms;
+            animation-delay: 0ms;
+            animation-timing-function: cubic-bezier(0.22, 0.9, 0.22, 1);
+            animation-fill-mode: forwards;
+          }
+        }
+
+        /* Quick Links: each pin has its own dark color (set inline) */
+        .quicklinks-float-wrap .paper-scrap > .pin {
+          color: var(--pin-color, #2c2a25);
+        }
 
         .scrap-body p { margin: 0; }
 
@@ -352,6 +584,23 @@ export default function App() {
         @keyframes mastheadMarquee {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
+        }
+
+        /* Quick Links pin "slash" animation (desktop hover only) */
+        @keyframes quicklinksPinSlashLeft {
+          0% { transform: translate(0, 0) rotate(-12deg); opacity: 1; }
+          10% { transform: translate(-10px, 10px) rotate(-20deg); opacity: 1; }
+          40% { transform: translate(-20px, 18px) rotate(-26deg); opacity: 1; }
+          75% { transform: translate(-40px, 44px) rotate(-42deg); opacity: 0.9; }
+          100% { transform: translate(-50px, 62px) rotate(-56deg); opacity: 0; }
+        }
+
+        @keyframes quicklinksPinSlashRight {
+          0% { transform: translate(0, 0) rotate(18deg); opacity: 1; }
+          10% { transform: translate(10px, 10px) rotate(26deg); opacity: 1; }
+          40% { transform: translate(20px, 18px) rotate(32deg); opacity: 1; }
+          75% { transform: translate(40px, 44px) rotate(48deg); opacity: 0.9; }
+          100% { transform: translate(50px, 62px) rotate(62deg); opacity: 0; }
         }
 
         .masthead-ticker {
@@ -371,8 +620,10 @@ export default function App() {
           padding-right: 48px;
         }
 
-        .masthead-ticker:hover .masthead-ticker__track {
-          animation-play-state: paused;
+        @media (hover: hover) and (pointer: fine) {
+          .masthead-ticker:hover .masthead-ticker__track {
+            animation-play-state: paused;
+          }
         }
 
         /* Vintage cursor (right-click cycles variants) */
@@ -387,6 +638,7 @@ export default function App() {
 
         a, button, [role='button'] {
           cursor: var(--vintage-cursor-clickable);
+          -webkit-tap-highlight-color: transparent;
         }
       `}} />
 
@@ -553,12 +805,15 @@ export default function App() {
                 </div>
 
                 <div className="quicklinks-float-wrap">
-                  <div className="paper-scrap w-[180px] md:w-[190px]" style={{ "--rot": "-2deg", transform: "rotate(-2deg) translateY(8px)" }}>
-                    <div className="paper-edge tear-mask-c">
-                      <svg className="pin pin--tm" viewBox="0 0 24 24" aria-hidden="true">
-                        <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
-                      </svg>
-                      <a className="paper-inner tear-mask-c p-3 block" href="#" onClick={(e) => e.preventDefault()}>
+                  <div className="paper-scrap w-[180px] md:w-[190px]" style={{ "--rot": "-2deg", "--pin-color": "#1f3a8a", transform: "rotate(-2deg) translateY(8px)" }}>
+                      <svg className="pin pin--tl" viewBox="0 0 24 24" aria-hidden="true">
+                      <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
+                    </svg>
+                      <svg className="pin pin--tr" viewBox="0 0 24 24" aria-hidden="true">
+                      <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
+                    </svg>
+                    <div className="paper-edge tear-mask-ql-c">
+                      <a className="paper-inner tear-mask-ql-c p-3 block" href="#" onPointerDown={flashQuickLinkInvert} onClick={(e) => { toggleQuickLinkInvert(e); e.preventDefault(); }}>
                         <div className="flex items-center justify-between gap-2">
                           <div className="quicklink-title">Resume</div>
                           <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
@@ -570,12 +825,15 @@ export default function App() {
                     </div>
                   </div>
 
-                  <div className="paper-scrap w-[180px] md:w-[190px]" style={{ "--rot": "-6deg", transform: "rotate(-6deg) translateY(4px)" }}>
-                    <div className="paper-edge tear-mask-a">
-                      <svg className="pin pin--tl" viewBox="0 0 24 24" aria-hidden="true">
-                        <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
-                      </svg>
-                      <a className="paper-inner tear-mask-a p-3 block" href="https://github.com/ShartazFeeham" target="_blank" rel="noreferrer">
+                  <div className="paper-scrap w-[180px] md:w-[190px]" style={{ "--rot": "-6deg", "--pin-color": "#15803d", transform: "rotate(-6deg) translateY(4px)" }}>
+                    <svg className="pin pin--tl" viewBox="0 0 24 24" aria-hidden="true">
+                      <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9 .2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
+                    </svg>
+                    <svg className="pin pin--tr" viewBox="0 0 24 24" aria-hidden="true">
+                      <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9 .2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
+                    </svg>
+                    <div className="paper-edge tear-mask-ql-gh">
+                      <a className="paper-inner tear-mask-ql-gh p-3 block" href="https://github.com/ShartazFeeham" target="_blank" rel="noreferrer" onPointerDown={flashQuickLinkInvert} onClick={toggleQuickLinkInvert}>
                         <div className="flex items-center justify-between gap-2">
                           <div className="quicklink-title">GitHub</div>
                           <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
@@ -586,12 +844,15 @@ export default function App() {
                     </div>
                   </div>
 
-                  <div className="paper-scrap w-[180px] md:w-[190px]" style={{ "--rot": "5deg", transform: "rotate(5deg) translateY(-6px)" }}>
-                    <div className="paper-edge tear-mask-b">
-                      <svg className="pin pin--tr" viewBox="0 0 24 24" aria-hidden="true">
-                        <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
-                      </svg>
-                      <a className="paper-inner tear-mask-b p-3 block" href="https://linkedin.com/in/shartaz-feeham" target="_blank" rel="noreferrer">
+                  <div className="paper-scrap w-[180px] md:w-[190px]" style={{ "--rot": "5deg", "--pin-color": "#5b21b6", transform: "rotate(5deg) translateY(-6px)" }}>
+                    <svg className="pin pin--tl" viewBox="0 0 24 24" aria-hidden="true">
+                      <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9 .2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
+                    </svg>
+                    <svg className="pin pin--tr" viewBox="0 0 24 24" aria-hidden="true">
+                      <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9 .2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
+                    </svg>
+                    <div className="paper-edge tear-mask-ql-li">
+                      <a className="paper-inner tear-mask-ql-li p-3 block" href="https://linkedin.com/in/shartaz-feeham" target="_blank" rel="noreferrer" onPointerDown={flashQuickLinkInvert} onClick={toggleQuickLinkInvert}>
                         <div className="flex items-center justify-between gap-2">
                           <div className="quicklink-title">LinkedIn</div>
                           <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
@@ -602,15 +863,15 @@ export default function App() {
                     </div>
                   </div>
 
-                  <div className="paper-scrap w-[180px] md:w-[190px]" style={{ "--rot": "8deg", transform: "rotate(8deg) translateY(2px)" }}>
-                    <div className="paper-edge tear-mask-d">
-                      <svg className="pin pin--tl" viewBox="0 0 24 24" aria-hidden="true">
-                        <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
-                      </svg>
-                      <svg className="pin pin--tr" viewBox="0 0 24 24" aria-hidden="true">
-                        <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
-                      </svg>
-                      <a className="paper-inner tear-mask-d p-3 block" href="mailto:mdfeeham@gmail.com">
+                  <div className="paper-scrap w-[180px] md:w-[190px]" style={{ "--rot": "8deg", "--pin-color": "#c2410c", transform: "rotate(8deg) translateY(2px)" }}>
+                    <svg className="pin pin--tl" viewBox="0 0 24 24" aria-hidden="true">
+                      <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
+                    </svg>
+                    <svg className="pin pin--tr" viewBox="0 0 24 24" aria-hidden="true">
+                      <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
+                    </svg>
+                    <div className="paper-edge tear-mask-ql-mail">
+                      <a className="paper-inner tear-mask-ql-mail p-3 block" href="mailto:mdfeeham@gmail.com" onPointerDown={flashQuickLinkInvert} onClick={toggleQuickLinkInvert}>
                         <div className="flex items-center justify-between gap-2">
                           <div className="quicklink-title">E-mail</div>
                           <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
@@ -622,9 +883,7 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="mt-3 pt-2 border-t border-[#2c2a25]/20 text-[7px] uppercase tracking-tighter font-bold opacity-60 text-center">
-                  End of Dispatches · Reference 402-A
-                </div>
+                
               </div>
 
               <div id="index" className="pt-8 w-full">
