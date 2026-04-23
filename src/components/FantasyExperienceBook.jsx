@@ -7,8 +7,8 @@ import {
   useState,
 } from "react";
 
-const FONT_MIN = 8;
-const FONT_MAX = 15;
+const FONT_MIN = 6;
+const FONT_MAX = 42;
 
 function usePrefersReducedMotion() {
   const [reduced, setReduced] = useState(() =>
@@ -47,19 +47,44 @@ export function FantasyExperienceBook({
 
   const fitFont = useCallback(() => {
     if (reducedMotion) return;
-    const shell = shellRef.current;
     const inner = innerRef.current;
-    if (!shell || !inner) return;
+    const shell = shellRef.current;
+    if (!inner || !shell) return;
 
-    const avail = shell.clientHeight - 1;
+    const avail = shell.clientHeight;
     if (avail <= 0) return;
 
-    let best = FONT_MIN;
-    for (let px = FONT_MAX; px >= FONT_MIN; px -= 0.25) {
+    const measureContentHeight = (px) => {
       inner.style.fontSize = `${px}px`;
-      if (inner.scrollHeight <= avail) {
-        best = px;
-        break;
+      inner.style.height = "auto";
+      inner.style.maxHeight = "none";
+      inner.style.overflow = "visible";
+      void inner.offsetHeight;
+      const h = inner.scrollHeight;
+      inner.style.height = "";
+      inner.style.maxHeight = "";
+      inner.style.overflow = "";
+      void inner.offsetHeight;
+      return h;
+    };
+
+    const hMin = measureContentHeight(FONT_MIN);
+    if (hMin > avail + 1) {
+      inner.style.fontSize = `${FONT_MIN}px`;
+      setFontPx(FONT_MIN);
+      return;
+    }
+
+    let lo = FONT_MIN;
+    let hi = FONT_MAX;
+    let best = FONT_MIN;
+    for (let i = 0; i < 40 && hi - lo > 0.06; i += 1) {
+      const mid = (lo + hi) / 2;
+      if (measureContentHeight(mid) <= avail + 1) {
+        best = mid;
+        lo = mid;
+      } else {
+        hi = mid;
       }
     }
     inner.style.fontSize = `${best}px`;
@@ -68,7 +93,15 @@ export function FantasyExperienceBook({
 
   useLayoutEffect(() => {
     if (!open || reducedMotion) return;
-    fitFont();
+    let cancelled = false;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (!cancelled) fitFont();
+      });
+    });
+    return () => {
+      cancelled = true;
+    };
   }, [open, reducedMotion, fitFont, children]);
 
   useEffect(() => {
@@ -79,7 +112,7 @@ export function FantasyExperienceBook({
       requestAnimationFrame(fitFont);
     });
     ro.observe(shell);
-    const t = window.setTimeout(fitFont, 1100);
+    const t = window.setTimeout(fitFont, 1750);
     return () => {
       ro.disconnect();
       window.clearTimeout(t);

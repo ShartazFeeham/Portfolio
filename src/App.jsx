@@ -200,14 +200,18 @@ export default function App() {
           position: absolute;
           inset: 0;
           z-index: 1;
-          transform: translateZ(0.5px);
+          transform: translateZ(0);
           border-radius: 5px;
+          pointer-events: none;
           background:
             radial-gradient(ellipse at 26% 8%, rgba(120, 80, 40, 0.11), transparent 52%),
             linear-gradient(180deg, #f6eede 0%, #e8dcc8 55%, #dcc9ae 100%);
           border: 2px solid #5c4830;
           box-shadow: inset 0 0 26px rgba(60, 40, 20, 0.1);
           overflow: hidden;
+        }
+        .fantasy-book-stage.is-open .fantasy-book-paper {
+          pointer-events: auto;
         }
         .fantasy-book-page-shade--rb {
           position: absolute;
@@ -274,17 +278,20 @@ export default function App() {
           z-index: 5;
           transform-origin: left center;
           transform-style: preserve-3d;
-          transform: rotateY(0deg);
-          transition: transform 1.08s cubic-bezier(0.2, 0.82, 0.24, 1);
+          transform: translateZ(10px) rotateY(0deg);
+          transition: transform 1.65s cubic-bezier(0.22, 0.75, 0.2, 1);
+          backface-visibility: hidden;
         }
         .fantasy-book-stage.is-open .fantasy-book-cover-wrap {
-          transform: rotateY(-176deg);
+          transform: translateZ(10px) rotateY(-176deg);
           pointer-events: none;
         }
         .fantasy-book-cover {
           position: relative;
           height: 100%;
           border-radius: 5px;
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
           background:
             linear-gradient(165deg, rgba(255,255,255,0.06) 0%, transparent 42%),
             linear-gradient(135deg, #4a3018 0%, #2c1810 28%, #3d2614 52%, #1f120c 100%);
@@ -378,7 +385,7 @@ export default function App() {
         @media (prefers-reduced-motion: reduce) {
           .fantasy-book-cover-wrap {
             transform: none !important;
-            transition: opacity 0.28s ease !important;
+            transition: opacity 0.45s ease !important;
           }
           .fantasy-book-stage:not(.is-open) .fantasy-book-paper {
             opacity: 0;
