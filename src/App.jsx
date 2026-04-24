@@ -196,6 +196,35 @@ export default function App() {
           width: 100%;
           aspect-ratio: 3 / 4;
           transform-style: preserve-3d;
+          border-radius: 5px;
+          /* short, dark shadow around all sides */
+          box-shadow:
+            0 8px 14px rgba(0,0,0,0.34),
+            0 0 10px rgba(0,0,0,0.18);
+        }
+        /* Page shades like main background (desktop): right + bottom only, no bevel/shadow */
+        .fantasy-book-stage::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          right: 0;
+          width: 16px;
+          pointer-events: none;
+          z-index: 12;
+          display: none; /* remove all right gradient */
+        }
+        .fantasy-book-stage::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          height: 12px;
+          pointer-events: none;
+          z-index: 12;
+          /* Match the left-side shade character, but on the bottom */
+          background: linear-gradient(0deg, rgba(0,0,0,0.14) 0%, rgba(0,0,0,0.07) 35%, rgba(0,0,0,0) 78%);
         }
         .fantasy-book-paper {
           position: absolute;
@@ -207,12 +236,20 @@ export default function App() {
           background:
             radial-gradient(ellipse at 26% 8%, rgba(120, 80, 40, 0.11), transparent 52%),
             linear-gradient(180deg, #f6eede 0%, #e8dcc8 55%, #dcc9ae 100%);
-          border: 2px solid #5c4830;
-          box-shadow: inset 0 0 26px rgba(60, 40, 20, 0.1);
+          border: none;
+          box-shadow: none;
           overflow: hidden;
         }
         .fantasy-book-stage.is-open .fantasy-book-paper {
           pointer-events: auto;
+        }
+        /* Open page borders */
+        .fantasy-book-stage.is-open .fantasy-book-paper {
+          border-left: 1px solid rgba(140, 140, 140, 0.9);
+          border-top: 1px solid rgba(140, 140, 140, 0.9);
+          border-bottom: 3px solid rgba(140, 140, 140, 0.9);
+          border-right: 3px solid rgba(140, 140, 140, 0.9);
+          box-sizing: border-box;
         }
         .fantasy-book-page-shade--rb {
           position: absolute;
@@ -294,7 +331,7 @@ export default function App() {
           background:
             linear-gradient(165deg, rgba(255,255,255,0.06) 0%, transparent 42%),
             linear-gradient(135deg, #4a3018 0%, #2c1810 28%, #3d2614 52%, #1f120c 100%);
-          border: 2px solid #8a6a2a;
+          border: none;
           box-shadow:
             inset 0 0 40px rgba(0,0,0,0.55),
             inset 0 -12px 24px rgba(0,0,0,0.35),
