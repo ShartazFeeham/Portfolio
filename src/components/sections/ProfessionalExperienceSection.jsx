@@ -8,7 +8,7 @@ export function ProfessionalExperienceSection() {
       </h2>
 
       <div className="grid grid-cols-1 gap-y-8 md:grid-cols-3 md:gap-y-6">
-        <div className="md:border-r-2 md:border-[#2c2a25] md:pr-[10px]">
+        <div className="md:border-r-2 md:border-[#2c2a25] md:px-[10px]">
           <div className="mb-2 flex justify-between gap-2">
             <h5 className="font-headline font-black text-xs uppercase bg-[#2c2a25] text-[#e8e1cf] px-2 py-1 inline-block">
               Exabyting
@@ -79,7 +79,7 @@ export function ProfessionalExperienceSection() {
           </FantasyExperienceBook>
         </div>
 
-        <div className="md:pl-[10px]">
+        <div className="md:px-[10px]">
           <div className="mb-2 flex justify-between gap-2">
             <h5 className="font-headline font-black text-xs uppercase bg-[#2c2a25] text-[#e8e1cf] px-2 py-1 inline-block">
               Astha IT

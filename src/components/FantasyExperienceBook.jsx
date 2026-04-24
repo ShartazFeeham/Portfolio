@@ -51,7 +51,9 @@ export function FantasyExperienceBook({
     const shell = shellRef.current;
     if (!inner || !shell) return;
 
-    const avail = shell.clientHeight;
+    // Leave a tiny safety margin for subpixel rounding and font rendering differences
+    // between measurement and final paint.
+    const avail = shell.clientHeight - 2;
     if (avail <= 0) return;
 
     const measureContentHeight = (px) => {
@@ -158,6 +160,7 @@ export function FantasyExperienceBook({
                   }
                 >
                   {children}
+                  <span aria-hidden="true" style={{ display: "block", height: "1.25em" }} />
                 </div>
               </div>
             </div>
