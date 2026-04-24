@@ -7,7 +7,7 @@ import {
   useState,
 } from "react";
 
-const FONT_MIN = 6;
+const FONT_MIN = 5;
 const FONT_MAX = 42;
 
 function usePrefersReducedMotion() {
@@ -68,16 +68,23 @@ export function FantasyExperienceBook({
       return h;
     };
 
-    const hMin = measureContentHeight(FONT_MIN);
+    // If copy is extremely long, keep shrinking below FONT_MIN (down to hard floor)
+    // so we never need scrolling on the page.
+    const HARD_MIN = 4;
+    let minToUse = FONT_MIN;
+    while (minToUse > HARD_MIN && measureContentHeight(minToUse) > avail + 1) {
+      minToUse -= 0.5;
+    }
+    const hMin = measureContentHeight(minToUse);
     if (hMin > avail + 1) {
-      inner.style.fontSize = `${FONT_MIN}px`;
-      setFontPx(FONT_MIN);
+      inner.style.fontSize = `${HARD_MIN}px`;
+      setFontPx(HARD_MIN);
       return;
     }
 
-    let lo = FONT_MIN;
+    let lo = minToUse;
     let hi = FONT_MAX;
-    let best = FONT_MIN;
+    let best = minToUse;
     for (let i = 0; i < 40 && hi - lo > 0.06; i += 1) {
       const mid = (lo + hi) / 2;
       if (measureContentHeight(mid) <= avail + 1) {

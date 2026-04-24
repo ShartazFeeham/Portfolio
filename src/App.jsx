@@ -250,10 +250,8 @@ export default function App() {
         .fantasy-book-scroll-inner {
           height: 100%;
           max-height: 100%;
-          overflow-y: auto;
-          overflow-x: hidden;
+          overflow: hidden;
           text-align: left;
-          -webkit-overflow-scrolling: touch;
         }
         .fantasy-book-scroll-inner ul {
           margin: 0.55em 0 0;
