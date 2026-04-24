@@ -1,16 +1,12 @@
 import React from "react";
-import { useVintageCursor } from "./hooks/useVintageCursor";
 import { Masthead } from "./components/layout/Masthead";
 import { BreakingNews } from "./components/layout/BreakingNews";
-import { CursorPicker } from "./components/layout/CursorPicker";
 import { ProfessionalExperienceSection } from "./components/sections/ProfessionalExperienceSection";
 import { ProgrammingSkillsSection } from "./components/sections/ProgrammingSkillsSection";
 import { ContactSection } from "./components/sections/ContactSection";
 import { OthersSection } from "./components/sections/OthersSection";
 
 export default function App() {
-  useVintageCursor();
-
   const toggleQuickLinkInvert = (e) => {
     const scrap = e.currentTarget?.closest?.(".paper-scrap");
     if (!scrap) return;
@@ -234,6 +230,30 @@ export default function App() {
           border-radius: 5px;
           pointer-events: none;
           background:
+            /* dusty noise texture */
+            url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.45'/%3E%3C/svg%3E"),
+            /* darker, sharper dots */
+            radial-gradient(circle at var(--pos1, 10% 20%), rgba(40, 20, 10, 0.6) 0, rgba(40, 20, 10, 0.6) 1.5px, transparent 2.5px),
+            radial-gradient(circle at var(--pos2, 85% 75%), rgba(40, 20, 10, 0.55) 0, rgba(40, 20, 10, 0.55) 2px, transparent 3.5px),
+            radial-gradient(circle at var(--pos3, 45% 10%), rgba(40, 20, 10, 0.65) 0, rgba(40, 20, 10, 0.65) 1.8px, transparent 3px),
+            radial-gradient(circle at var(--pos4, 35% 55%), rgba(40, 20, 10, 0.5) 0, rgba(40, 20, 10, 0.5) 1.5px, transparent 2.5px),
+            radial-gradient(circle at var(--pos5, 70% 90%), rgba(40, 20, 10, 0.5) 0, rgba(40, 20, 10, 0.5) 1.8px, transparent 3.5px),
+            radial-gradient(circle at var(--pos6, 15% 40%), rgba(40, 20, 10, 0.6) 0, rgba(40, 20, 10, 0.6) 1.2px, transparent 2.5px),
+            radial-gradient(circle at var(--pos7, 80% 25%), rgba(40, 20, 10, 0.55) 0, rgba(40, 20, 10, 0.55) 2.4px, transparent 3.5px),
+            /* larger bubbles/smudges */
+            radial-gradient(circle at var(--pos8, 20% 80%), rgba(60, 30, 15, 0.42) 0, rgba(60, 30, 15, 0.28) 4.8px, transparent 8.4px),
+            radial-gradient(circle at var(--pos9, 75% 35%), rgba(60, 30, 15, 0.49) 0, rgba(60, 30, 15, 0.31) 3.6px, transparent 7.2px),
+            radial-gradient(circle at var(--pos10, 50% 60%), rgba(60, 30, 15, 0.38) 0, rgba(60, 30, 15, 0.24) 6px, transparent 10.8px),
+            radial-gradient(circle at var(--pos11, 8% 45%), rgba(60, 30, 15, 0.45) 0, rgba(60, 30, 15, 0.28) 4.2px, transparent 7.8px),
+            radial-gradient(circle at var(--pos12, 90% 85%), rgba(60, 30, 15, 0.42) 0, rgba(60, 30, 15, 0.21) 5.4px, transparent 9px),
+            /* medium frequent points */
+            radial-gradient(circle at var(--pos13, 65% 15%), rgba(70, 40, 15, 0.42) 0, rgba(70, 40, 15, 0.42) 1.8px, transparent 3.6px),
+            radial-gradient(circle at var(--pos14, 92% 50%), rgba(70, 40, 15, 0.38) 0, rgba(70, 40, 15, 0.38) 2.4px, transparent 4.2px),
+            radial-gradient(circle at var(--pos15, 25% 30%), rgba(70, 40, 15, 0.45) 0, rgba(70, 40, 15, 0.45) 2.1px, transparent 3.9px),
+            radial-gradient(circle at var(--pos16, 55% 85%), rgba(70, 40, 15, 0.35) 0, rgba(70, 40, 15, 0.35) 1.8px, transparent 3.6px),
+            radial-gradient(circle at var(--pos17, 40% 75%), rgba(70, 40, 15, 0.42) 0, rgba(70, 40, 15, 0.42) 1.5px, transparent 3px),
+            radial-gradient(circle at var(--pos18, 10% 90%), rgba(70, 40, 15, 0.49) 0, rgba(70, 40, 15, 0.49) 2.4px, transparent 4.8px),
+            /* original gradient layers */
             radial-gradient(ellipse at 26% 8%, rgba(120, 80, 40, 0.11), transparent 52%),
             linear-gradient(180deg, #f6eede 0%, #e8dcc8 55%, #dcc9ae 100%);
           border: none;
@@ -245,11 +265,47 @@ export default function App() {
         }
         /* Open page borders */
         .fantasy-book-stage.is-open .fantasy-book-paper {
-          border-left: 1px solid rgba(140, 140, 140, 0.9);
           border-top: 1px solid rgba(140, 140, 140, 0.9);
-          border-bottom: 3px solid rgba(140, 140, 140, 0.9);
-          border-right: 3px solid rgba(140, 140, 140, 0.9);
+          border-bottom: none;
+          border-left: 1px solid rgba(140, 140, 140, 0.9);
+          border-right: 1px solid rgba(140, 140, 140, 0.9);
           box-sizing: border-box;
+        }
+        /* Open page: bottom stack (4px alternating bands) */
+        .fantasy-book-stage.is-open .fantasy-book-paper::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          height: 4px;
+          pointer-events: none;
+          z-index: 4;
+          background: linear-gradient(
+            0deg,
+            rgba(140, 140, 140, 0.95) 0 1px,
+            #cfcfcf 1px 2px,
+            rgba(140, 140, 140, 0.95) 2px 3px,
+            #cfcfcf 3px 4px
+          );
+        }
+        /* Open page: right stack (4px alternating bands) */
+        .fantasy-book-stage.is-open .fantasy-book-paper::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          right: 0;
+          width: 4px;
+          pointer-events: none;
+          z-index: 4;
+          background: linear-gradient(
+            -90deg,
+            rgba(140, 140, 140, 0.95) 0 1px,
+            #cfcfcf 1px 2px,
+            rgba(140, 140, 140, 0.95) 2px 3px,
+            #cfcfcf 3px 4px
+          );
         }
         .fantasy-book-page-shade--rb {
           position: absolute;
@@ -975,10 +1031,10 @@ export default function App() {
           }
         }
 
-        /* Vintage cursor (right-click cycles variants) */
+        /* Vintage cursor */
         :root {
-          --vintage-cursor: auto;
-          --vintage-cursor-clickable: pointer;
+          --vintage-cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 32 32'%3E%3Cpath fill='%235b3a1d' d='M5 3l9 22 3-7 7-3L5 3z'/%3E%3Cpath d='M7 7l12 12' stroke='%238a5a34' stroke-width='1.3' stroke-linecap='round' opacity='0.85'/%3E%3Cpath d='M8.5 5.8l14 14' stroke='%238a5a34' stroke-width='0.9' stroke-linecap='round' opacity='0.55'/%3E%3Cpath d='M6.2 9.2l10.6 10.6' stroke='%238a5a34' stroke-width='0.7' stroke-linecap='round' opacity='0.45'/%3E%3Cpath fill='%23e8e1cf' d='M18 21h10v2H18zm0 4h8v2h-8z'/%3E%3C/svg%3E") 4 4, auto;
+          --vintage-cursor-clickable: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Ctext x='4' y='38' font-size='34'%3E%F0%9F%91%86%3C/text%3E%3C/svg%3E") 12 12, pointer;
         }
 
         body {
@@ -1558,8 +1614,6 @@ export default function App() {
               <div className="font-times text-[9px] italic">All Rights Reserved © 2022-2026</div>
            </div>
         </section>
-
-        <CursorPicker />
       </div>
     </div>
   );
