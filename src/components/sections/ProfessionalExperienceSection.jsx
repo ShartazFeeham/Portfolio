@@ -8,10 +8,8 @@ function AnimatedBookEntry({ children, animationClass, delay = 0 }) {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
+        // Reset animation on scroll out so it replays on arrival
+        setIsVisible(entry.isIntersecting);
       },
       {
         threshold: 0.1,

@@ -13,10 +13,8 @@ function AnimatedQuickLinksEntry({ children }) {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
+        // Reset animation on scroll out so it replays on arrival
+        setIsVisible(entry.isIntersecting);
       },
       {
         threshold: 0.1,
@@ -192,6 +190,16 @@ export default function App() {
         .vintage-letter__content p + p { margin-top: 8px; }
         .vintage-letter__content ul { margin: 8px 0 0; padding-left: 18px; }
         .vintage-letter__content li { margin: 4px 0; }
+
+        @keyframes indexSequenceMove {
+          0%, 14.28%, 100% { transform: translateX(0); }
+          3.57% { transform: translateX(6px); }
+          10.71% { transform: translateX(-3px); }
+        }
+
+        .index-item-text {
+          animation: indexSequenceMove 7s infinite ease-in-out;
+        }
 
         .newspaper-texture {
             background-color: #e8e1cf;
@@ -1332,27 +1340,27 @@ export default function App() {
 
               <div id="index" className="pt-8 w-full">
                 <h4 className="font-headline text-sm font-black uppercase bg-[#2c2a25] text-[#e8e1cf] px-2 py-1 mb-3">Index</h4>
-                <ul className="font-headline text-xs font-bold uppercase space-y-3">
+                <ul className="font-headline text-xs font-bold uppercase space-y-3 overflow-hidden">
                   <li className="flex justify-between border-b border-dashed border-[#2c2a25]">
-                    <a className="flex justify-between w-full" href="#professional-experience"><span>Professional experience</span><span>P. 1</span></a>
+                    <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '0s' }} href="#professional-experience"><span>Professional experience</span><span>P. 1</span></a>
                   </li>
                   <li className="flex justify-between border-b border-dashed border-[#2c2a25]">
-                    <a className="flex justify-between w-full" href="#skills-expertise"><span>Skills & Expertise</span><span>P. 2</span></a>
+                    <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '1s' }} href="#skills-expertise"><span>Skills & Expertise</span><span>P. 2</span></a>
                   </li>
                   <li className="flex justify-between border-b border-dashed border-[#2c2a25]">
-                    <a className="flex justify-between w-full" href="#education"><span>Education</span><span>P. 3</span></a>
+                    <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '2s' }} href="#education"><span>Education</span><span>P. 3</span></a>
                   </li>
                   <li className="flex justify-between border-b border-dashed border-[#2c2a25]">
-                    <a className="flex justify-between w-full" href="#programming-skills"><span>Programming skills</span><span>P. 4</span></a>
+                    <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '3s' }} href="#programming-skills"><span>Programming skills</span><span>P. 4</span></a>
                   </li>
                   <li className="flex justify-between border-b border-dashed border-[#2c2a25]">
-                    <a className="flex justify-between w-full" href="#personal-projects"><span>Personal projects</span><span>P. 5</span></a>
+                    <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '4s' }} href="#personal-projects"><span>Personal projects</span><span>P. 5</span></a>
                   </li>
                   <li className="flex justify-between border-b border-dashed border-[#2c2a25]">
-                    <a className="flex justify-between w-full" href="#contact"><span>Contact</span><span>P. 6</span></a>
+                    <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '5s' }} href="#contact"><span>Contact</span><span>P. 6</span></a>
                   </li>
                   <li className="flex justify-between border-b border-dashed border-[#2c2a25]">
-                    <a className="flex justify-between w-full" href="#others"><span>Others</span><span>P. 7</span></a>
+                    <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '6s' }} href="#others"><span>Others</span><span>P. 7</span></a>
                   </li>
                 </ul>
               </div>
