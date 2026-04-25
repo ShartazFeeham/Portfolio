@@ -192,15 +192,18 @@ export default function App() {
         .vintage-letter__content li { margin: 4px 0; }
 
         @keyframes indexSequenceMove {
-          0%, 14.28%, 100% { transform: translateX(0); }
-          3.57% { transform: translateX(6px); }
-          10.71% { transform: translateX(-3px); }
+          0% { transform: translate3d(0, 0, 0); }
+          3% { transform: translate3d(6px, 0, 0); }
+          7% { transform: translate3d(-3px, 0, 0); }
+          11%, 100% { transform: translate3d(0, 0, 0); }
         }
 
         .index-item-text {
           animation: indexSequenceMove 3.5s infinite ease-in-out;
           display: flex;
+          width: 100%;
           transition: color 0.3s ease;
+          will-change: transform;
         }
 
         .index-item-text:hover {
