@@ -1239,15 +1239,15 @@ export default function App() {
             <div className="flex flex-col items-center">
               
               {/* Quick Links (torn collage) */}
-              <AnimatedQuickLinksEntry>
-                <div className="w-full">
-                  <div className="border-b-2 border-[#2c2a25] mb-3 pb-1">
-                    <h2 className="font-headline font-black text-3xl md:text-4xl tracking-tighter uppercase leading-none">
-                      QUICK LINKS
-                    </h2>
-                  </div>
+              <div className="w-full">
+                <div className="border-b-2 border-[#2c2a25] mb-3 pb-1">
+                  <h2 className="font-headline font-black text-3xl md:text-4xl tracking-tighter uppercase leading-none">
+                    QUICK LINKS
+                  </h2>
+                </div>
 
-                <div className="quicklinks-float-wrap">
+                <AnimatedQuickLinksEntry>
+                  <div className="quicklinks-float-wrap">
                   <div className="paper-scrap w-[180px] md:w-[190px]" style={{ "--rot": "-2deg", "--pin-color": "#1f3a8a", transform: "rotate(-2deg) translateY(8px)" }}>
                       <svg className="pin pin--tl" viewBox="0 0 24 24" aria-hidden="true">
                       <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
@@ -1324,11 +1324,11 @@ export default function App() {
                       </a>
                     </div>
                   </div>
-                </div>
+                  </div>
+                </AnimatedQuickLinksEntry>
 
                 
               </div>
-              </AnimatedQuickLinksEntry>
 
               <div id="index" className="pt-8 w-full">
                 <h4 className="font-headline text-sm font-black uppercase bg-[#2c2a25] text-[#e8e1cf] px-2 py-1 mb-3">Index</h4>
