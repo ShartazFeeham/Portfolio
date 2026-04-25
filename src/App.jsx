@@ -199,14 +199,22 @@ export default function App() {
 
         .index-item-text {
           animation: indexSequenceMove 3.5s infinite ease-in-out;
-          transition: transform 0.3s ease, color 0.3s ease;
           display: flex;
+          transition: color 0.3s ease;
         }
 
         .index-item-text:hover {
-          transform: scale(1.03);
-          color: #1a3a5f;
           animation-play-state: paused;
+          color: #1a3a5f !important;
+        }
+
+        .index-item-text span {
+          display: inline-block;
+          transition: transform 0.3s ease;
+        }
+
+        .index-item-text:hover span {
+          transform: scale(1.08);
         }
 
         .newspaper-texture {
