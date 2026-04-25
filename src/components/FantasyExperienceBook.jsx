@@ -324,7 +324,7 @@ export function FantasyExperienceBook({
               <div ref={shellRef} className="fantasy-book-measure-shell">
                 <div
                   ref={innerRef}
-                  className="fantasy-book-scroll-inner font-times leading-snug text-[#2c2a25] relative"
+                  className="fantasy-book-scroll-inner font-times italic leading-snug text-[#2c2a25] relative"
                   style={
                     reducedMotion
                       ? { fontSize: "11px" }
@@ -353,7 +353,7 @@ export function FantasyExperienceBook({
                     </span>
                   </div>
                   {processedChildren}
-                  <span aria-hidden="true" style={{ display: "block", height: "1.25em" }} />
+                  <span aria-hidden="true" style={{ display: "block", height: "2.5em" }} />
                 </div>
               </div>
             </div>

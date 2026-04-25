@@ -113,7 +113,7 @@ export default function App() {
   }).toUpperCase();
 
   return (
-    <div className="min-h-screen bg-[#e8e1cf] px-0 pt-0 pb-[5px] md:px-8 md:pb-8 md:pt-[10px] lg:px-12 lg:pb-12 lg:pt-[10px] flex justify-center items-start font-serif selection:bg-[#2c2a25] selection:text-[#e8e1cf]">
+    <div className="min-h-screen bg-[#f8f8f8] px-0 pt-0 pb-[5px] md:px-8 md:pb-8 md:pt-[10px] lg:px-12 lg:pb-12 lg:pt-[10px] flex justify-center items-start font-serif selection:bg-[#2c2a25] selection:text-[#e8e1cf]">
       <a href="#main-content" className="skip-to-main">
         Skip to main content
       </a>
@@ -447,7 +447,7 @@ export default function App() {
           z-index: 2;
           height: 100%;
           min-height: 0;
-          padding: 9px 8px 10px 9px;
+          padding: 18px 20px 20px 18px;
           box-sizing: border-box;
         }
         .fantasy-book-scroll-inner {
