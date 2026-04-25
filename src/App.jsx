@@ -41,6 +41,49 @@ function AnimatedQuickLinksEntry({ children }) {
   );
 }
 
+function AnimatedIndex({ children }) {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      }
+    );
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <ul 
+      ref={ref}
+      className="font-headline text-xs font-bold uppercase space-y-3 overflow-hidden index-list"
+    >
+      {React.Children.map(children, (child, index) => {
+        if (React.isValidElement(child)) {
+          return React.cloneElement(child, {
+            style: {
+              ...child.props.style,
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? "translateX(0)" : "translateX(-40px)",
+              transition: "opacity 0.8s ease-out, transform 0.8s ease-out",
+              transitionDelay: isVisible ? `${index * 120}ms` : "0ms",
+            },
+          });
+        }
+        return child;
+      })}
+    </ul>
+  );
+}
+
 export default function App() {
   const toggleQuickLinkInvert = (e) => {
     const scrap = e.currentTarget?.closest?.(".paper-scrap");
@@ -1362,7 +1405,7 @@ export default function App() {
 
               <div id="index" className="pt-8 w-full">
                 <h4 className="font-headline text-sm font-black uppercase bg-[#2c2a25] text-[#e8e1cf] px-2 py-1 mb-3">Index</h4>
-                <ul className="font-headline text-xs font-bold uppercase space-y-3 overflow-hidden index-list">
+                <AnimatedIndex>
                   <li className="flex justify-between border-b border-dashed border-[#2c2a25]">
                     <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '0s' }} href="#professional-experience"><span>☛ Professional experience</span><span>P. 1</span></a>
                   </li>
@@ -1384,7 +1427,7 @@ export default function App() {
                   <li className="flex justify-between border-b border-dashed border-[#2c2a25]">
                     <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '3s' }} href="#others"><span>☛ Others</span><span>P. 7</span></a>
                   </li>
-                </ul>
+                </AnimatedIndex>
               </div>
             </div>
           </aside>
