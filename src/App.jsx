@@ -204,8 +204,11 @@ export default function App() {
         }
 
         .index-item-text:hover {
-          animation-play-state: paused;
           color: #1a3a5f !important;
+        }
+
+        .index-list:hover .index-item-text {
+          animation-play-state: paused;
         }
 
         .index-item-text span {
@@ -1356,7 +1359,7 @@ export default function App() {
 
               <div id="index" className="pt-8 w-full">
                 <h4 className="font-headline text-sm font-black uppercase bg-[#2c2a25] text-[#e8e1cf] px-2 py-1 mb-3">Index</h4>
-                <ul className="font-headline text-xs font-bold uppercase space-y-3 overflow-hidden">
+                <ul className="font-headline text-xs font-bold uppercase space-y-3 overflow-hidden index-list">
                   <li className="flex justify-between border-b border-dashed border-[#2c2a25]">
                     <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '0s' }} href="#professional-experience"><span>☛ Professional experience</span><span>P. 1</span></a>
                   </li>
