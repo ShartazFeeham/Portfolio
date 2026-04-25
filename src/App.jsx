@@ -1,10 +1,47 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Masthead } from "./components/layout/Masthead";
 import { BreakingNews } from "./components/layout/BreakingNews";
 import { ProfessionalExperienceSection } from "./components/sections/ProfessionalExperienceSection";
 import { ProgrammingSkillsSection } from "./components/sections/ProgrammingSkillsSection";
 import { ContactSection } from "./components/sections/ContactSection";
 import { OthersSection } from "./components/sections/OthersSection";
+
+function AnimatedQuickLinksEntry({ children }) {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      }
+    );
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={`transition-all duration-1000 ease-out will-change-transform ${
+        isVisible
+          ? "opacity-100 scale-100 blur-none"
+          : "opacity-0 scale-110 blur-[2px]"
+      }`}
+    >
+      {children}
+    </div>
+  );
+}
 
 export default function App() {
   const toggleQuickLinkInvert = (e) => {
@@ -1202,12 +1239,13 @@ export default function App() {
             <div className="flex flex-col items-center">
               
               {/* Quick Links (torn collage) */}
-              <div className="w-full">
-                <div className="border-b-2 border-[#2c2a25] mb-3 pb-1">
-                  <h2 className="font-headline font-black text-3xl md:text-4xl tracking-tighter uppercase leading-none">
-                    QUICK LINKS
-                  </h2>
-                </div>
+              <AnimatedQuickLinksEntry>
+                <div className="w-full">
+                  <div className="border-b-2 border-[#2c2a25] mb-3 pb-1">
+                    <h2 className="font-headline font-black text-3xl md:text-4xl tracking-tighter uppercase leading-none">
+                      QUICK LINKS
+                    </h2>
+                  </div>
 
                 <div className="quicklinks-float-wrap">
                   <div className="paper-scrap w-[180px] md:w-[190px]" style={{ "--rot": "-2deg", "--pin-color": "#1f3a8a", transform: "rotate(-2deg) translateY(8px)" }}>
@@ -1290,6 +1328,7 @@ export default function App() {
 
                 
               </div>
+              </AnimatedQuickLinksEntry>
 
               <div id="index" className="pt-8 w-full">
                 <h4 className="font-headline text-sm font-black uppercase bg-[#2c2a25] text-[#e8e1cf] px-2 py-1 mb-3">Index</h4>
