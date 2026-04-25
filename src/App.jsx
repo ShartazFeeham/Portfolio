@@ -1342,25 +1342,25 @@ export default function App() {
                 <h4 className="font-headline text-sm font-black uppercase bg-[#2c2a25] text-[#e8e1cf] px-2 py-1 mb-3">Index</h4>
                 <ul className="font-headline text-xs font-bold uppercase space-y-3 overflow-hidden">
                   <li className="flex justify-between border-b border-dashed border-[#2c2a25]">
-                    <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '0s' }} href="#professional-experience"><span>👉 Professional experience</span><span>P. 1</span></a>
+                    <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '0s' }} href="#professional-experience"><span>☛ Professional experience</span><span>P. 1</span></a>
                   </li>
                   <li className="flex justify-between border-b border-dashed border-[#2c2a25]">
-                    <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '0.5s' }} href="#skills-expertise"><span>👉 Skills & Expertise</span><span>P. 2</span></a>
+                    <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '0.5s' }} href="#skills-expertise"><span>☛ Skills & Expertise</span><span>P. 2</span></a>
                   </li>
                   <li className="flex justify-between border-b border-dashed border-[#2c2a25]">
-                    <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '1s' }} href="#education"><span>👉 Education</span><span>P. 3</span></a>
+                    <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '1s' }} href="#education"><span>☛ Education</span><span>P. 3</span></a>
                   </li>
                   <li className="flex justify-between border-b border-dashed border-[#2c2a25]">
-                    <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '1.5s' }} href="#programming-skills"><span>👉 Programming skills</span><span>P. 4</span></a>
+                    <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '1.5s' }} href="#programming-skills"><span>☛ Programming skills</span><span>P. 4</span></a>
                   </li>
                   <li className="flex justify-between border-b border-dashed border-[#2c2a25]">
-                    <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '2s' }} href="#personal-projects"><span>👉 Personal projects</span><span>P. 5</span></a>
+                    <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '2s' }} href="#personal-projects"><span>☛ Personal projects</span><span>P. 5</span></a>
                   </li>
                   <li className="flex justify-between border-b border-dashed border-[#2c2a25]">
-                    <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '2.5s' }} href="#contact"><span>👉 Contact</span><span>P. 6</span></a>
+                    <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '2.5s' }} href="#contact"><span>☛ Contact</span><span>P. 6</span></a>
                   </li>
                   <li className="flex justify-between border-b border-dashed border-[#2c2a25]">
-                    <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '3s' }} href="#others"><span>👉 Others</span><span>P. 7</span></a>
+                    <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '3s' }} href="#others"><span>☛ Others</span><span>P. 7</span></a>
                   </li>
                 </ul>
               </div>
