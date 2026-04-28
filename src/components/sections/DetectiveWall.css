@@ -1,0 +1,448 @@
+/* ──────────────────────────────────────────────
+   DETECTIVE WALL — Skills & Expertise
+   Cork board, polaroids, red threads, push pins,
+   tape strips, handwritten annotations
+   ────────────────────────────────────────────── */
+
+/* ── Outer container ── */
+.detective-wall-outer {
+  position: relative;
+  margin: 8px 0;
+}
+
+/* ── Cork Board ── */
+.detective-board {
+  position: relative;
+  min-height: 620px;
+  padding: 30px;
+  border-radius: 6px;
+  overflow: hidden;
+  /* Cork texture via layered gradients */
+  background:
+    /* Subtle light spots */
+    radial-gradient(ellipse at 20% 30%, rgba(200, 160, 100, 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 60%, rgba(180, 140, 80, 0.25) 0%, transparent 45%),
+    radial-gradient(ellipse at 45% 80%, rgba(190, 150, 90, 0.2) 0%, transparent 40%),
+    /* Cork grain pattern */
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.18'/%3E%3C/svg%3E"),
+    /* Base cork color */
+    linear-gradient(145deg, #c4956a 0%, #b5835b 25%, #a8774e 50%, #b88a60 75%, #c4976d 100%);
+  background-color: #b08050;
+  box-shadow:
+    inset 0 2px 8px rgba(0, 0, 0, 0.15),
+    inset 0 -2px 8px rgba(0, 0, 0, 0.1),
+    0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Cork board speckle overlay */
+.detective-board::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.45  0 0 0 0 0.3  0 0 0 0 0.15  0 0 0 0.35 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)' opacity='0.4'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 6px;
+}
+
+/* Cork board darker edges */
+.detective-board::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(80, 50, 20, 0.25) 100%);
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 6px;
+}
+
+/* ── Frame border (wooden frame effect) ── */
+.detective-frame {
+  position: absolute;
+  inset: -4px;
+  border: 4px solid #5a3a1a;
+  border-radius: 8px;
+  pointer-events: none;
+  z-index: 50;
+  box-shadow:
+    inset 0 0 8px rgba(0, 0, 0, 0.3),
+    0 2px 12px rgba(0, 0, 0, 0.4);
+  background: transparent;
+}
+
+/* ── SVG Thread overlay ── */
+.thread-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  pointer-events: none;
+  filter: url(#thread-shadow);
+}
+
+.red-thread-line {
+  stroke-dasharray: 6 4;
+  opacity: 0.75;
+}
+
+.doodle-arrow line {
+  stroke-dasharray: 4 3;
+}
+
+/* ── Node wrapper (positioning container) ── */
+.detective-node-wrapper {
+  position: absolute;
+  z-index: 5;
+  transform: translate(-15%, -10%);
+  transition: z-index 0s;
+}
+
+.detective-node-wrapper.is-hovered {
+  z-index: 20;
+}
+
+.detective-node-wrapper.is-hovered .detective-node--main {
+  transform: rotate(var(--node-rot)) scale(1.04);
+  box-shadow: 4px 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* ── Main Node (Polaroid) ── */
+.detective-node--main {
+  position: relative;
+  background: #f5f0e6;
+  padding: 10px 10px 32px 10px;
+  transform: rotate(var(--node-rot, 0deg));
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.35);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default;
+  min-width: 140px;
+}
+
+/* Paper grain on polaroid */
+.detective-node--main::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.06'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Aged yellowing */
+.detective-node--main::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 30% 20%, rgba(180, 140, 60, 0.08), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Polaroid ── */
+.polaroid {
+  position: relative;
+  z-index: 1;
+}
+
+.polaroid-photo {
+  width: 110px;
+  height: 90px;
+  background:
+    linear-gradient(135deg, #e8e0d0 0%, #ddd5c5 50%, #d5ccbb 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  color: #3a3025;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Photo grain */
+.polaroid-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.08'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.polaroid-photo svg {
+  position: relative;
+  z-index: 1;
+  opacity: 0.7;
+}
+
+.polaroid-caption {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #2c2a25;
+  letter-spacing: 0.05em;
+  padding: 6px 2px 0;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Children container ── */
+.node-children {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 8px;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Child items ── */
+.detective-child {
+  position: relative;
+  transform: rotate(var(--child-rot, 0deg));
+  transition: transform 0.2s ease;
+}
+
+.detective-child:hover {
+  transform: rotate(0deg) scale(1.08);
+  z-index: 15;
+}
+
+/* Index Card style */
+.detective-child--card {
+  background: #f8f4e8;
+  padding: 5px 10px;
+  border: 1px solid #d4cbb8;
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.2);
+  min-width: 55px;
+  text-align: center;
+}
+
+/* Lined paper effect on card */
+.detective-child--card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    transparent,
+    transparent 7px,
+    rgba(100, 130, 180, 0.15) 7px,
+    rgba(100, 130, 180, 0.15) 8px
+  );
+  pointer-events: none;
+}
+
+/* Sticky note style */
+.detective-child--sticky {
+  background: linear-gradient(135deg, #fff9a5 0%, #fff59d 40%, #fff176 100%);
+  padding: 5px 10px;
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.2);
+  min-width: 50px;
+  text-align: center;
+  border-top: 3px solid #e0d560;
+}
+
+/* Sticky note fold */
+.detective-child--sticky::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  background: linear-gradient(135deg, #e8dc60 0%, #d4c84a 100%);
+  clip-path: polygon(100% 0%, 100% 100%, 0% 100%);
+}
+
+.child-text {
+  font-size: 11px;
+  color: #2c2a25;
+  white-space: nowrap;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Tape Strip ── */
+.tape-strip {
+  height: 18px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.05) 0%,
+      rgba(255, 255, 240, 0.55) 30%,
+      rgba(255, 255, 240, 0.5) 70%,
+      rgba(255, 255, 255, 0.05) 100%
+    );
+  border: 1px solid rgba(200, 190, 160, 0.3);
+  position: absolute;
+  z-index: 12;
+  pointer-events: none;
+  /* Jagged edges */
+  clip-path: polygon(
+    0% 5%, 4% 0%, 8% 4%, 12% 0%, 16% 3%, 20% 0%, 24% 5%, 28% 0%,
+    32% 4%, 36% 0%, 40% 3%, 44% 0%, 48% 5%, 52% 0%, 56% 4%, 60% 0%,
+    64% 3%, 68% 0%, 72% 5%, 76% 0%, 80% 4%, 84% 0%, 88% 3%, 92% 0%,
+    96% 5%, 100% 0%,
+    100% 95%, 96% 100%, 92% 96%, 88% 100%, 84% 97%, 80% 100%, 76% 95%,
+    72% 100%, 68% 96%, 64% 100%, 60% 97%, 56% 100%, 52% 95%, 48% 100%,
+    44% 96%, 40% 100%, 36% 97%, 32% 100%, 28% 95%, 24% 100%, 20% 96%,
+    16% 100%, 12% 97%, 8% 100%, 4% 95%, 0% 100%
+  );
+}
+
+/* ── Push Pin SVG ── */
+.push-pin-svg {
+  filter: drop-shadow(1px 2px 2px rgba(0, 0, 0, 0.4));
+  z-index: 15;
+}
+
+/* ── Annotations (handwritten notes) ── */
+.detective-annotation {
+  position: absolute;
+  font-size: 13px;
+  font-weight: 600;
+  opacity: 0.6;
+  z-index: 3;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* ── Evidence Stamp ── */
+.evidence-stamp {
+  position: absolute;
+  font-family: "Playfair Display", serif;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #cc2222;
+  border: 3px solid #cc2222;
+  padding: 3px 14px;
+  opacity: 0.3;
+  z-index: 3;
+  pointer-events: none;
+  white-space: nowrap;
+  transform-origin: center center;
+}
+
+/* ── Question mark circle ── */
+.question-circle {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Caveat", serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #555;
+  opacity: 0.25;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .detective-board {
+    min-height: 500px;
+    padding: 15px;
+  }
+
+  .polaroid-photo {
+    width: 80px;
+    height: 65px;
+  }
+
+  .polaroid-photo svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .detective-node--main {
+    min-width: 100px;
+    padding: 8px 8px 24px 8px;
+  }
+
+  .polaroid-caption {
+    font-size: 10px;
+  }
+
+  .child-text {
+    font-size: 9px;
+  }
+
+  .detective-child--card,
+  .detective-child--sticky {
+    padding: 3px 7px;
+    min-width: 40px;
+  }
+
+  .detective-annotation {
+    font-size: 10px;
+  }
+
+  .evidence-stamp {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-width: 2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .detective-board {
+    min-height: 420px;
+    padding: 10px;
+  }
+
+  .polaroid-photo {
+    width: 60px;
+    height: 50px;
+  }
+
+  .polaroid-photo svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .detective-node--main {
+    min-width: 80px;
+    padding: 5px 5px 18px 5px;
+  }
+
+  .node-children {
+    gap: 3px;
+  }
+
+  .child-text {
+    font-size: 8px;
+  }
+
+  .detective-child--card,
+  .detective-child--sticky {
+    padding: 2px 5px;
+    min-width: 32px;
+  }
+
+  .question-circle {
+    width: 22px;
+    height: 22px;
+    font-size: 14px;
+  }
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .detective-node-wrapper.is-hovered .detective-node--main {
+    transform: rotate(var(--node-rot));
+  }
+
+  .detective-child:hover {
+    transform: rotate(var(--child-rot, 0deg));
+  }
+}

@@ -3,6 +3,7 @@ import { Masthead } from "./components/layout/Masthead";
 import { BreakingNews } from "./components/layout/BreakingNews";
 import { ProfessionalExperienceSection } from "./components/sections/ProfessionalExperienceSection";
 import { ProgrammingSkillsSection } from "./components/sections/ProgrammingSkillsSection";
+import DetectiveWall from "./components/sections/DetectiveWall";
 import { ContactSection } from "./components/sections/ContactSection";
 import { OthersSection } from "./components/sections/OthersSection";
 
@@ -1440,130 +1441,7 @@ export default function App() {
         <hr className="border-t-[3px] border-[#2c2a25] my-2" />
 
         {/* --- SKILLS & EXPERTISE --- */}
-        <section id="skills-expertise" className="flex flex-col gap-4">
-          <h2 className="font-headline font-black text-xl md:text-2xl uppercase leading-none text-[#2c2a25]">
-            <a href="#index">SKILLS &amp; EXPERTISE</a>
-          </h2>
-          <div className="skills-collage p-2 md:p-4">
-            <div className="skills-float-wrap">
-              {/* Large scraps with actual resume content */}
-              <div className="paper-scrap w-[230px] md:w-[280px]" style={{ "--rot": "-8deg", transform: "rotate(-8deg) translateY(4px)" }}>
-                <div className="paper-edge tear-mask-a">
-                  <svg className="pin pin--tl" viewBox="0 0 24 24" aria-hidden="true">
-                    <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
-                  </svg>
-                  <svg className="pin pin--tr" viewBox="0 0 24 24" aria-hidden="true">
-                    <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
-                  </svg>
-                  <div className="paper-inner paper-inner--tan newsprint tear-mask-a p-4">
-                    <div className="scrap-title mb-2">Programming</div>
-                    <div className="scrap-body scrap-columns">
-                      <p><b>Languages</b> Java, Javascript, C#</p>
-                      <p><b>Frameworks</b> Spring Boot, ReactJS, Bootstrap</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="paper-scrap w-[250px] md:w-[310px]" style={{ "--rot": "5deg", transform: "rotate(5deg) translateY(-8px)" }}>
-                <div className="paper-edge tear-mask-b">
-                  <svg className="pin pin--tm" viewBox="0 0 24 24" aria-hidden="true">
-                    <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
-                  </svg>
-                  <div className="paper-inner paper-inner--ivory newsprint tear-mask-b p-4">
-                    <div className="scrap-title mb-2">Database &amp; ORM</div>
-                    <div className="scrap-body">
-                      PostgreSQL, MySQL, JPA, Hibernate
-                      <div className="mt-2 scrap-title" style={{ fontSize: "11px", letterSpacing: "0.16em" }}>Miscellaneous</div>
-                      <div className="mt-1">Data structures, Algorithms, Design patterns</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="paper-scrap w-[210px] md:w-[260px]" style={{ "--rot": "12deg", transform: "rotate(12deg) translateY(10px)" }}>
-                <div className="paper-edge tear-mask-c">
-                  <svg className="pin pin--tl" viewBox="0 0 24 24" aria-hidden="true">
-                    <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
-                  </svg>
-                  <div className="paper-inner paper-inner--green newsprint tear-mask-c p-4">
-                    <div className="scrap-title mb-2">Tools</div>
-                    <div className="scrap-body">
-                      Kafka, Git, Jira, Confluence
-                      <div className="mt-2 scrap-title" style={{ fontSize: "11px", letterSpacing: "0.16em" }}>DevOps</div>
-                      <div className="mt-1">Docker, Jenkins, Kibana</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="paper-scrap w-[220px] md:w-[260px]" style={{ "--rot": "-6deg", transform: "rotate(-6deg) translateY(-2px)" }}>
-                <div className="paper-edge tear-mask-d">
-                  <svg className="pin pin--tr" viewBox="0 0 24 24" aria-hidden="true">
-                    <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
-                  </svg>
-                  <div className="paper-inner paper-inner--mint newsprint tear-mask-d p-4">
-                    <div className="scrap-title mb-2">Languages</div>
-                    <div className="scrap-body">
-                      English (Fluent)
-                      <br />
-                      Bengali (Native)
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Extra dummy scraps to match the reference collage density */}
-              <div className="paper-scrap w-[180px] md:w-[210px]" style={{ "--rot": "2deg", transform: "rotate(2deg) translateY(14px)" }}>
-                <div className="paper-edge tear-mask-b">
-                  <svg className="pin pin--tl" viewBox="0 0 24 24" aria-hidden="true">
-                    <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
-                  </svg>
-                  <div className="paper-inner paper-inner--tan newsprint tear-mask-b p-3">
-                    <div className="scrap-title mb-1">NEWS</div>
-                    <div className="scrap-body scrap-columns" style={{ fontSize: "11px" }}>
-                      <p>Classified listings and dispatches from the engineering desk.</p>
-                      <p>Filed under: platforms, patterns, and production craft.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="paper-scrap w-[170px] md:w-[200px]" style={{ "--rot": "-10deg", transform: "rotate(-10deg) translateY(-10px)" }}>
-                <div className="paper-edge tear-mask-a">
-                  <svg className="pin pin--tm" viewBox="0 0 24 24" aria-hidden="true">
-                    <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
-                  </svg>
-                  <div className="paper-inner paper-inner--rose newsprint tear-mask-a p-3">
-                    <div className="scrap-title mb-1">TOP NEWS</div>
-                    <div className="scrap-body scrap-columns" style={{ fontSize: "11px" }}>
-                      <p>Solid fundamentals. Practical tooling. Fast iteration.</p>
-                      <p>Hand-set in serif, printed on worn paper.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="paper-scrap w-[160px] md:w-[190px]" style={{ "--rot": "9deg", transform: "rotate(9deg) translateY(6px)" }}>
-                <div className="paper-edge tear-mask-c">
-                  <svg className="pin pin--tl" viewBox="0 0 24 24" aria-hidden="true">
-                    <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
-                  </svg>
-                  <svg className="pin pin--tr" viewBox="0 0 24 24" aria-hidden="true">
-                    <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
-                  </svg>
-                  <div className="paper-inner paper-inner--kraft newsprint tear-mask-c p-3">
-                    <div className="scrap-title mb-1">BUSINESS</div>
-                    <div className="scrap-body scrap-columns" style={{ fontSize: "11px" }}>
-                      <p>Reliable systems, clear interfaces, durable delivery.</p>
-                      <p>Always readable, always vintage.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <DetectiveWall />
 
         <hr className="border-t-[3px] border-[#2c2a25] my-2" />
 
