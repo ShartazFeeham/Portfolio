@@ -1,0 +1,692 @@
+/* ═══════════════════════════════════════════════
+   BIOSCOPE — Vintage cinema projector blog section
+   ═══════════════════════════════════════════════ */
+
+/* ── Bioscope machine trigger ── */
+.bioscope-trigger {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  max-width: 340px;
+  margin: 0 auto;
+  cursor: pointer;
+  background: linear-gradient(160deg, #2a1f12 0%, #1a1208 50%, #0f0b06 100%);
+  border-radius: 10px 10px 6px 6px;
+  border: 2px solid #3a2a1a;
+  box-shadow:
+    0 12px 40px rgba(0,0,0,0.65),
+    inset 0 1px 0 rgba(255,255,255,0.07),
+    inset 0 -2px 6px rgba(0,0,0,0.5);
+  padding: 14px 18px 10px;
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.bioscope-trigger::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 10px 10px 6px 6px;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .bioscope-trigger:hover {
+    transform: translateY(-3px) scale(1.01);
+    box-shadow:
+      0 20px 50px rgba(0,0,0,0.75),
+      inset 0 1px 0 rgba(255,255,255,0.09),
+      inset 0 -2px 6px rgba(0,0,0,0.5);
+  }
+}
+
+.bioscope-trigger:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+/* ── Reel row ── */
+.bioscope-reel-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 10px;
+  margin-bottom: 8px;
+}
+
+/* ── Film reel SVG ── */
+.film-reel-svg {
+  opacity: 0.88;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+
+.film-reel-spinning {
+  animation: reelSpin 1.8s linear infinite;
+}
+
+@keyframes reelSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── Screen ── */
+.bioscope-screen {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  background: #0a0804;
+  border: 2px solid #3a2a1a;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow:
+    inset 0 0 20px rgba(0,0,0,0.8),
+    0 4px 12px rgba(0,0,0,0.5);
+  position: relative;
+  min-height: 90px;
+}
+
+.bioscope-screen-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 8px;
+  position: relative;
+  background:
+    radial-gradient(ellipse at 50% 40%, rgba(255, 220, 120, 0.07) 0%, transparent 65%),
+    #0c0906;
+}
+
+/* Film grain overlay on screen */
+.bioscope-grain {
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.12'/%3E%3C/svg%3E");
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* Flicker effect */
+.bioscope-flicker {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 220, 100, 0.03);
+  animation: screenFlicker 4s steps(1) infinite;
+  pointer-events: none;
+}
+
+@keyframes screenFlicker {
+  0%, 94%, 96%, 100% { opacity: 0; }
+  95%                 { opacity: 1; }
+}
+
+/* Screen text */
+.bioscope-screen-text {
+  text-align: center;
+  z-index: 1;
+  position: relative;
+}
+
+.bioscope-title {
+  color: #f0e4c8;
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-shadow: 0 0 14px rgba(255, 210, 100, 0.4), 0 2px 4px rgba(0,0,0,0.8);
+  line-height: 1;
+}
+
+.bioscope-subtitle {
+  color: rgba(240, 228, 200, 0.65);
+  font-size: 12px;
+  margin-top: 5px;
+  letter-spacing: 0.06em;
+}
+
+.bioscope-cta {
+  color: rgba(240, 228, 200, 0.45);
+  font-size: 11px;
+  margin-top: 6px;
+  letter-spacing: 0.04em;
+  animation: ctaPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes ctaPulse {
+  0%, 100% { opacity: 0.45; }
+  50%       { opacity: 0.85; }
+}
+
+/* ── Film perforations ── */
+.film-perf {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 6px 3px;
+  background: #140f08;
+  border-right: 1px solid #2a1e10;
+  border-left: 1px solid #2a1e10;
+  gap: 3px;
+  width: 14px;
+  min-width: 14px;
+}
+
+.film-perf--right {
+  border-left: 1px solid #2a1e10;
+  border-right: none;
+}
+
+.film-perf-hole {
+  width: 8px;
+  height: 6px;
+  border-radius: 1px;
+  background: #0a0704;
+  border: 1px solid #1e160c;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.9);
+  margin: 0 auto;
+}
+
+/* ── Lens housing ── */
+.bioscope-lens-housing {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 0 4px;
+}
+
+.bioscope-lens {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3a2a1a 0%, #1a1208 100%);
+  border: 3px solid #4a3828;
+  box-shadow:
+    0 4px 10px rgba(0,0,0,0.6),
+    inset 0 2px 4px rgba(255,255,255,0.06),
+    inset 0 -2px 4px rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.bioscope-lens::before {
+  content: "";
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 2px solid #2a1e10;
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.8);
+}
+
+.bioscope-lens-glass {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgba(200, 220, 255, 0.15) 0%,
+    rgba(100, 120, 180, 0.08) 40%,
+    rgba(20, 15, 8, 0.9) 100%
+  );
+  border: 1px solid rgba(150, 180, 220, 0.12);
+  box-shadow:
+    0 0 8px rgba(100, 140, 200, 0.15),
+    inset 0 0 10px rgba(0,0,0,0.8);
+  animation: lensGlow 3s ease-in-out infinite;
+}
+
+@keyframes lensGlow {
+  0%, 100% { box-shadow: 0 0 8px rgba(100, 140, 200, 0.12), inset 0 0 10px rgba(0,0,0,0.8); }
+  50%       { box-shadow: 0 0 18px rgba(120, 160, 255, 0.22), inset 0 0 10px rgba(0,0,0,0.8); }
+}
+
+/* ── Base / stand ── */
+.bioscope-base {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  padding-top: 4px;
+  width: 100%;
+}
+
+.bioscope-base-leg {
+  width: 8px;
+  height: 14px;
+  background: linear-gradient(180deg, #2a1e10 0%, #1a1208 100%);
+  border-radius: 0 0 4px 4px;
+  border: 1px solid #3a2a18;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* ══════════════════════════════════════════════════
+   FULLSCREEN CINEMA OVERLAY
+   ══════════════════════════════════════════════════ */
+
+.bioscope-cinema {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  pointer-events: none;
+  background: #0a0804;
+  overflow: hidden;
+}
+
+.bioscope-cinema--open {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: all;
+}
+
+.bioscope-cinema--closing {
+  opacity: 0;
+  transform: scale(1.03);
+  pointer-events: none;
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+/* Cinema background */
+.cinema-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 60%, rgba(80, 55, 20, 0.22) 0%, transparent 65%),
+    linear-gradient(180deg, #080604 0%, #0f0b06 40%, #0c0906 100%);
+}
+
+.cinema-grain {
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.09'/%3E%3C/svg%3E");
+  animation: grainShift 0.12s steps(1) infinite;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+@keyframes grainShift {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(-1%, 1%); }
+  50%  { transform: translate(1%, -1%); }
+  75%  { transform: translate(-1%, -1%); }
+  100% { transform: translate(1%, 1%); }
+}
+
+/* Film strip borders */
+.cinema-film-strip {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 36px;
+  background: #0e0a05;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 4px;
+  border-top: 1px solid #2a1e0e;
+  border-bottom: 1px solid #2a1e0e;
+  overflow: hidden;
+}
+
+.cinema-film-strip--top    { top: 0; }
+.cinema-film-strip--bottom { bottom: 0; }
+
+.cinema-sprocket {
+  flex-shrink: 0;
+  width: 18px;
+  height: 20px;
+  border-radius: 3px;
+  background: #060402;
+  border: 1px solid #1e1608;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.9);
+}
+
+/* Close button */
+.cinema-close {
+  position: absolute;
+  top: 44px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 230, 160, 0.08);
+  border: 1px solid rgba(255, 220, 140, 0.22);
+  border-radius: 50%;
+  color: rgba(240, 220, 160, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  z-index: 10;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cinema-close:hover {
+  background: rgba(255, 220, 120, 0.16);
+  color: rgba(255, 230, 180, 1);
+  transform: rotate(90deg) scale(1.08);
+}
+
+/* NOW SHOWING header */
+.cinema-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+  z-index: 1;
+  position: relative;
+}
+
+.cinema-header-text {
+  color: rgba(240, 220, 160, 0.82);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  text-shadow: 0 0 20px rgba(255, 200, 80, 0.25);
+}
+
+.cinema-header-ornament {
+  color: rgba(240, 200, 100, 0.45);
+  font-size: 11px;
+}
+
+/* ── Dock carousel ── */
+.cinema-dock-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 1;
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.cinema-dock {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 16px;
+  flex: 1;
+  padding-bottom: 8px;
+}
+
+/* Nav buttons */
+.cinema-nav {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 220, 140, 0.07);
+  border: 1px solid rgba(255, 200, 100, 0.20);
+  color: rgba(240, 210, 140, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cinema-nav:hover {
+  background: rgba(255, 210, 100, 0.14);
+  color: rgba(255, 230, 170, 0.95);
+  transform: scale(1.1);
+}
+
+.cinema-nav:active {
+  transform: scale(0.95);
+}
+
+/* Dock items */
+.cinema-dock-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: bottom center;
+}
+
+/* Scale based on distance from center (--dock-i: 0=far-left, 2=center, 4=far-right) */
+.cinema-dock-item:nth-child(1),
+.cinema-dock-item:nth-child(5) {
+  transform: scale(0.62) translateY(12px);
+  opacity: 0.5;
+}
+
+.cinema-dock-item:nth-child(2),
+.cinema-dock-item:nth-child(4) {
+  transform: scale(0.80) translateY(6px);
+  opacity: 0.72;
+}
+
+.cinema-dock-item:nth-child(3),
+.cinema-dock-item--center {
+  transform: scale(1.0) translateY(0px) !important;
+  opacity: 1;
+}
+
+/* Blog card */
+.bioscope-blog-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  gap: 8px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.blog-card-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid rgba(200, 170, 90, 0.3);
+  box-shadow:
+    0 0 0 3px rgba(200, 170, 90, 0.08),
+    0 8px 20px rgba(0,0,0,0.7);
+  position: relative;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.bioscope-blog-card--active .blog-card-circle {
+  border-color: rgba(220, 190, 110, 0.72);
+  box-shadow:
+    0 0 0 3px rgba(220, 190, 100, 0.18),
+    0 0 30px rgba(220, 180, 80, 0.25),
+    0 8px 24px rgba(0,0,0,0.75);
+}
+
+.blog-card-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: sepia(0.55) contrast(1.1) brightness(0.88);
+  transition: filter 0.3s ease, transform 0.4s ease;
+}
+
+.bioscope-blog-card--active .blog-card-circle img,
+.bioscope-blog-card:hover .blog-card-circle img {
+  filter: sepia(0.35) contrast(1.12) brightness(0.94);
+  transform: scale(1.05);
+}
+
+.blog-card-circle-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.07), transparent 60%);
+  pointer-events: none;
+}
+
+.blog-card-title {
+  font-size: 11px;
+  line-height: 1.25;
+  color: rgba(240, 220, 165, 0.68);
+  text-align: center;
+  max-width: 90px;
+  transition: color 0.25s ease;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.bioscope-blog-card--active .blog-card-title {
+  color: rgba(255, 235, 185, 0.94);
+}
+
+/* ── Center blog excerpt ── */
+.cinema-excerpt {
+  margin-top: 22px;
+  z-index: 1;
+  position: relative;
+  text-align: center;
+  max-width: 480px;
+  padding: 0 20px;
+  animation: excerptFadeIn 0.4s ease forwards;
+}
+
+@keyframes excerptFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.cinema-excerpt-title {
+  color: rgba(245, 228, 180, 0.92);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  margin-bottom: 5px;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.6);
+}
+
+.cinema-excerpt-date {
+  color: rgba(200, 175, 120, 0.55);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.cinema-excerpt-text {
+  color: rgba(220, 205, 165, 0.72);
+  font-size: 13px;
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+.cinema-excerpt-link {
+  display: inline-block;
+  color: rgba(220, 190, 100, 0.82);
+  font-size: 14px;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(220, 180, 80, 0.35);
+  padding-bottom: 1px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+  letter-spacing: 0.03em;
+}
+
+.cinema-excerpt-link:hover {
+  color: rgba(255, 220, 130, 1);
+  border-color: rgba(255, 210, 100, 0.7);
+}
+
+/* ── Counter ── */
+.cinema-counter {
+  position: absolute;
+  bottom: 44px;
+  right: 24px;
+  color: rgba(200, 175, 110, 0.42);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  z-index: 1;
+}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════ */
+
+@media (max-width: 480px) {
+  .bioscope-trigger {
+    max-width: 290px;
+    padding: 10px 12px 8px;
+  }
+
+  .bioscope-title {
+    font-size: 14px;
+  }
+
+  .cinema-dock {
+    gap: 10px;
+  }
+
+  .blog-card-circle {
+    width: 80px;
+    height: 80px;
+  }
+
+  .blog-card-title {
+    max-width: 76px;
+    font-size: 10px;
+  }
+
+  .cinema-dock-item:nth-child(1),
+  .cinema-dock-item:nth-child(5) {
+    display: none;
+  }
+
+  .cinema-dock-wrapper {
+    gap: 6px;
+    padding: 0 8px;
+  }
+
+  .cinema-excerpt-title {
+    font-size: 14px;
+  }
+
+  .cinema-excerpt-text {
+    font-size: 12px;
+  }
+
+  .cinema-header-text {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bioscope-cinema {
+    transition: opacity 0.2s ease;
+    transform: none !important;
+  }
+  .film-reel-spinning {
+    animation: none;
+  }
+  .bioscope-flicker,
+  .cinema-grain {
+    animation: none;
+  }
+  .bioscope-cta {
+    animation: none;
+    opacity: 0.6;
+  }
+  .lensGlow {
+    animation: none;
+  }
+}

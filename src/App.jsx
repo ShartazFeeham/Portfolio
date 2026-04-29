@@ -4,6 +4,7 @@ import { BreakingNews } from "./components/layout/BreakingNews";
 import { ProfessionalExperienceSection } from "./components/sections/ProfessionalExperienceSection";
 import { ProgrammingSkillsSection } from "./components/sections/ProgrammingSkillsSection";
 import DetectiveWall from "./components/sections/DetectiveWall";
+import Bioscope from "./components/sections/Bioscope";
 import { ContactSection } from "./components/sections/ContactSection";
 import { OthersSection } from "./components/sections/OthersSection";
 
@@ -1420,13 +1421,16 @@ export default function App() {
                     <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '1.5s' }} href="#programming-skills"><span>☛ Programming skills</span><span>P. 4</span></a>
                   </li>
                   <li className="flex justify-between border-b border-dashed border-[#2c2a25]">
-                    <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '2s' }} href="#personal-projects"><span>☛ Personal projects</span><span>P. 5</span></a>
+                    <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '2s' }} href="#blogs"><span>☛ From the Press</span><span>P. 5</span></a>
                   </li>
                   <li className="flex justify-between border-b border-dashed border-[#2c2a25]">
-                    <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '2.5s' }} href="#contact"><span>☛ Contact</span><span>P. 6</span></a>
+                    <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '2.5s' }} href="#personal-projects"><span>☛ Personal projects</span><span>P. 6</span></a>
                   </li>
                   <li className="flex justify-between border-b border-dashed border-[#2c2a25]">
-                    <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '3s' }} href="#others"><span>☛ Others</span><span>P. 7</span></a>
+                    <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '3s' }} href="#contact"><span>☛ Contact</span><span>P. 7</span></a>
+                  </li>
+                  <li className="flex justify-between border-b border-dashed border-[#2c2a25]">
+                    <a className="flex justify-between w-full index-item-text" style={{ animationDelay: '3.5s' }} href="#others"><span>☛ Others</span><span>P. 8</span></a>
                   </li>
                 </AnimatedIndex>
               </div>
@@ -1491,6 +1495,11 @@ export default function App() {
         <hr className="border-t-[3px] border-[#2c2a25] my-2" />
 
         <ProgrammingSkillsSection />
+
+        <hr className="border-t-[3px] border-[#2c2a25] my-2" />
+
+        {/* --- BLOGS / BIOSCOPE --- */}
+        <Bioscope />
 
         <hr className="border-t-[3px] border-[#2c2a25] my-2" />
 
