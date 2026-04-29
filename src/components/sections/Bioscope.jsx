@@ -8,117 +8,52 @@ import "./Bioscope.css";
    blog posts in a dock-style carousel.
    ────────────────────────────────────────────── */
 
-// Blog data (static, parsed from markdown frontmatter)
-const BLOGS = [
-  {
-    title: "The Art of Writing Clean Code",
-    slug: "art-of-writing-clean-code",
-    date: "Mar 15, 2026",
-    excerpt: "Clean code is not just about making things work — it's about crafting software that tells a story.",
-    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=400&fit=crop",
-  },
-  {
-    title: "Building Resilient Microservices with Spring Boot",
-    slug: "resilient-microservices-spring-boot",
-    date: "Feb 28, 2026",
-    excerpt: "Microservices architecture promises scalability, but without resilience patterns, failures cascade.",
-    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=400&fit=crop",
-  },
-  {
-    title: "React Performance: Beyond the Basics",
-    slug: "react-performance-beyond-basics",
-    date: "Feb 10, 2026",
-    excerpt: "Deep dive into React's rendering model and unlock hidden performance gains.",
-    image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=400&fit=crop",
-  },
-  {
-    title: "Database Indexing: The Complete Guide",
-    slug: "database-indexing-complete-guide",
-    date: "Jan 22, 2026",
-    excerpt: "Indexes are the difference between a query that takes milliseconds and one that takes minutes.",
-    image: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=400&h=400&fit=crop",
-  },
-  {
-    title: "Docker in Production: Lessons Learned",
-    slug: "docker-in-production-lessons-learned",
-    date: "Jan 05, 2026",
-    excerpt: "Moving from local Docker to production containers is a journey filled with hard-won lessons.",
-    image: "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=400&h=400&fit=crop",
-  },
-  {
-    title: "The Psychology of Code Reviews",
-    slug: "psychology-of-code-reviews",
-    date: "Dec 18, 2025",
-    excerpt: "Code reviews are a social contract, a teaching tool, and one of the most impactful practices.",
-    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&h=400&fit=crop",
-  },
-  {
-    title: "Kafka at Scale: Patterns That Survive",
-    slug: "kafka-at-scale-patterns-that-survive",
-    date: "Dec 01, 2025",
-    excerpt: "Apache Kafka powers the largest event-driven systems. Here are the patterns that keep them running.",
-    image: "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=400&h=400&fit=crop",
-  },
-  {
-    title: "Design Patterns Every Developer Should Know",
-    slug: "design-patterns-every-developer-should-know",
-    date: "Nov 15, 2025",
-    excerpt: "Design patterns are reusable solutions to recurring problems — the shared vocabulary of architecture.",
-    image: "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=400&h=400&fit=crop",
-  },
-];
+// Blog data (parsed from markdown frontmatter)
+const mdFiles = import.meta.glob('../../content/blogs/*.md', { query: '?raw', import: 'default', eager: true });
 
-// ── Film Strip Perforation ──
-function FilmPerf({ side }) {
-  return (
-    <div className={`film-perf film-perf--${side}`}>
-      {Array.from({ length: 8 }).map((_, i) => (
-        <div key={i} className="film-perf-hole" />
-      ))}
-    </div>
-  );
-}
+const BLOGS = Object.values(mdFiles)
+  .map(rawText => {
+    const frontmatterMatch = rawText.match(/^---\n([\s\S]*?)\n---/);
+    if (!frontmatterMatch) return null;
+    
+    const data = {};
+    frontmatterMatch[1].split('\n').forEach(line => {
+      const colonIdx = line.indexOf(':');
+      if (colonIdx > -1) {
+        const key = line.slice(0, colonIdx).trim();
+        let value = line.slice(colonIdx + 1).trim();
+        if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
+          value = value.slice(1, -1);
+        }
+        data[key] = value;
+      }
+    });
+    
+    // Format date string to match previous style (e.g., "Mar 15, 2026")
+    if (data.date) {
+      try {
+        const d = new Date(data.date);
+        if (!isNaN(d.getTime())) {
+          data.dateStr = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        } else {
+          data.dateStr = data.date;
+        }
+      } catch (e) {
+        data.dateStr = data.date;
+      }
+    }
+    
+    return data;
+  })
+  .filter(Boolean)
+  .sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
 
-// ── Bioscope Reel SVG ──
-function FilmReel({ size = 60, spinning = false }) {
-  return (
-    <svg
-      viewBox="0 0 100 100"
-      width={size}
-      height={size}
-      className={`film-reel-svg ${spinning ? "film-reel-spinning" : ""}`}
-    >
-      <circle cx="50" cy="50" r="48" fill="none" stroke="#1a1710" strokeWidth="4" />
-      <circle cx="50" cy="50" r="38" fill="none" stroke="#1a1710" strokeWidth="2" />
-      <circle cx="50" cy="50" r="12" fill="#1a1710" />
-      <circle cx="50" cy="50" r="6" fill="#3a3525" />
-      {/* Spokes */}
-      {[0, 45, 90, 135, 180, 225, 270, 315].map((angle) => (
-        <line
-          key={angle}
-          x1="50"
-          y1="14"
-          x2="50"
-          y2="86"
-          stroke="#1a1710"
-          strokeWidth="2"
-          transform={`rotate(${angle} 50 50)`}
-        />
-      ))}
-      {/* Sprocket holes */}
-      {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((angle) => (
-        <circle
-          key={angle}
-          cx="50"
-          cy="42"
-          r="4"
-          fill="#2a2518"
-          transform={`rotate(${angle} 50 50)`}
-        />
-      ))}
-    </svg>
-  );
-}
+// Map dateStr to date so the existing components work without change
+BLOGS.forEach(blog => {
+  if (blog.dateStr) {
+    blog.date = blog.dateStr;
+  }
+});
 
 // ── Blog Card (circular image in dock) ──
 function BlogCard({ blog, isActive, onClick }) {
@@ -239,41 +174,7 @@ export default function Bioscope() {
           onKeyDown={(e) => e.key === "Enter" && openBioscope()}
           aria-label="Open bioscope to view blog posts"
         >
-          {/* Top reel */}
-          <div className="bioscope-reel-row">
-            <FilmReel size={50} spinning={isOpen} />
-            <FilmReel size={50} spinning={isOpen} />
-          </div>
-
-          {/* Screen viewport */}
-          <div className="bioscope-screen">
-            <FilmPerf side="left" />
-            <div className="bioscope-screen-content">
-              <div className="bioscope-screen-text">
-                <div className="bioscope-title font-headline">THE PRESS</div>
-                <div className="bioscope-subtitle font-hand">Latest Writings & Reflections</div>
-                <div className="bioscope-cta font-hand">Click to View</div>
-              </div>
-              {/* Film grain overlay */}
-              <div className="bioscope-grain" />
-              {/* Flicker effect */}
-              <div className="bioscope-flicker" />
-            </div>
-            <FilmPerf side="right" />
-          </div>
-
-          {/* Lens / projector bell */}
-          <div className="bioscope-lens-housing">
-            <div className="bioscope-lens">
-              <div className="bioscope-lens-glass" />
-            </div>
-          </div>
-
-          {/* Base / stand */}
-          <div className="bioscope-base">
-            <div className="bioscope-base-leg bioscope-base-leg--left" />
-            <div className="bioscope-base-leg bioscope-base-leg--right" />
-          </div>
+          <img src="/images/vintage_bioscope.png" alt="Vintage Bioscope" className="bioscope-image" />
         </div>
       </section>
 
