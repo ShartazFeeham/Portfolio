@@ -4,7 +4,7 @@ import { BreakingNews } from "./components/layout/BreakingNews";
 import { ProfessionalExperienceSection } from "./components/sections/ProfessionalExperienceSection";
 import { ProgrammingSkillsSection } from "./components/sections/ProgrammingSkillsSection";
 import DetectiveWall from "./components/sections/DetectiveWall";
-import Bioscope from "./components/sections/Bioscope";
+import TypewriterBlog from "./components/sections/TypewriterBlog";
 import { ContactSection } from "./components/sections/ContactSection";
 import { OthersSection } from "./components/sections/OthersSection";
 
@@ -1496,12 +1496,7 @@ export default function App() {
 
         <ProgrammingSkillsSection />
 
-        <hr className="border-t-[3px] border-[#2c2a25] my-2" />
-
-        {/* --- BLOGS / BIOSCOPE --- */}
-        <Bioscope />
-
-        <hr className="border-t-[3px] border-[#2c2a25] my-2" />
+        <TypewriterBlog />
 
         {/* --- PERSONAL PROJECTS --- */}
         <section id="personal-projects" className="flex flex-col gap-4">
