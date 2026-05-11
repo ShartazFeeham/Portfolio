@@ -7,6 +7,8 @@ import DetectiveWall from "./components/sections/DetectiveWall";
 import TypewriterBlog from "./components/sections/TypewriterBlog";
 import { ContactSection } from "./components/sections/ContactSection";
 import { OthersSection } from "./components/sections/OthersSection";
+import { blogs } from "./data/blogs";
+import "./App.css";
 
 function AnimatedQuickLinksEntry({ children }) {
   const [isVisible, setIsVisible] = useState(false);
@@ -87,6 +89,46 @@ function AnimatedIndex({ children }) {
 }
 
 export default function App() {
+  const [currentBlogIndex, setCurrentBlogIndex] = useState(0);
+  const [isPaperVisible, setIsPaperVisible] = useState(false);
+  const blogSectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsPaperVisible(false);
+          // Small delay to ensure re-trigger works
+          setTimeout(() => setIsPaperVisible(true), 50);
+        } else {
+          setIsPaperVisible(false);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (blogSectionRef.current) {
+      observer.observe(blogSectionRef.current);
+    }
+    return () => observer.disconnect();
+  }, []);
+
+  const handleNextBlog = () => {
+    if (currentBlogIndex < blogs.length - 1) {
+      setIsPaperVisible(false);
+      setCurrentBlogIndex(prev => prev + 1);
+      setTimeout(() => setIsPaperVisible(true), 50);
+    }
+  };
+
+  const handlePrevBlog = () => {
+    if (currentBlogIndex > 0) {
+      setIsPaperVisible(false);
+      setCurrentBlogIndex(prev => prev - 1);
+      setTimeout(() => setIsPaperVisible(true), 50);
+    }
+  };
+
   const toggleQuickLinkInvert = (e) => {
     const scrap = e.currentTarget?.closest?.(".paper-scrap");
     if (!scrap) return;
@@ -1495,6 +1537,72 @@ export default function App() {
         <hr className="border-t-[3px] border-[#2c2a25] my-2" />
 
         <ProgrammingSkillsSection />
+
+        {/* --- BLOGS & ARTICLES --- */}
+        <section id="blogs-articles" ref={blogSectionRef} className="flex flex-col gap-4 py-8 overflow-visible">
+          <h2 className="font-headline font-black text-xl md:text-2xl uppercase leading-none text-[#2c2a25]">
+            <a href="#index">BLOGS & ARTICLES</a>
+          </h2>
+          <div className="w-full flex justify-center m-0 p-0 relative">
+            <div className="relative w-[90%] md:w-[60%] m-0 p-0 mt-[330px] md:mt-[350px]"> 
+              <img 
+                src="/images/tw1.png" 
+                alt="Vintage Typewriter" 
+                className="w-full h-auto grayscale-0 brightness-110 contrast-125 z-10 relative left-[-5%] block m-0 p-0"
+              />
+              
+              {/* Navigation Buttons - Positioned in the blank spaces */}
+              <div className="absolute top-[-40px] left-[-5%] right-[-5%] flex justify-between px-4 z-30 pointer-events-none">
+                <button 
+                  onClick={handlePrevBlog}
+                  disabled={currentBlogIndex === 0}
+                  className={`pointer-events-auto transition-all duration-300 font-headline font-black uppercase px-4 py-2 border-2 border-[#2c2a25] flex items-center gap-2 group ${
+                    currentBlogIndex === 0 ? 'opacity-30 cursor-not-allowed bg-transparent text-[#2c2a25]' : 'bg-[#2c2a25] text-[#e8e1cf] hover:bg-transparent hover:text-[#2c2a25] shadow-lg hover:shadow-none'
+                  }`}
+                >
+                  <span className="text-lg">←</span>
+                  <span className="hidden md:inline">PREV</span>
+                </button>
+
+                <button 
+                  onClick={handleNextBlog}
+                  disabled={currentBlogIndex === blogs.length - 1}
+                  className={`pointer-events-auto transition-all duration-300 font-headline font-black uppercase px-4 py-2 border-2 border-[#2c2a25] flex items-center gap-2 group ${
+                    currentBlogIndex === blogs.length - 1 ? 'opacity-30 cursor-not-allowed bg-transparent text-[#2c2a25]' : 'bg-[#2c2a25] text-[#e8e1cf] hover:bg-transparent hover:text-[#2c2a25] shadow-lg hover:shadow-none'
+                  }`}
+                >
+                  <span className="hidden md:inline">NEXT</span>
+                  <span className="text-lg">→</span>
+                </button>
+              </div>
+
+              {/* Ground Shadow - Multi-layered for realism */}
+              <div className="absolute bottom-[1%] left-[-20%] w-[140%] h-[20px] z-0 pointer-events-none overflow-visible">
+                {/* Ambient Ground Shadow - Very wide and soft */}
+                <div 
+                  className="absolute inset-0 bg-black/20 rounded-[50%]"
+                  style={{ filter: 'blur(25px)', transform: 'scaleY(0.5)' }}
+                />
+                {/* Core Contact Shadow - Darker, right under the machine */}
+                <div 
+                  className="absolute inset-0 bg-black/45 rounded-[50%] left-[15%] w-[70%]"
+                  style={{ filter: 'blur(10px)', transform: 'scaleY(0.25) translateY(4px)' }}
+                />
+              </div>
+              {/* Floating Paper Animation */}
+              <div className="paper-container absolute bottom-[35%] left-[19.2%] w-[61.6%] h-auto">
+                {isPaperVisible && (
+                  <div className="paper-content" key={currentBlogIndex}>
+                    <div className="w-full h-full m-0 p-0">
+                      <h3>{blogs[currentBlogIndex].title}</h3>
+                      <p>{blogs[currentBlogIndex].excerpt}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
 
         <TypewriterBlog />
 
