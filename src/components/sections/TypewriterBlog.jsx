@@ -103,14 +103,21 @@ const TypewriterBlog = () => {
                       <span className="font-mono text-[10px] uppercase tracking-widest text-[#3d3429]/50 italic">
                         No. 00{blog.id}
                       </span>
-                      <span className="font-mono text-[10px] text-[#3d3429]/50">
-                        {blog.date}
-                      </span>
                     </div>
 
-                    <h3 className="text-4xl font-serif text-[#2c261f] mb-10 leading-tight italic" style={{ fontFamily: '"Courier Prime", monospace', textShadow: '0.5px 0.5px 0px rgba(0,0,0,0.1)' }}>
+                    <h3 className="text-4xl font-serif text-[#2c261f] mb-0 leading-none italic" style={{ fontFamily: '"Courier Prime", monospace', textShadow: '0.5px 0.5px 0px rgba(0,0,0,0.1)' }}>
                       {blog.title}
                     </h3>
+                    <div className="text-right -mt-5 mb-10">
+                      <span className="font-mono text-[10px] text-[#3d3429]/50 italic">
+                        {(() => {
+                          const date = new Date(blog.timestamp);
+                          const timeStr = date.toLocaleString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }).toLowerCase().replace(' ', '');
+                          const dateStr = date.toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+                          return `${timeStr} ${dateStr}`;
+                        })()}
+                      </span>
+                    </div>
                     
                     <div className="flex-grow">
                       <p className="text-xl text-[#3d3429] font-serif leading-relaxed text-justify opacity-90" style={{ fontFamily: '"Courier Prime", monospace', textShadow: '0.3px 0.3px 0.5px rgba(0,0,0,0.05)' }}>

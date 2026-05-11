@@ -1594,7 +1594,19 @@ export default function App() {
                 {isPaperVisible && (
                   <div className="paper-content" key={currentBlogIndex}>
                     <div className="w-full h-full m-0 p-0">
-                      <h3>{blogs[currentBlogIndex].title}</h3>
+                      <div className="mb-4">
+                        <h3 className="text-2xl font-headline font-black uppercase leading-none mb-0">{blogs[currentBlogIndex].title}</h3>
+                        <div className="text-right -mt-3">
+                          <span className="text-[10px] text-[#2c2a25]/50 font-mono italic">
+                            {(() => {
+                              const date = new Date(blogs[currentBlogIndex].timestamp);
+                              const timeStr = date.toLocaleString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }).toLowerCase().replace(' ', '');
+                              const dateStr = date.toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+                              return `${timeStr} ${dateStr}`;
+                            })()}
+                          </span>
+                        </div>
+                      </div>
                       <p>{blogs[currentBlogIndex].excerpt}</p>
                     </div>
                   </div>
