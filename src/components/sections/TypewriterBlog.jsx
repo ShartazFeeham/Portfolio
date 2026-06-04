@@ -1,12 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
 import './TypewriterBlog.css';
-import { blogs as initialBlogs } from '../../data/blogs';
+import { loadBlogs } from '../../utils/blogLoader';
 
 const TypewriterBlog = () => {
-  const [blogStack, setBlogStack] = useState(initialBlogs);
+  const [blogStack, setBlogStack] = useState([]);
+  const [selectedBlog, setSelectedBlog] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const loadedBlogs = loadBlogs();
+    setBlogStack(loadedBlogs);
+    setIsLoading(false);
+  }, []);
 
   const shuffleNext = () => {
     setBlogStack(prev => {
+      if (prev.length === 0) return prev;
       const newStack = [...prev];
       const top = newStack.shift();
       newStack.push(top);
@@ -16,6 +26,7 @@ const TypewriterBlog = () => {
 
   const shufflePrev = () => {
     setBlogStack(prev => {
+      if (prev.length === 0) return prev;
       const newStack = [...prev];
       const bottom = newStack.pop();
       newStack.unshift(bottom);
@@ -47,7 +58,7 @@ const TypewriterBlog = () => {
       <div className="container mx-auto px-6 relative z-10 flex flex-col items-center">
         <header className="mb-24 text-center">
           <h2 className="text-6xl font-serif text-[#2c2a25] tracking-tight uppercase italic mb-2" style={{ fontFamily: '"Courier Prime", monospace' }}>
-            Drafts & Desiderata
+            Blogs & Articles
           </h2>
           <div className="w-32 h-0.5 bg-[#2c2a25] mx-auto opacity-20"></div>
           <p className="mt-4 text-[#2c2a25]/60 font-mono text-xs uppercase tracking-widest">Mechanical Musings • Vol. I</p>
@@ -105,8 +116,10 @@ const TypewriterBlog = () => {
                       </span>
                     </div>
 
-                    <h3 className="text-4xl font-serif text-[#2c261f] mb-0 leading-none italic" style={{ fontFamily: '"Courier Prime", monospace', textShadow: '0.5px 0.5px 0px rgba(0,0,0,0.1)' }}>
-                      {blog.title}
+                    <h3 className="text-4xl font-serif text-[#2c261f] mb-0 leading-none italic hover:text-[#5d4037] transition-colors" style={{ fontFamily: '"Courier Prime", monospace', textShadow: '0.5px 0.5px 0px rgba(0,0,0,0.1)' }}>
+                      <a href={blog.link} target="_blank" rel="noopener noreferrer" className="hover:underline decoration-1 underline-offset-4">
+                        {blog.title}
+                      </a>
                     </h3>
                     <div className="text-right -mt-5 mb-10">
                       <span className="font-mono text-[10px] text-[#3d3429]/50 italic">
@@ -131,7 +144,10 @@ const TypewriterBlog = () => {
                           <div key={i} className="w-1 h-1 bg-[#2c2a25]/20 rounded-full" />
                         ))}
                       </div>
-                      <button className="read-more-btn group flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-[#2c2a25] transition-all hover:tracking-[0.3em]">
+                      <button 
+                        onClick={() => setSelectedBlog(blog)}
+                        className="read-more-btn group flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-[#2c2a25] transition-all hover:tracking-[0.3em]"
+                      >
                         Inspect Details <span>→</span>
                       </button>
                     </div>
@@ -142,6 +158,59 @@ const TypewriterBlog = () => {
           </div>
         </div>
       </div>
+
+      {/* Floating Page Modal */}
+      {selectedBlog && (
+        <div 
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-[#2c2a25]/40 backdrop-blur-sm animate-in fade-in duration-500"
+          onClick={() => setSelectedBlog(null)}
+        >
+          <div 
+            className="relative w-full max-w-2xl max-h-[85vh] bg-[#e2d7b5] shadow-2xl rounded-sm flex flex-col overflow-hidden animate-in slide-in-from-bottom-8 duration-500"
+            style={{ 
+              backgroundImage: 'url("https://www.transparenttextures.com/patterns/paper-fibers.png")',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 0 100px rgba(84, 72, 45, 0.1)'
+            }}
+            onClick={e => e.stopPropagation()}
+          >
+            {/* Vintage Header */}
+            <div className="flex justify-between items-center px-8 py-6 border-b border-[#3d3429]/20 bg-[#dccfa3]/30">
+              <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#3d3429]/60">Manuscript No. 00{selectedBlog.id}</span>
+              <button 
+                onClick={() => setSelectedBlog(null)}
+                className="text-[#2c2a25]/60 hover:text-[#2c2a25] transition-colors p-2 hover:bg-[#2c2a25]/5 rounded-full"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Scrollable Content */}
+            <div className="overflow-y-auto flex-grow px-12 py-10 scrollbar-vintage">
+              <h1 className="text-4xl font-serif text-[#2c2a25] mb-4 italic leading-tight" style={{ fontFamily: '"Courier Prime", monospace' }}>
+                {selectedBlog.title}
+              </h1>
+              <div className="mb-8 font-mono text-[11px] text-[#3d3429]/50 italic">
+                {new Date(selectedBlog.timestamp).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+              </div>
+              
+              <div className="prose prose-stone max-w-none prose-headings:font-serif prose-headings:italic prose-headings:text-[#2c2a25] prose-p:text-[#3d3429] prose-p:leading-relaxed prose-p:text-lg prose-blockquote:border-l-[#3d3429]/20 prose-blockquote:italic" style={{ fontFamily: '"Courier Prime", monospace' }}>
+                <ReactMarkdown>{selectedBlog.content}</ReactMarkdown>
+              </div>
+            </div>
+
+            {/* Vintage Footer */}
+            <div className="px-8 py-6 border-t border-[#3d3429]/10 bg-[#dccfa3]/10 flex justify-center">
+              <div className="flex gap-2">
+                {[1, 2, 3, 4, 5].map(i => (
+                  <div key={i} className="w-1 h-1 bg-[#2c2a25]/10 rounded-full" />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
