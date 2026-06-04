@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Routes, Route, Link } from "react-router-dom";
 import { Masthead } from "./components/layout/Masthead";
 import { BreakingNews } from "./components/layout/BreakingNews";
 import { ProfessionalExperienceSection } from "./components/sections/ProfessionalExperienceSection";
@@ -8,6 +9,8 @@ import TypewriterBlog from "./components/sections/TypewriterBlog";
 import { ContactSection } from "./components/sections/ContactSection";
 import { OthersSection } from "./components/sections/OthersSection";
 import { blogs } from "./data/blogs";
+import BlogList from "./pages/BlogList";
+import BlogPost from "./pages/BlogPost";
 import "./App.css";
 
 function AnimatedQuickLinksEntry({ children }) {
@@ -156,6 +159,16 @@ export default function App() {
     year: 'numeric'
   }).toUpperCase();
 
+  return (
+    <Routes>
+      <Route path="/blogs" element={<BlogList />} />
+      <Route path="/blogs/:slug" element={<BlogPost />} />
+      <Route path="*" element={<HomePage currentBlogIndex={currentBlogIndex} setCurrentBlogIndex={setCurrentBlogIndex} isPaperVisible={isPaperVisible} setIsPaperVisible={setIsPaperVisible} blogSectionRef={blogSectionRef} handleNextBlog={handleNextBlog} handlePrevBlog={handlePrevBlog} issueDateLabel={issueDateLabel} toggleQuickLinkInvert={toggleQuickLinkInvert} flashQuickLinkInvert={flashQuickLinkInvert} AnimatedQuickLinksEntry={AnimatedQuickLinksEntry} AnimatedIndex={AnimatedIndex} />} />
+    </Routes>
+  );
+}
+
+function HomePage({ currentBlogIndex, setCurrentBlogIndex, isPaperVisible, setIsPaperVisible, blogSectionRef, handleNextBlog, handlePrevBlog, issueDateLabel, toggleQuickLinkInvert, flashQuickLinkInvert, AnimatedQuickLinksEntry, AnimatedIndex }) {
   return (
     <div className="min-h-screen bg-[#f8f8f8] px-0 pt-0 pb-[5px] md:px-8 md:pb-8 md:pt-[10px] lg:px-12 lg:pb-12 lg:pt-[10px] flex justify-center items-start font-serif selection:bg-[#2c2a25] selection:text-[#e8e1cf]">
       <a href="#main-content" className="skip-to-main">
@@ -1617,6 +1630,19 @@ export default function App() {
         </section>
 
         <TypewriterBlog />
+
+        {/* Pinned link to Diary */}
+        <div className="flex justify-center py-10">
+          <Link
+            to="/blogs"
+            className="group inline-flex items-center gap-3 px-8 py-4 border-2 border-[#2c2a25]/20 rounded-sm bg-[#e8dcc8]/50 hover:bg-[#2c2a25] hover:text-[#e8dcc8] text-[#2c2a25] transition-all duration-500"
+            style={{ fontFamily: '"Courier Prime", monospace' }}
+          >
+            <span className="text-sm uppercase tracking-[0.2em] group-hover:tracking-[0.3em] transition-all duration-500">
+              Read the Diary &rarr;
+            </span>
+          </Link>
+        </div>
 
         {/* --- PERSONAL PROJECTS --- */}
         <section id="personal-projects" className="flex flex-col gap-4">

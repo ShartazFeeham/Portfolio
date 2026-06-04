@@ -1,0 +1,92 @@
+[
+  {
+    "title": "Building Event Driven Systems",
+    "slug": "building-event-driven-systems",
+    "folder": "Building Event Driven Systems",
+    "thumbnail": "/blogs/Building%20Event%20Driven%20Systems/thumbnail.svg",
+    "date": "2026-05-20T08:00:00.000Z",
+    "excerpt": "Event-driven architecture transforms how systems communicate. Instead of synchronous request-response chains that cascade failures, events create...",
+    "images": []
+  },
+  {
+    "title": "React Performance Beyond Basics",
+    "slug": "react-performance-beyond-basics",
+    "folder": "React Performance Beyond Basics",
+    "thumbnail": "/blogs/React%20Performance%20Beyond%20Basics/thumbnail.svg",
+    "date": "2026-05-05T03:30:00.000Z",
+    "excerpt": "You've memoized your components and virtualized your lists. Here's what actually moves the needle on React performance in production. Most React...",
+    "images": []
+  },
+  {
+    "title": "Psychology of Code Reviews",
+    "slug": "psychology-of-code-reviews",
+    "folder": "Psychology of Code Reviews",
+    "thumbnail": "/blogs/Psychology%20of%20Code%20Reviews/thumbnail.svg",
+    "date": "2026-04-18T10:00:00.000Z",
+    "excerpt": "Code reviews are as much about people as they are about code. Understanding the psychology behind them transforms reviews from adversarial...",
+    "images": []
+  },
+  {
+    "title": "From Junior to Senior The Non Technical Path",
+    "slug": "from-junior-to-senior-the-non-technical-path",
+    "folder": "From Junior to Senior The Non Technical Path",
+    "thumbnail": "/blogs/From%20Junior%20to%20Senior%20The%20Non%20Technical%20Path/thumbnail.svg",
+    "date": "2026-03-25T05:00:00.000Z",
+    "excerpt": "Most engineers think seniority is about knowing more technologies. It's not. It's about judgment, communication, and the ability to make others...",
+    "images": []
+  },
+  {
+    "title": "Docker in Production Lessons Learned",
+    "slug": "docker-in-production-lessons-learned",
+    "folder": "Docker in Production Lessons Learned",
+    "thumbnail": "/blogs/Docker%20in%20Production%20Lessons%20Learned/thumbnail.svg",
+    "date": "2026-02-10T07:30:00.000Z",
+    "excerpt": "Docker makes it easy to run things locally. Running containers in production is a different sport. Here's what I wish someone told me before our...",
+    "images": []
+  },
+  {
+    "title": "Design Patterns Every Developer Should Know",
+    "slug": "design-patterns-every-developer-should-know",
+    "folder": "Design Patterns Every Developer Should Know",
+    "thumbnail": "/blogs/Design%20Patterns%20Every%20Developer%20Should%20Know/thumbnail.svg",
+    "date": "2026-01-22T09:00:00.000Z",
+    "excerpt": "Design patterns are reusable solutions to recurring problems. They're not rules — they're tools. Knowing when to use them (and when not to) separates...",
+    "images": []
+  },
+  {
+    "title": "Database Indexing A Complete Guide",
+    "slug": "database-indexing-a-complete-guide",
+    "folder": "Database Indexing A Complete Guide",
+    "thumbnail": "/blogs/Database%20Indexing%20A%20Complete%20Guide/thumbnail.svg",
+    "date": "2026-01-05T02:45:00.000Z",
+    "excerpt": "Indexes are the difference between a query that takes 50 milliseconds and one that takes 50 seconds. Understanding how they work is non-negotiable...",
+    "images": []
+  },
+  {
+    "title": "The Art of Writing Clean Code",
+    "slug": "the-art-of-writing-clean-code",
+    "folder": "The Art of Writing Clean Code",
+    "thumbnail": "/blogs/The%20Art%20of%20Writing%20Clean%20Code/thumbnail.svg",
+    "date": "2025-11-14T04:20:00.000Z",
+    "excerpt": "Clean code is a love letter to your future self. It transcends syntax, focusing on intent and cognitive load. The most powerful line of code is often...",
+    "images": []
+  },
+  {
+    "title": "Resilient Microservices with Spring Boot",
+    "slug": "resilient-microservices-with-spring-boot",
+    "folder": "Resilient Microservices with Spring Boot",
+    "thumbnail": "/blogs/Resilient%20Microservices%20with%20Spring%20Boot/thumbnail.svg",
+    "date": "2025-10-03T08:40:00.000Z",
+    "excerpt": "Resilience is not about avoiding failure — it's about mastering it. In a world of distributed systems, every network call is a potential point of...",
+    "images": []
+  },
+  {
+    "title": "Kafka at Scale Patterns That Survive",
+    "slug": "kafka-at-scale-patterns-that-survive",
+    "folder": "Kafka at Scale Patterns That Survive",
+    "thumbnail": "/blogs/Kafka%20at%20Scale%20Patterns%20That%20Survive/thumbnail.svg",
+    "date": "2025-08-20T10:10:00.000Z",
+    "excerpt": "Apache Kafka powers some of the world's largest event-driven systems. Here's what keeps them running when traffic spikes and brokers fail. Enable...",
+    "images": []
+  }
+]

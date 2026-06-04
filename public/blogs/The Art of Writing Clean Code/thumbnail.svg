@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250">
+  <!-- Paper background -->
+  <rect width="400" height="250" fill="#e8dcc8"/>
+  <filter id="grain">
+    <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+    <feColorMatrix type="saturate" values="0"/>
+    <feBlend in="SourceGraphic" mode="multiply"/>
+  </filter>
+  <rect width="400" height="250" fill="#d4c4a8" opacity="0.12" filter="url(#grain)"/>
+  <!-- Decorative double border -->
+  <rect x="8" y="8" width="384" height="234" fill="none" stroke="#3d2614" stroke-width="2"/>
+  <rect x="14" y="14" width="372" height="222" fill="none" stroke="#3d2614" stroke-width="0.5"/>
+  <!-- Top ornamental line -->
+  <line x1="40" y1="45" x2="360" y2="45" stroke="#3d2614" stroke-width="1"/>
+  <circle cx="200" cy="45" r="4" fill="#3d2614"/>
+  <line x1="40" y1="48" x2="360" y2="48" stroke="#3d2614" stroke-width="0.5"/>
+  <!-- Title -->
+  <text x="200" y="80" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="15" font-weight="bold" fill="#2c2a25" letter-spacing="1">THE ART OF WRITING</text>
+  <text x="200" y="98" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="15" font-weight="bold" fill="#2c2a25" letter-spacing="1">CLEAN CODE</text>
+  <!-- Fountain pen nib -->
+  <g transform="translate(200,155)" fill="#3d2614" opacity="0.85">
+    <!-- Pen body -->
+    <rect x="-4" y="-40" width="8" height="30" rx="2"/>
+    <!-- Pen nib -->
+    <polygon points="-6,-10 6,-10 0,10"/>
+    <!-- Nib slit -->
+    <line x1="0" y1="-10" x2="0" y2="8" stroke="#e8dcc8" stroke-width="1"/>
+    <!-- Pen top ornament -->
+    <circle cx="0" cy="-42" r="3" fill="#3d2614"/>
+    <!-- Ink drop -->
+    <ellipse cx="0" cy="16" rx="3" ry="4" fill="#3d2614" opacity="0.4"/>
+  </g>
+  <!-- Code brackets on left -->
+  <g fill="none" stroke="#5a3a1a" stroke-width="1.5" opacity="0.5">
+    <path d="M80,130 L70,140 L80,150"/>
+    <path d="M100,125 L90,140 L100,155"/>
+  </g>
+  <!-- Code brackets on right -->
+  <g fill="none" stroke="#5a3a1a" stroke-width="1.5" opacity="0.5">
+    <path d="M320,130 L330,140 L320,150"/>
+    <path d="M300,125 L310,140 L300,155"/>
+  </g>
+  <!-- Ink swirl lines -->
+  <g fill="none" stroke="#8b6914" stroke-width="0.8" opacity="0.4">
+    <path d="M120,170 Q140,160 160,170 Q180,180 200,170"/>
+    <path d="M200,170 Q220,160 240,170 Q260,180 280,170"/>
+  </g>
+  <!-- Bottom ornamental line -->
+  <line x1="40" y1="200" x2="360" y2="200" stroke="#3d2614" stroke-width="0.5"/>
+  <line x1="40" y1="203" x2="360" y2="203" stroke="#3d2614" stroke-width="1"/>
+  <polygon points="100,201 104,198 108,201 104,204" fill="#3d2614" opacity="0.6"/>
+  <polygon points="292,201 296,198 300,201 296,204" fill="#3d2614" opacity="0.6"/>
+  <text x="200" y="228" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="8" fill="#8b7355" letter-spacing="3">PEN &amp; CODE</text>
+</svg>

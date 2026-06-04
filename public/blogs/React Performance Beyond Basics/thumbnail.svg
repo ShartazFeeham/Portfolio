@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250">
+  <!-- Paper background -->
+  <rect width="400" height="250" fill="#e8dcc8"/>
+  <filter id="grain">
+    <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+    <feColorMatrix type="saturate" values="0"/>
+    <feBlend in="SourceGraphic" mode="multiply"/>
+  </filter>
+  <rect width="400" height="250" fill="#d4c4a8" opacity="0.12" filter="url(#grain)"/>
+  <!-- Decorative double border -->
+  <rect x="8" y="8" width="384" height="234" fill="none" stroke="#3d2614" stroke-width="2"/>
+  <rect x="14" y="14" width="372" height="222" fill="none" stroke="#3d2614" stroke-width="0.5"/>
+  <!-- Top ornamental line -->
+  <line x1="40" y1="45" x2="360" y2="45" stroke="#3d2614" stroke-width="1"/>
+  <circle cx="200" cy="45" r="4" fill="#3d2614"/>
+  <line x1="40" y1="48" x2="360" y2="48" stroke="#3d2614" stroke-width="0.5"/>
+  <!-- Title -->
+  <text x="200" y="78" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="15" font-weight="bold" fill="#2c2a25" letter-spacing="1">REACT PERFORMANCE</text>
+  <!-- React atom symbol -->
+  <g transform="translate(200,140)" fill="none" stroke="#3d2614" stroke-width="1.2">
+    <!-- Electron orbits -->
+    <ellipse cx="0" cy="0" rx="50" ry="18" transform="rotate(0)"/>
+    <ellipse cx="0" cy="0" rx="50" ry="18" transform="rotate(60)"/>
+    <ellipse cx="0" cy="0" rx="50" ry="18" transform="rotate(-60)"/>
+    <!-- Center nucleus -->
+    <circle cx="0" cy="0" r="6" fill="#3d2614" opacity="0.3"/>
+  </g>
+  <!-- Lightning bolt (speed) -->
+  <g transform="translate(105,115)" fill="#8b6914" opacity="0.7">
+    <polygon points="15,0 5,18 12,18 0,35 20,14 13,14 22,0"/>
+  </g>
+  <!-- Second lightning bolt -->
+  <g transform="translate(280,115)" fill="#8b6914" opacity="0.7">
+    <polygon points="15,0 5,18 12,18 0,35 20,14 13,14 22,0"/>
+  </g>
+  <!-- Speed lines -->
+  <g stroke="#5a3a1a" stroke-width="1" opacity="0.3">
+    <line x1="60" y1="130" x2="85" y2="130"/>
+    <line x1="55" y1="140" x2="80" y2="140"/>
+    <line x1="60" y1="150" x2="85" y2="150"/>
+    <line x1="315" y1="130" x2="340" y2="130"/>
+    <line x1="320" y1="140" x2="345" y2="140"/>
+    <line x1="315" y1="150" x2="340" y2="150"/>
+  </g>
+  <!-- Subtitle -->
+  <text x="200" y="195" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#5a3a1a" letter-spacing="2">BEYOND BASICS</text>
+  <!-- Bottom ornamental line -->
+  <line x1="40" y1="200" x2="360" y2="200" stroke="#3d2614" stroke-width="0.5"/>
+  <line x1="40" y1="203" x2="360" y2="203" stroke="#3d2614" stroke-width="1"/>
+  <polygon points="100,201 104,198 108,201 104,204" fill="#3d2614" opacity="0.6"/>
+  <polygon points="292,201 296,198 300,201 296,204" fill="#3d2614" opacity="0.6"/>
+  <text x="200" y="228" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="8" fill="#8b7355" letter-spacing="3">SPEED &amp; OPTIMIZATION</text>
+</svg>

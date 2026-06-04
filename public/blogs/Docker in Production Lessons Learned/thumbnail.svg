@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250">
+  <!-- Paper background -->
+  <rect width="400" height="250" fill="#e8dcc8"/>
+  <filter id="grain">
+    <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+    <feColorMatrix type="saturate" values="0"/>
+    <feBlend in="SourceGraphic" mode="multiply"/>
+  </filter>
+  <rect width="400" height="250" fill="#d4c4a8" opacity="0.12" filter="url(#grain)"/>
+  <!-- Decorative double border -->
+  <rect x="8" y="8" width="384" height="234" fill="none" stroke="#3d2614" stroke-width="2"/>
+  <rect x="14" y="14" width="372" height="222" fill="none" stroke="#3d2614" stroke-width="0.5"/>
+  <!-- Top ornamental line -->
+  <line x1="40" y1="45" x2="360" y2="45" stroke="#3d2614" stroke-width="1"/>
+  <circle cx="200" cy="45" r="4" fill="#3d2614"/>
+  <line x1="40" y1="48" x2="360" y2="48" stroke="#3d2614" stroke-width="0.5"/>
+  <!-- Title -->
+  <text x="200" y="78" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="15" font-weight="bold" fill="#2c2a25" letter-spacing="1">DOCKER IN PRODUCTION</text>
+  <!-- Container boxes (stacked) -->
+  <g fill="#3d2614" opacity="0.12" stroke="#3d2614" stroke-width="1.2">
+    <rect x="110" y="105" width="30" height="22" rx="2"/>
+    <rect x="145" y="105" width="30" height="22" rx="2"/>
+    <rect x="180" y="105" width="30" height="22" rx="2"/>
+    <rect x="215" y="105" width="30" height="22" rx="2"/>
+    <rect x="250" y="105" width="30" height="22" rx="2"/>
+    <rect x="110" y="132" width="30" height="22" rx="2"/>
+    <rect x="145" y="132" width="30" height="22" rx="2"/>
+    <rect x="180" y="132" width="30" height="22" rx="2"/>
+    <rect x="215" y="132" width="30" height="22" rx="2"/>
+    <rect x="250" y="132" width="30" height="22" rx="2"/>
+  </g>
+  <!-- Container labels -->
+  <g font-family="Georgia, serif" font-size="6" fill="#3d2614" text-anchor="middle" opacity="0.6">
+    <text x="125" y="120">app</text>
+    <text x="160" y="120">db</text>
+    <text x="195" y="120">api</text>
+    <text x="230" y="120">web</text>
+    <text x="265" y="120">redis</text>
+    <text x="125" y="147">nginx</text>
+    <text x="160" y="147">queue</text>
+    <text x="195" y="147">auth</text>
+    <text x="230" y="147">log</text>
+    <text x="265" y="147">mon</text>
+  </g>
+  <!-- Whale tail shape -->
+  <g fill="#3d2614" opacity="0.2">
+    <path d="M85,135 Q75,125 70,140 Q65,155 80,155 L85,155 Z"/>
+  </g>
+  <!-- Waves under containers -->
+  <g fill="none" stroke="#8b6914" stroke-width="1" opacity="0.4">
+    <path d="M80,165 Q100,158 120,165 Q140,172 160,165 Q180,158 200,165 Q220,172 240,165 Q260,158 280,165 Q300,172 320,165"/>
+    <path d="M80,172 Q100,165 120,172 Q140,179 160,172 Q180,165 200,172 Q220,179 240,172 Q260,165 280,172 Q300,179 320,172"/>
+  </g>
+  <!-- Subtitle -->
+  <text x="200" y="195" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#5a3a1a" letter-spacing="2">LESSONS LEARNED</text>
+  <!-- Bottom ornamental line -->
+  <line x1="40" y1="200" x2="360" y2="200" stroke="#3d2614" stroke-width="0.5"/>
+  <line x1="40" y1="203" x2="360" y2="203" stroke="#3d2614" stroke-width="1"/>
+  <polygon points="100,201 104,198 108,201 104,204" fill="#3d2614" opacity="0.6"/>
+  <polygon points="292,201 296,198 300,201 296,204" fill="#3d2614" opacity="0.6"/>
+  <text x="200" y="228" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="8" fill="#8b7355" letter-spacing="3">CONTAINERS &amp; ORCHESTRATION</text>
+</svg>

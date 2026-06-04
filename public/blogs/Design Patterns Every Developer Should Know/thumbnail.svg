@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250">
+  <!-- Paper background -->
+  <rect width="400" height="250" fill="#e8dcc8"/>
+  <filter id="grain">
+    <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+    <feColorMatrix type="saturate" values="0"/>
+    <feBlend in="SourceGraphic" mode="multiply"/>
+  </filter>
+  <rect width="400" height="250" fill="#d4c4a8" opacity="0.12" filter="url(#grain)"/>
+  <!-- Decorative double border -->
+  <rect x="8" y="8" width="384" height="234" fill="none" stroke="#3d2614" stroke-width="2"/>
+  <rect x="14" y="14" width="372" height="222" fill="none" stroke="#3d2614" stroke-width="0.5"/>
+  <!-- Top ornamental line -->
+  <line x1="40" y1="45" x2="360" y2="45" stroke="#3d2614" stroke-width="1"/>
+  <circle cx="200" cy="45" r="4" fill="#3d2614"/>
+  <line x1="40" y1="48" x2="360" y2="48" stroke="#3d2614" stroke-width="0.5"/>
+  <!-- Title -->
+  <text x="200" y="78" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="14" font-weight="bold" fill="#2c2a25" letter-spacing="1">DESIGN PATTERNS</text>
+  <!-- Blueprint grid background -->
+  <g stroke="#5a3a1a" stroke-width="0.3" opacity="0.25">
+    <line x1="80" y1="95" x2="320" y2="95"/>
+    <line x1="80" y1="105" x2="320" y2="105"/>
+    <line x1="80" y1="115" x2="320" y2="115"/>
+    <line x1="80" y1="125" x2="320" y2="125"/>
+    <line x1="80" y1="135" x2="320" y2="135"/>
+    <line x1="80" y1="145" x2="320" y2="145"/>
+    <line x1="80" y1="155" x2="320" y2="155"/>
+    <line x1="80" y1="165" x2="320" y2="165"/>
+    <line x1="80" y1="175" x2="320" y2="175"/>
+    <line x1="80" y1="185" x2="320" y2="185"/>
+    <line x1="100" y1="90" x2="100" y2="190"/>
+    <line x1="130" y1="90" x2="130" y2="190"/>
+    <line x1="160" y1="90" x2="160" y2="190"/>
+    <line x1="190" y1="90" x2="190" y2="190"/>
+    <line x1="220" y1="90" x2="220" y2="190"/>
+    <line x1="250" y1="90" x2="250" y2="190"/>
+    <line x1="280" y1="90" x2="280" y2="190"/>
+    <line x1="310" y1="90" x2="310" y2="190"/>
+  </g>
+  <!-- Observer pattern diagram -->
+  <!-- Subject -->
+  <rect x="175" y="100" width="50" height="20" rx="2" fill="#e8dcc8" stroke="#3d2614" stroke-width="1.2"/>
+  <text x="200" y="114" text-anchor="middle" font-family="Georgia, serif" font-size="7" fill="#3d2614">Subject</text>
+  <!-- Observer arrows -->
+  <g stroke="#3d2614" stroke-width="0.8">
+    <line x1="185" y1="120" x2="120" y2="145"/>
+    <line x1="200" y1="120" x2="200" y2="145"/>
+    <line x1="215" y1="120" x2="280" y2="145"/>
+  </g>
+  <!-- Observers -->
+  <rect x="95" y="145" width="50" height="20" rx="2" fill="#e8dcc8" stroke="#3d2614" stroke-width="1"/>
+  <text x="120" y="159" text-anchor="middle" font-family="Georgia, serif" font-size="7" fill="#3d2614">Observer</text>
+  <rect x="175" y="145" width="50" height="20" rx="2" fill="#e8dcc8" stroke="#3d2614" stroke-width="1"/>
+  <text x="200" y="159" text-anchor="middle" font-family="Georgia, serif" font-size="7" fill="#3d2614">Observer</text>
+  <rect x="255" y="145" width="50" height="20" rx="2" fill="#e8dcc8" stroke="#3d2614" stroke-width="1"/>
+  <text x="280" y="159" text-anchor="middle" font-family="Georgia, serif" font-size="7" fill="#3d2614">Observer</text>
+  <!-- Arrow tips -->
+  <g fill="#3d2614" opacity="0.7">
+    <polygon points="120,145 116,139 124,139"/>
+    <polygon points="200,145 196,139 204,139"/>
+    <polygon points="280,145 276,139 284,139"/>
+  </g>
+  <!-- Subtitle -->
+  <text x="200" y="190" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="10" fill="#5a3a1a" letter-spacing="2">EVERY DEVELOPER SHOULD KNOW</text>
+  <!-- Bottom ornamental line -->
+  <line x1="40" y1="200" x2="360" y2="200" stroke="#3d2614" stroke-width="0.5"/>
+  <line x1="40" y1="203" x2="360" y2="203" stroke="#3d2614" stroke-width="1"/>
+  <polygon points="100,201 104,198 108,201 104,204" fill="#3d2614" opacity="0.6"/>
+  <polygon points="292,201 296,198 300,201 296,204" fill="#3d2614" opacity="0.6"/>
+  <text x="200" y="228" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="8" fill="#8b7355" letter-spacing="3">BLUEPRINT &amp; PATTERNS</text>
+</svg>
