@@ -1629,8 +1629,6 @@ function HomePage({ currentBlogIndex, setCurrentBlogIndex, isPaperVisible, setIs
           </div>
         </section>
 
-        <TypewriterBlog />
-
         {/* Pinned link to Diary */}
         <div className="flex justify-center py-10">
           <Link
