@@ -167,7 +167,7 @@ export default function BlogList() {
     return () => observer.disconnect();
   }, [visible.length, filteredPosts.length, loadMore]);
 
-  const btnBase = "inline-flex items-center gap-2 px-3 py-1.5 border border-[#e8dcc8]/30 rounded-sm text-xs font-mono text-[#e8dcc8]/70 hover:bg-[#e8dcc8] hover:text-[#2c2a25] transition-all duration-300";
+  const btnBase = "cursor-pointer inline-flex items-center gap-2 px-3 py-1.5 border border-[#e8dcc8]/30 rounded-sm text-xs font-mono text-[#e8dcc8]/70 hover:bg-[#e8dcc8] hover:text-[#2c2a25] active:bg-[#e8dcc8]/70 active:text-[#2c2a25] transition-all duration-300 touch-manipulation";
 
   if (loading) {
     return (
@@ -265,17 +265,35 @@ export default function BlogList() {
             </p>
           </div>
         ) : (
-          <div className="space-y-0">
+          <div
+            className="space-y-0"
+            onTouchStart={(e) => {
+              const link = e.target.closest('a');
+              if (link) link.style.backgroundColor = 'rgba(61,52,41,0.18)';
+            }}
+            onTouchEnd={(e) => {
+              const link = e.target.closest('a');
+              if (link) link.style.backgroundColor = '';
+            }}
+            onTouchCancel={(e) => {
+              const link = e.target.closest('a');
+              if (link) link.style.backgroundColor = '';
+            }}
+            onTouchMove={(e) => {
+              const links = e.currentTarget.querySelectorAll('a');
+              links.forEach(a => a.style.backgroundColor = '');
+            }}
+          >
             {visible.map((post) => (
               <Link
                 key={post.slug}
                 id={`blog-${post.slug}`}
                 to={`/blogs/${post.slug}`}
                 onClick={() => saveClicked(post.slug)}
-                className="flex gap-5 py-6 px-3 -mx-3 group border-b border-[#3d3429]/10 last:border-b-0 rounded-sm transition-all duration-300 hover:bg-[#2c2a25]/[0.03] hover:shadow-sm hover:border-transparent active:bg-[#2c2a25]/[0.06] active:scale-[0.995]"
+                className="flex gap-5 py-6 px-3 -mx-3 border-b border-[#3d3429]/10 last:border-b-0 hover:bg-[#2c2a25]/[0.04] rounded-sm"
               >
                 {/* Thumbnail */}
-                <div className="flex-shrink-0 w-28 h-20 rounded overflow-hidden bg-[#e8dcc8] transition-transform duration-300 group-hover:scale-105">
+                <div className="flex-shrink-0 w-28 h-20 rounded overflow-hidden bg-[#e8dcc8]">
                   {post.thumbnail ? (
                     <img
                       src={post.thumbnail}
@@ -297,7 +315,7 @@ export default function BlogList() {
                 {/* Content */}
                 <div className="flex-1 min-w-0">
                   <h2
-                    className="text-lg font-serif text-[#2c2a25] group-hover:text-[#5d4037] transition-colors leading-snug mb-1"
+                    className="text-lg font-serif text-[#2c2a25] leading-snug mb-1"
                     style={{ fontFamily: '"Courier Prime", monospace' }}
                   >
                     {post.title}
