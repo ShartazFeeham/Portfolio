@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 400">
+  <defs>
+    <linearGradient id="ebg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0D1B2A"/>
+      <stop offset="100%" stop-color="#1B2838"/>
+    </linearGradient>
+    <linearGradient id="egold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFD700"/>
+      <stop offset="100%" stop-color="#FFA000"/>
+    </linearGradient>
+    <linearGradient id="egold2" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#FF8F00"/>
+      <stop offset="100%" stop-color="#FFD700"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="250" height="400" rx="12" fill="url(#ebg)"/>
+  <!-- Subtle grid -->
+  <g stroke="#FFD700" stroke-width="0.3" opacity="0.08">
+    <line x1="0" y1="80" x2="250" y2="80"/><line x1="0" y1="160" x2="250" y2="160"/>
+    <line x1="0" y1="240" x2="250" y2="240"/><line x1="0" y1="320" x2="250" y2="320"/>
+    <line x1="50" y1="0" x2="50" y2="400"/><line x1="100" y1="0" x2="100" y2="400"/>
+    <line x1="150" y1="0" x2="150" y2="400"/><line x1="200" y1="0" x2="200" y2="400"/>
+  </g>
+  <!-- Chart area -->
+  <!-- Y axis -->
+  <line x1="45" y1="40" x2="45" y2="240" stroke="#FFD700" stroke-width="2" opacity="0.6"/>
+  <!-- X axis -->
+  <line x1="45" y1="240" x2="225" y2="240" stroke="#FFD700" stroke-width="2" opacity="0.6"/>
+  <!-- Axis labels -->
+  <text x="135" y="258" font-family="monospace" font-size="8" fill="#FFD700" text-anchor="middle" opacity="0.5">Time</text>
+  <text x="30" y="145" font-family="monospace" font-size="8" fill="#FFD700" text-anchor="middle" opacity="0.5" transform="rotate(-90,30,145)">Effort</text>
+  <!-- Grid lines -->
+  <g stroke="#FFD700" stroke-width="0.5" opacity="0.1">
+    <line x1="45" y1="80" x2="225" y2="80"/>
+    <line x1="45" y1="120" x2="225" y2="120"/>
+    <line x1="45" y1="160" x2="225" y2="160"/>
+    <line x1="45" y1="200" x2="225" y2="200"/>
+    <line x1="90" y1="40" x2="90" y2="240"/>
+    <line x1="135" y1="40" x2="135" y2="240"/>
+    <line x1="180" y1="40" x2="180" y2="240"/>
+  </g>
+  <!-- Bar chart - estimation comparison -->
+  <rect x="60" y="140" width="22" height="100" rx="3" fill="url(#egold)" opacity="0.8"/>
+  <rect x="88" y="100" width="22" height="140" rx="3" fill="url(#egold)" opacity="0.6"/>
+  <rect x="116" y="160" width="22" height="80" rx="3" fill="url(#egold)" opacity="0.8"/>
+  <rect x="144" y="80" width="22" height="160" rx="3" fill="url(#egold)" opacity="0.5"/>
+  <rect x="172" y="120" width="22" height="120" rx="3" fill="url(#egold)" opacity="0.7"/>
+  <rect x="200" y="150" width="22" height="90" rx="3" fill="url(#egold)" opacity="0.8"/>
+  <!-- Line graph overlay (estimate trend) -->
+  <polyline points="71,130 99,90 127,150 155,70 183,110 211,140" fill="none" stroke="#FF6F00" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Actual line (dashed) -->
+  <polyline points="71,145 99,110 127,170 155,95 183,135 211,155" fill="none" stroke="#FFD700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5,3"/>
+  <!-- Data points -->
+  <circle cx="71" cy="130" r="4" fill="#FF6F00" stroke="#FFD700" stroke-width="1.5"/>
+  <circle cx="99" cy="90" r="4" fill="#FF6F00" stroke="#FFD700" stroke-width="1.5"/>
+  <circle cx="127" cy="150" r="4" fill="#FF6F00" stroke="#FFD700" stroke-width="1.5"/>
+  <circle cx="155" cy="70" r="4" fill="#FF6F00" stroke="#FFD700" stroke-width="1.5"/>
+  <circle cx="183" cy="110" r="4" fill="#FF6F00" stroke="#FFD700" stroke-width="1.5"/>
+  <circle cx="211" cy="140" r="4" fill="#FF6F00" stroke="#FFD700" stroke-width="1.5"/>
+  <!-- Cone of uncertainty (triangle) -->
+  <polygon points="135,270 100,330 170,330" fill="none" stroke="#FFD700" stroke-width="2" opacity="0.4"/>
+  <polygon points="135,285 115,325 155,325" fill="#FFD700" opacity="0.08"/>
+  <text x="135" y="315" font-family="monospace" font-size="7" fill="#FFD700" text-anchor="middle" opacity="0.5">Uncertainty</text>
+  <!-- Legend -->
+  <g transform="translate(55,345)">
+    <line x1="0" y1="0" x2="20" y2="0" stroke="#FF6F00" stroke-width="2.5"/>
+    <text x="25" y="3" font-family="monospace" font-size="8" fill="#FFD700" opacity="0.7">Estimate</text>
+    <line x1="90" y1="0" x2="110" y2="0" stroke="#FFD700" stroke-width="1.5" stroke-dasharray="5,3"/>
+    <text x="115" y="3" font-family="monospace" font-size="8" fill="#FFD700" opacity="0.7">Actual</text>
+  </g>
+  <!-- Title -->
+  <text x="125" y="385" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#FFD700" text-anchor="middle" letter-spacing="1">ESTIMATION</text>
+  <text x="125" y="400" font-family="Arial, sans-serif" font-size="10" fill="#FF8F00" text-anchor="middle" letter-spacing="1" opacity="0.7">TECHNIQUES</text>
+</svg>

@@ -1,61 +1,86 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250">
-  <!-- Paper background -->
-  <rect width="400" height="250" fill="#e8dcc8"/>
-  <!-- Subtle grain texture -->
-  <filter id="grain">
-    <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
-    <feColorMatrix type="saturate" values="0"/>
-    <feBlend in="SourceGraphic" mode="multiply" result="blend"/>
-  </filter>
-  <rect width="400" height="250" fill="#d4c4a8" opacity="0.15" filter="url(#grain)"/>
-  <!-- Decorative double border -->
-  <rect x="8" y="8" width="384" height="234" fill="none" stroke="#3d2614" stroke-width="2"/>
-  <rect x="14" y="14" width="372" height="222" fill="none" stroke="#3d2614" stroke-width="0.5"/>
-  <!-- Top ornamental line -->
-  <line x1="40" y1="45" x2="360" y2="45" stroke="#3d2614" stroke-width="1"/>
-  <circle cx="200" cy="45" r="4" fill="#3d2614"/>
-  <line x1="40" y1="48" x2="360" y2="48" stroke="#3d2614" stroke-width="0.5"/>
-  <!-- Streaming pipes -->
-  <g stroke="#3d2614" stroke-width="2.5" fill="none" opacity="0.9">
-    <line x1="80" y1="130" x2="140" y2="130"/>
-    <line x1="170" y1="130" x2="230" y2="130"/>
-    <line x1="260" y1="130" x2="320" y2="130"/>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a1628"/>
+      <stop offset="100%" style="stop-color:#0d2847"/>
+    </linearGradient>
+    <linearGradient id="stream" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00b4d8"/>
+      <stop offset="100%" style="stop-color:#48cae4"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#00b4d8;stop-opacity:0.3"/>
+      <stop offset="100%" style="stop-color:#00b4d8;stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="400" height="250" fill="url(#bg)"/>
+  <!-- Grid lines -->
+  <g stroke="#1a3a5c" stroke-width="0.5" opacity="0.4">
+    <line x1="0" y1="50" x2="400" y2="50"/>
+    <line x1="0" y1="100" x2="400" y2="100"/>
+    <line x1="0" y1="150" x2="400" y2="150"/>
+    <line x1="0" y1="200" x2="400" y2="200"/>
+    <line x1="80" y1="0" x2="80" y2="250"/>
+    <line x1="160" y1="0" x2="160" y2="250"/>
+    <line x1="240" y1="0" x2="240" y2="250"/>
+    <line x1="320" y1="0" x2="320" y2="250"/>
+  </g>
+  <!-- Flowing data streams -->
+  <g fill="none" stroke-width="2.5" opacity="0.6">
+    <path d="M0,90 Q50,80 100,90 Q150,100 200,90 Q250,80 300,90 Q350,100 400,90" stroke="#0096c7"/>
+    <path d="M0,125 Q50,115 100,125 Q150,135 200,125 Q250,115 300,125 Q350,135 400,125" stroke="#00b4d8"/>
+    <path d="M0,160 Q50,150 100,160 Q150,170 200,160 Q250,150 300,160 Q350,170 400,160" stroke="#48cae4"/>
+  </g>
+  <!-- Glowing dots on streams -->
+  <g fill="#90e0ef" opacity="0.9">
+    <circle cx="60" cy="90" r="3"/>
+    <circle cx="160" cy="90" r="2.5"/>
+    <circle cx="280" cy="90" r="3"/>
+    <circle cx="370" cy="90" r="2"/>
+    <circle cx="40" cy="125" r="2.5"/>
+    <circle cx="140" cy="125" r="3"/>
+    <circle cx="240" cy="125" r="2"/>
+    <circle cx="340" cy="125" r="3"/>
+    <circle cx="80" cy="160" r="2"/>
+    <circle cx="200" cy="160" r="3"/>
+    <circle cx="320" cy="160" r="2.5"/>
   </g>
   <!-- Broker nodes -->
-  <g fill="#3d2614" opacity="0.85">
-    <rect x="140" y="118" width="30" height="24" rx="3"/>
-    <rect x="230" y="118" width="30" height="24" rx="3"/>
-    <rect x="60" y="118" width="20" height="24" rx="3"/>
-    <rect x="320" y="118" width="20" height="24" rx="3"/>
+  <g>
+    <rect x="110" y="110" width="36" height="30" rx="4" fill="#0d2847" stroke="#00b4d8" stroke-width="1.5"/>
+    <rect x="182" y="110" width="36" height="30" rx="4" fill="#0d2847" stroke="#00b4d8" stroke-width="1.5"/>
+    <rect x="254" y="110" width="36" height="30" rx="4" fill="#0d2847" stroke="#00b4d8" stroke-width="1.5"/>
   </g>
-  <!-- Message arrows flowing right -->
-  <g fill="#8b6914" opacity="0.7">
-    <polygon points="95,125 105,130 95,135"/>
-    <polygon points="185,125 195,130 185,135"/>
-    <polygon points="275,125 285,130 275,135"/>
+  <!-- Node internal lines -->
+  <g stroke="#00b4d8" stroke-width="0.6" opacity="0.5">
+    <line x1="116" y1="118" x2="140" y2="118"/>
+    <line x1="116" y1="123" x2="140" y2="123"/>
+    <line x1="116" y1="128" x2="140" y2="128"/>
+    <line x1="116" y1="133" x2="140" y2="133"/>
+    <line x1="188" y1="118" x2="212" y2="118"/>
+    <line x1="188" y1="123" x2="212" y2="123"/>
+    <line x1="188" y1="128" x2="212" y2="128"/>
+    <line x1="188" y1="133" x2="212" y2="133"/>
+    <line x1="260" y1="118" x2="284" y2="118"/>
+    <line x1="260" y1="123" x2="284" y2="123"/>
+    <line x1="260" y1="128" x2="284" y2="128"/>
+    <line x1="260" y1="133" x2="284" y2="133"/>
   </g>
-  <!-- Topic partitions (stacked lines) -->
-  <g stroke="#5a3a1a" stroke-width="1" opacity="0.5">
-    <line x1="145" y1="122" x2="165" y2="122"/>
-    <line x1="145" y1="126" x2="165" y2="126"/>
-    <line x1="145" y1="130" x2="165" y2="130"/>
-    <line x1="145" y1="134" x2="165" y2="134"/>
-    <line x1="145" y1="138" x2="165" y2="138"/>
-    <line x1="235" y1="122" x2="255" y2="122"/>
-    <line x1="235" y1="126" x2="255" y2="126"/>
-    <line x1="235" y1="130" x2="255" y2="130"/>
-    <line x1="235" y1="134" x2="255" y2="134"/>
-    <line x1="235" y1="138" x2="255" y2="138"/>
+  <!-- Connection arrows between brokers -->
+  <g stroke="#48cae4" stroke-width="1.5" fill="#48cae4">
+    <line x1="146" y1="125" x2="182" y2="125"/>
+    <polygon points="180,121 188,125 180,129"/>
+    <line x1="218" y1="125" x2="254" y2="125"/>
+    <polygon points="252,121 260,125 252,129"/>
   </g>
-  <!-- Title text -->
-  <text x="200" y="85" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="16" font-weight="bold" fill="#2c2a25" letter-spacing="1">KAFKA AT SCALE</text>
-  <text x="200" y="170" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#5a3a1a" letter-spacing="2">PATTERNS THAT SURVIVE</text>
-  <!-- Bottom ornamental line -->
-  <line x1="40" y1="200" x2="360" y2="200" stroke="#3d2614" stroke-width="0.5"/>
-  <line x1="40" y1="203" x2="360" y2="203" stroke="#3d2614" stroke-width="1"/>
-  <!-- Small decorative diamonds -->
-  <polygon points="100,201 104,198 108,201 104,204" fill="#3d2614" opacity="0.6"/>
-  <polygon points="292,201 296,198 300,201 296,204" fill="#3d2614" opacity="0.6"/>
-  <!-- Stream label -->
-  <text x="200" y="230" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="8" fill="#8b7355" letter-spacing="3">STREAMING &amp; MESSAGING</text>
+  <!-- Title -->
+  <text x="200" y="50" text-anchor="middle" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="20" font-weight="700" fill="#caf0f8" letter-spacing="2">KAFKA AT SCALE</text>
+  <!-- Subtitle -->
+  <text x="200" y="175" text-anchor="middle" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="11" fill="#48cae4" letter-spacing="3" opacity="0.8">PATTERNS THAT SURVIVE</text>
+  <!-- Bottom glow line -->
+  <rect x="100" y="200" width="200" height="2" rx="1" fill="url(#stream)" opacity="0.6"/>
+  <!-- Topic badge -->
+  <rect x="145" y="210" width="110" height="20" rx="10" fill="#00b4d8" opacity="0.15"/>
+  <text x="200" y="224" text-anchor="middle" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="8" fill="#90e0ef" letter-spacing="2">STREAMING</text>
 </svg>

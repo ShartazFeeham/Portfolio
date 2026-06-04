@@ -1,62 +1,79 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250">
-  <!-- Paper background -->
-  <rect width="400" height="250" fill="#e8dcc8"/>
-  <filter id="grain">
-    <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
-    <feColorMatrix type="saturate" values="0"/>
-    <feBlend in="SourceGraphic" mode="multiply"/>
-  </filter>
-  <rect width="400" height="250" fill="#d4c4a8" opacity="0.12" filter="url(#grain)"/>
-  <!-- Decorative double border -->
-  <rect x="8" y="8" width="384" height="234" fill="none" stroke="#3d2614" stroke-width="2"/>
-  <rect x="14" y="14" width="372" height="222" fill="none" stroke="#3d2614" stroke-width="0.5"/>
-  <!-- Top ornamental line -->
-  <line x1="40" y1="45" x2="360" y2="45" stroke="#3d2614" stroke-width="1"/>
-  <circle cx="200" cy="45" r="4" fill="#3d2614"/>
-  <line x1="40" y1="48" x2="360" y2="48" stroke="#3d2614" stroke-width="0.5"/>
-  <!-- Title -->
-  <text x="200" y="78" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="15" font-weight="bold" fill="#2c2a25" letter-spacing="1">DOCKER IN PRODUCTION</text>
-  <!-- Container boxes (stacked) -->
-  <g fill="#3d2614" opacity="0.12" stroke="#3d2614" stroke-width="1.2">
-    <rect x="110" y="105" width="30" height="22" rx="2"/>
-    <rect x="145" y="105" width="30" height="22" rx="2"/>
-    <rect x="180" y="105" width="30" height="22" rx="2"/>
-    <rect x="215" y="105" width="30" height="22" rx="2"/>
-    <rect x="250" y="105" width="30" height="22" rx="2"/>
-    <rect x="110" y="132" width="30" height="22" rx="2"/>
-    <rect x="145" y="132" width="30" height="22" rx="2"/>
-    <rect x="180" y="132" width="30" height="22" rx="2"/>
-    <rect x="215" y="132" width="30" height="22" rx="2"/>
-    <rect x="250" y="132" width="30" height="22" rx="2"/>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#023e8a"/>
+      <stop offset="50%" style="stop-color:#0077b6"/>
+      <stop offset="100%" style="stop-color:#0096c7"/>
+    </linearGradient>
+    <linearGradient id="water" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#00b4d8;stop-opacity:0.4"/>
+      <stop offset="100%" style="stop-color:#0077b6;stop-opacity:0.2"/>
+    </linearGradient>
+    <linearGradient id="container" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#90e0ef"/>
+      <stop offset="100%" style="stop-color:#48cae4"/>
+    </linearGradient>
+  </defs>
+  <!-- Sky background -->
+  <rect width="400" height="250" fill="url(#bg)"/>
+  <!-- Clouds -->
+  <g fill="#caf0f8" opacity="0.15">
+    <ellipse cx="80" cy="40" rx="40" ry="15"/>
+    <ellipse cx="60" cy="35" rx="25" ry="12"/>
+    <ellipse cx="110" cy="38" rx="20" ry="10"/>
+    <ellipse cx="320" cy="55" rx="35" ry="12"/>
+    <ellipse cx="295" cy="50" rx="20" ry="10"/>
+    <ellipse cx="350" cy="52" rx="18" ry="9"/>
+  </g>
+  <!-- Water waves -->
+  <g>
+    <rect x="0" y="165" width="400" height="85" fill="url(#water)"/>
+    <path d="M0,170 Q25,162 50,170 Q75,178 100,170 Q125,162 150,170 Q175,178 200,170 Q225,162 250,170 Q275,178 300,170 Q325,162 350,170 Q375,178 400,170" fill="none" stroke="#48cae4" stroke-width="1.5" opacity="0.5"/>
+    <path d="M0,180 Q25,172 50,180 Q75,188 100,180 Q125,172 150,180 Q175,188 200,180 Q225,172 250,180 Q275,188 300,180 Q325,172 350,180 Q375,188 400,180" fill="none" stroke="#90e0ef" stroke-width="1" opacity="0.3"/>
+  </g>
+  <!-- Container ship body (whale-like) -->
+  <g>
+    <!-- Ship hull -->
+    <path d="M100,160 Q90,150 95,140 L305,140 Q310,150 300,160 Q250,170 200,170 Q150,170 100,160 Z" fill="#0077b6" stroke="#48cae4" stroke-width="1.5"/>
+    <!-- Ship deck -->
+    <rect x="110" y="130" width="180" height="12" rx="3" fill="#023e8a" stroke="#48cae4" stroke-width="1"/>
+  </g>
+  <!-- Container boxes on ship - row 1 -->
+  <g>
+    <rect x="120" y="98" width="28" height="28" rx="2" fill="#0096c7" stroke="#90e0ef" stroke-width="1"/>
+    <rect x="152" y="98" width="28" height="28" rx="2" fill="#0077b6" stroke="#90e0ef" stroke-width="1"/>
+    <rect x="184" y="98" width="28" height="28" rx="2" fill="#00b4d8" stroke="#90e0ef" stroke-width="1"/>
+    <rect x="216" y="98" width="28" height="28" rx="2" fill="#0077b6" stroke="#90e0ef" stroke-width="1"/>
+    <rect x="248" y="98" width="28" height="28" rx="2" fill="#0096c7" stroke="#90e0ef" stroke-width="1"/>
   </g>
   <!-- Container labels -->
-  <g font-family="Georgia, serif" font-size="6" fill="#3d2614" text-anchor="middle" opacity="0.6">
-    <text x="125" y="120">app</text>
-    <text x="160" y="120">db</text>
-    <text x="195" y="120">api</text>
-    <text x="230" y="120">web</text>
-    <text x="265" y="120">redis</text>
-    <text x="125" y="147">nginx</text>
-    <text x="160" y="147">queue</text>
-    <text x="195" y="147">auth</text>
-    <text x="230" y="147">log</text>
-    <text x="265" y="147">mon</text>
+  <g font-family="monospace" font-size="6" fill="#caf0f8" text-anchor="middle" opacity="0.7">
+    <text x="134" y="116">app</text>
+    <text x="166" y="116">db</text>
+    <text x="198" y="116">api</text>
+    <text x="230" y="116">web</text>
+    <text x="262" y="116">redis</text>
   </g>
-  <!-- Whale tail shape -->
-  <g fill="#3d2614" opacity="0.2">
-    <path d="M85,135 Q75,125 70,140 Q65,155 80,155 L85,155 Z"/>
+  <!-- Stacked containers - row 2 (partial) -->
+  <g>
+    <rect x="136" y="70" width="28" height="24" rx="2" fill="#48cae4" stroke="#caf0f8" stroke-width="1" opacity="0.8"/>
+    <rect x="168" y="70" width="28" height="24" rx="2" fill="#0096c7" stroke="#caf0f8" stroke-width="1" opacity="0.8"/>
+    <rect x="200" y="70" width="28" height="24" rx="2" fill="#48cae4" stroke="#caf0f8" stroke-width="1" opacity="0.8"/>
+    <rect x="232" y="70" width="28" height="24" rx="2" fill="#0077b6" stroke="#caf0f8" stroke-width="1" opacity="0.8"/>
   </g>
-  <!-- Waves under containers -->
-  <g fill="none" stroke="#8b6914" stroke-width="1" opacity="0.4">
-    <path d="M80,165 Q100,158 120,165 Q140,172 160,165 Q180,158 200,165 Q220,172 240,165 Q260,158 280,165 Q300,172 320,165"/>
-    <path d="M80,172 Q100,165 120,172 Q140,179 160,172 Q180,165 200,172 Q220,179 240,172 Q260,165 280,172 Q300,179 320,172"/>
+  <g font-family="monospace" font-size="5" fill="#caf0f8" text-anchor="middle" opacity="0.6">
+    <text x="150" y="86">nginx</text>
+    <text x="182" y="86">queue</text>
+    <text x="214" y="86">auth</text>
+    <text x="246" y="86">log</text>
   </g>
+  <!-- Docker whale tail -->
+  <path d="M305,145 Q320,135 315,125 Q310,115 320,110" fill="none" stroke="#48cae4" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  <!-- Title -->
+  <text x="200" y="30" text-anchor="middle" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="17" font-weight="700" fill="#caf0f8" letter-spacing="1.5">DOCKER IN PRODUCTION</text>
   <!-- Subtitle -->
-  <text x="200" y="195" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="11" fill="#5a3a1a" letter-spacing="2">LESSONS LEARNED</text>
-  <!-- Bottom ornamental line -->
-  <line x1="40" y1="200" x2="360" y2="200" stroke="#3d2614" stroke-width="0.5"/>
-  <line x1="40" y1="203" x2="360" y2="203" stroke="#3d2614" stroke-width="1"/>
-  <polygon points="100,201 104,198 108,201 104,204" fill="#3d2614" opacity="0.6"/>
-  <polygon points="292,201 296,198 300,201 296,204" fill="#3d2614" opacity="0.6"/>
-  <text x="200" y="228" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="8" fill="#8b7355" letter-spacing="3">CONTAINERS &amp; ORCHESTRATION</text>
+  <text x="200" y="48" text-anchor="middle" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="10" fill="#90e0ef" letter-spacing="2.5" opacity="0.8">LESSONS LEARNED</text>
+  <!-- Bottom badge -->
+  <rect x="130" y="215" width="140" height="20" rx="10" fill="#023e8a" opacity="0.5" stroke="#48cae4" stroke-width="0.5"/>
+  <text x="200" y="229" text-anchor="middle" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="7" fill="#90e0ef" letter-spacing="2">CONTAINERS</text>
 </svg>

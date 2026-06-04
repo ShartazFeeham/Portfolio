@@ -8,45 +8,8 @@ import "./Bioscope.css";
    blog posts in a dock-style carousel.
    ────────────────────────────────────────────── */
 
-// Blog data (parsed from markdown frontmatter)
-const mdFiles = import.meta.glob('../../content/blogs/*.md', { query: '?raw', import: 'default', eager: true });
-
-const BLOGS = Object.values(mdFiles)
-  .map(rawText => {
-    const frontmatterMatch = rawText.match(/^---\n([\s\S]*?)\n---/);
-    if (!frontmatterMatch) return null;
-    
-    const data = {};
-    frontmatterMatch[1].split('\n').forEach(line => {
-      const colonIdx = line.indexOf(':');
-      if (colonIdx > -1) {
-        const key = line.slice(0, colonIdx).trim();
-        let value = line.slice(colonIdx + 1).trim();
-        if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
-          value = value.slice(1, -1);
-        }
-        data[key] = value;
-      }
-    });
-    
-    // Format date string to match previous style (e.g., "Mar 15, 2026")
-    if (data.date) {
-      try {
-        const d = new Date(data.date);
-        if (!isNaN(d.getTime())) {
-          data.dateStr = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-        } else {
-          data.dateStr = data.date;
-        }
-      } catch (e) {
-        data.dateStr = data.date;
-      }
-    }
-    
-    return data;
-  })
-  .filter(Boolean)
-  .sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
+// Blog data (loaded from manifest at runtime)
+let BLOGS = [];
 
 // Map dateStr to date so the existing components work without change
 BLOGS.forEach(blog => {
@@ -85,9 +48,17 @@ export default function Bioscope() {
   const [isOpen, setIsOpen] = useState(false);
   const [isAnimatingIn, setIsAnimatingIn] = useState(false);
   const [isAnimatingOut, setIsAnimatingOut] = useState(false);
+  const [blogs, setBlogs] = useState([]);
   const [centerIndex, setCenterIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const timeoutRef = useRef(null);
+
+  useEffect(() => {
+    fetch('/blogs/manifest.json')
+      .then(r => r.json())
+      .then(data => setBlogs(data))
+      .catch(() => {});
+  }, []);
 
   // Visible window of blogs (5 at a time for dock effect)
   const visibleCount = 5;
@@ -95,14 +66,14 @@ export default function Bioscope() {
   // Calculate visible blogs centered on centerIndex
   const getVisibleBlogs = useCallback(() => {
     const half = Math.floor(visibleCount / 2);
-    const blogs = [];
+    const arr = [];
     for (let offset = -half; offset <= half; offset++) {
       let idx = centerIndex + offset;
-      if (idx < 0) idx += BLOGS.length;
-      if (idx >= BLOGS.length) idx -= BLOGS.length;
-      blogs.push({ ...BLOGS[idx], originalIndex: idx });
+      if (idx < 0) idx += blogs.length;
+      if (idx >= blogs.length) idx -= blogs.length;
+      arr.push({ ...blogs[idx], originalIndex: idx });
     }
-    return blogs;
+    return arr;
   }, [centerIndex]);
 
   const visibleBlogs = useMemo(() => getVisibleBlogs(), [getVisibleBlogs]);
@@ -130,14 +101,14 @@ export default function Bioscope() {
   const goNext = useCallback(() => {
     if (isTransitioning) return;
     setIsTransitioning(true);
-    setCenterIndex((prev) => (prev + 1) % BLOGS.length);
+    setCenterIndex((prev) => (prev + 1) % blogs.length);
     setTimeout(() => setIsTransitioning(false), 350);
   }, [isTransitioning]);
 
   const goPrev = useCallback(() => {
     if (isTransitioning) return;
     setIsTransitioning(true);
-    setCenterIndex((prev) => (prev - 1 + BLOGS.length) % BLOGS.length);
+    setCenterIndex((prev) => (prev - 1 + blogs.length) % blogs.length);
     setTimeout(() => setIsTransitioning(false), 350);
   }, [isTransitioning]);
 
@@ -282,7 +253,7 @@ export default function Bioscope() {
 
           {/* Counter */}
           <div className="cinema-counter font-hand">
-            {centerIndex + 1} / {BLOGS.length}
+            {centerIndex + 1} / {blogs.length}
           </div>
         </div>
       )}

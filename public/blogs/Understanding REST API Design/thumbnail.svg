@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4A0E8F"/>
+      <stop offset="100%" stop-color="#7B2FBE"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF6B35"/>
+      <stop offset="100%" stop-color="#FFB347"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="400" height="250" rx="12" fill="url(#bg)"/>
+  <!-- Decorative circles -->
+  <circle cx="350" cy="40" r="60" fill="#FF6B35" opacity="0.12"/>
+  <circle cx="50" cy="210" r="45" fill="#FF6B35" opacity="0.08"/>
+  <!-- API endpoint lines -->
+  <g opacity="0.9">
+    <!-- GET line -->
+    <rect x="40" y="40" width="320" height="28" rx="6" fill="#1a0a30" opacity="0.5"/>
+    <rect x="44" y="44" width="44" height="20" rx="4" fill="#4CAF50"/>
+    <text x="66" y="59" font-family="monospace" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">GET</text>
+    <text x="100" y="58" font-family="monospace" font-size="11" fill="#e0d0ff">/api/v1/users</text>
+    <circle cx="340" cy="54" r="6" fill="#4CAF50" opacity="0.8"/>
+    <!-- POST line -->
+    <rect x="40" y="78" width="320" height="28" rx="6" fill="#1a0a30" opacity="0.5"/>
+    <rect x="44" y="82" width="50" height="20" rx="4" fill="#FFB347"/>
+    <text x="69" y="97" font-family="monospace" font-size="12" font-weight="bold" fill="#4A0E8F" text-anchor="middle">POST</text>
+    <text x="106" y="96" font-family="monospace" font-size="11" fill="#e0d0ff">/api/v1/users</text>
+    <circle cx="340" cy="92" r="6" fill="#FFB347" opacity="0.8"/>
+    <!-- PUT line -->
+    <rect x="40" y="116" width="320" height="28" rx="6" fill="#1a0a30" opacity="0.5"/>
+    <rect x="44" y="120" width="40" height="20" rx="4" fill="#42A5F5"/>
+    <text x="64" y="135" font-family="monospace" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">PUT</text>
+    <text x="96" y="134" font-family="monospace" font-size="11" fill="#e0d0ff">/api/v1/users/:id</text>
+    <circle cx="340" cy="130" r="6" fill="#42A5F5" opacity="0.8"/>
+    <!-- DELETE line -->
+    <rect x="40" y="154" width="320" height="28" rx="6" fill="#1a0a30" opacity="0.5"/>
+    <rect x="44" y="158" width="66" height="20" rx="4" fill="#EF5350"/>
+    <text x="77" y="173" font-family="monospace" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle">DELETE</text>
+    <text x="122" y="172" font-family="monospace" font-size="11" fill="#e0d0ff">/api/v1/users/:id</text>
+    <circle cx="340" cy="168" r="6" fill="#EF5350" opacity="0.8"/>
+  </g>
+  <!-- Accent bar bottom -->
+  <rect x="0" y="238" width="400" height="12" rx="0 0 12 12" fill="url(#accent)"/>
+  <!-- Title -->
+  <text x="200" y="218" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#FFB347" text-anchor="middle" letter-spacing="1">REST API DESIGN</text>
+</svg>

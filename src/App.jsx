@@ -3,12 +3,9 @@ import { Routes, Route, Link } from "react-router-dom";
 import { Masthead } from "./components/layout/Masthead";
 import { BreakingNews } from "./components/layout/BreakingNews";
 import { ProfessionalExperienceSection } from "./components/sections/ProfessionalExperienceSection";
-import { ProgrammingSkillsSection } from "./components/sections/ProgrammingSkillsSection";
 import DetectiveWall from "./components/sections/DetectiveWall";
-import TypewriterBlog from "./components/sections/TypewriterBlog";
 import { ContactSection } from "./components/sections/ContactSection";
 import { OthersSection } from "./components/sections/OthersSection";
-import { blogs } from "./data/blogs";
 import BlogList from "./pages/BlogList";
 import BlogPost from "./pages/BlogPost";
 import "./App.css";
@@ -92,9 +89,17 @@ function AnimatedIndex({ children }) {
 }
 
 export default function App() {
+  const [blogs, setBlogs] = useState([]);
   const [currentBlogIndex, setCurrentBlogIndex] = useState(0);
   const [isPaperVisible, setIsPaperVisible] = useState(false);
   const blogSectionRef = useRef(null);
+
+  useEffect(() => {
+    fetch('/blogs/manifest.json')
+      .then(r => r.json())
+      .then(data => setBlogs(data))
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -163,12 +168,12 @@ export default function App() {
     <Routes>
       <Route path="/blogs" element={<BlogList />} />
       <Route path="/blogs/:slug" element={<BlogPost />} />
-      <Route path="*" element={<HomePage currentBlogIndex={currentBlogIndex} setCurrentBlogIndex={setCurrentBlogIndex} isPaperVisible={isPaperVisible} setIsPaperVisible={setIsPaperVisible} blogSectionRef={blogSectionRef} handleNextBlog={handleNextBlog} handlePrevBlog={handlePrevBlog} issueDateLabel={issueDateLabel} toggleQuickLinkInvert={toggleQuickLinkInvert} flashQuickLinkInvert={flashQuickLinkInvert} AnimatedQuickLinksEntry={AnimatedQuickLinksEntry} AnimatedIndex={AnimatedIndex} />} />
+      <Route path="*" element={<HomePage blogs={blogs} currentBlogIndex={currentBlogIndex} setCurrentBlogIndex={setCurrentBlogIndex} isPaperVisible={isPaperVisible} setIsPaperVisible={setIsPaperVisible} blogSectionRef={blogSectionRef} handleNextBlog={handleNextBlog} handlePrevBlog={handlePrevBlog} issueDateLabel={issueDateLabel} toggleQuickLinkInvert={toggleQuickLinkInvert} flashQuickLinkInvert={flashQuickLinkInvert} AnimatedQuickLinksEntry={AnimatedQuickLinksEntry} AnimatedIndex={AnimatedIndex} />} />
     </Routes>
   );
 }
 
-function HomePage({ currentBlogIndex, setCurrentBlogIndex, isPaperVisible, setIsPaperVisible, blogSectionRef, handleNextBlog, handlePrevBlog, issueDateLabel, toggleQuickLinkInvert, flashQuickLinkInvert, AnimatedQuickLinksEntry, AnimatedIndex }) {
+function HomePage({ blogs, currentBlogIndex, setCurrentBlogIndex, isPaperVisible, setIsPaperVisible, blogSectionRef, handleNextBlog, handlePrevBlog, issueDateLabel, toggleQuickLinkInvert, flashQuickLinkInvert, AnimatedQuickLinksEntry, AnimatedIndex }) {
   return (
     <div className="min-h-screen bg-[#f8f8f8] px-0 pt-0 pb-[5px] md:px-8 md:pb-8 md:pt-[10px] lg:px-12 lg:pb-12 lg:pt-[10px] flex justify-center items-start font-serif selection:bg-[#2c2a25] selection:text-[#e8e1cf]">
       <a href="#main-content" className="skip-to-main">
@@ -1386,12 +1391,11 @@ function HomePage({ currentBlogIndex, setCurrentBlogIndex, isPaperVisible, setIs
                       <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
                     </svg>
                     <div className="paper-edge tear-mask-ql-c">
-                      <a className="paper-inner tear-mask-ql-c p-3 block" href="#" onPointerDown={flashQuickLinkInvert} onClick={(e) => { toggleQuickLinkInvert(e); e.preventDefault(); }}>
+                      <a className="paper-inner tear-mask-ql-c p-3 block" href="/blogs" onPointerDown={flashQuickLinkInvert} onClick={(e) => { toggleQuickLinkInvert(e); }}>
                         <div className="flex items-center justify-between gap-2">
-                          <div className="quicklink-title">Resume</div>
+                          <div className="quicklink-title">Blogs</div>
                           <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
-                            <path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4.01 4a1 1 0 0 1-1.38 0l-4.01-4a1 1 0 1 1 1.4-1.42L11 13.59V4a1 1 0 0 1 1-1z"/>
-                            <path fill="currentColor" d="M5 19a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1z"/>
+                            <path fill="currentColor" d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
                           </svg>
                         </div>
                       </a>
@@ -1444,11 +1448,12 @@ function HomePage({ currentBlogIndex, setCurrentBlogIndex, isPaperVisible, setIs
                       <path fill="currentColor" d="M14 2c.6 0 1 .4 1 1v4.2l3.1 3.1c.3.3.4.8.2 1.2l-.9 1.8c-.2.4-.6.7-1.1.7H13v6.2l-1 1-1-1V16H7.7c-.5 0-.9-.3-1.1-.7l-.9-1.8c-.2-.4-.1-.9.2-1.2L9 7.2V3c0-.6.4-1 1-1h4z"/>
                     </svg>
                     <div className="paper-edge tear-mask-ql-mail">
-                      <a className="paper-inner tear-mask-ql-mail p-3 block" href="mailto:mdfeeham@gmail.com" onPointerDown={flashQuickLinkInvert} onClick={toggleQuickLinkInvert}>
+                      <a className="paper-inner tear-mask-ql-mail p-3 block" href="/resume.pdf" onPointerDown={flashQuickLinkInvert} onClick={toggleQuickLinkInvert}>
                         <div className="flex items-center justify-between gap-2">
-                          <div className="quicklink-title">E-mail</div>
+                          <div className="quicklink-title">Resume</div>
                           <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
-                            <path fill="currentColor" d="M4 6h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zm0 2v.2l8 5.3 8-5.3V8H4zm16 10V10.6l-7.5 5a1 1 0 0 1-1.1 0L4 10.6V18h16z"/>
+                            <path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4.01 4a1 1 0 0 1-1.38 0l-4.01-4a1 1 0 1 1 1.4-1.42L11 13.59V4a1 1 0 0 1 1-1z"/>
+                            <path fill="currentColor" d="M5 19a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1z"/>
                           </svg>
                         </div>
                       </a>
@@ -1504,52 +1509,9 @@ function HomePage({ currentBlogIndex, setCurrentBlogIndex, isPaperVisible, setIs
 
         <hr className="border-t-[3px] border-[#2c2a25] my-2" />
 
-        {/* --- EDUCATION --- */}
-        <section id="education" className="flex flex-col gap-4">
-          <h2 className="font-headline font-black text-xl md:text-2xl uppercase leading-none text-[#2c2a25]">
-            <a href="#index">EDUCATION</a>
-          </h2>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            <article className="lg:col-span-8">
-              <div className="flex justify-between items-start mb-2">
-                <h5 className="font-headline font-black text-sm uppercase bg-[#2c2a25] text-[#e8e1cf] px-2 py-1 inline-block">Green University of Bangladesh</h5>
-                <span className="text-[12px] md:text-[13px] font-bold font-times">Jan 2019 – Mar 2023</span>
-              </div>
-              <p className="font-times text-[13px] md:text-[14px] leading-snug text-justify mb-2">
-                <b>BSc. In Computer Science &amp; Engineering</b>
-              </p>
-              <p className="font-times text-[13px] md:text-[14px] leading-snug text-justify mb-2">
-                <b>CGPA:</b> 3.56 out of 4.00
-              </p>
-              <p className="font-times text-[13px] md:text-[14px] leading-snug text-justify">
-                <b>Publication:</b> Risk Analysis and Support System for Autistic Children using IoT
-              </p>
-            </article>
-
-            <aside className="lg:col-span-4 lg:border-l-2 lg:border-[#2c2a25] lg:pl-6 lg:ml-2">
-              <div className="p-0.5 border-[3px] border-[#2c2a25] bg-[#e8e1cf] shadow-lg">
-                <div className="relative w-full aspect-[4/3] bg-[#d3c9b3] overflow-hidden grayscale contrast-125 brightness-90">
-                  <img
-                    src="/images/campus.jpg"
-                    alt="Green University of Bangladesh campus, vintage-style archival photograph"
-                    className="object-cover w-full h-full mix-blend-multiply"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                </div>
-              </div>
-              <div className="mt-3 font-headline text-[10px] uppercase tracking-widest font-bold opacity-70 text-center">
-                Archival Campus Photograph
-              </div>
-            </aside>
-          </div>
-        </section>
 
         <hr className="border-t-[3px] border-[#2c2a25] my-2" />
 
-        <ProgrammingSkillsSection />
 
         {/* --- BLOGS & ARTICLES --- */}
         <section id="blogs-articles" ref={blogSectionRef} className="flex flex-col gap-4 py-8 overflow-visible">
@@ -1604,15 +1566,15 @@ function HomePage({ currentBlogIndex, setCurrentBlogIndex, isPaperVisible, setIs
               </div>
               {/* Floating Paper Animation */}
               <div className="paper-container absolute bottom-[35%] left-[19.2%] w-[61.6%] h-auto">
-                {isPaperVisible && (
-                  <div className="paper-content" key={currentBlogIndex}>
+                {isPaperVisible && blogs.length > 0 && (
+                  <Link to={`/blogs/${blogs[currentBlogIndex].slug}`} className="paper-content block" key={currentBlogIndex}>
                     <div className="w-full h-full m-0 p-0">
                       <div className="mb-4">
                         <h3 className="text-2xl font-headline font-black uppercase leading-none mb-0">{blogs[currentBlogIndex].title}</h3>
                         <div className="text-right -mt-3">
                           <span className="text-[10px] text-[#2c2a25]/50 font-mono italic">
                             {(() => {
-                              const date = new Date(blogs[currentBlogIndex].timestamp);
+                              const date = new Date(blogs[currentBlogIndex].date);
                               const timeStr = date.toLocaleString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }).toLowerCase().replace(' ', '');
                               const dateStr = date.toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
                               return `${timeStr} ${dateStr}`;
@@ -1622,7 +1584,7 @@ function HomePage({ currentBlogIndex, setCurrentBlogIndex, isPaperVisible, setIs
                       </div>
                       <p>{blogs[currentBlogIndex].excerpt}</p>
                     </div>
-                  </div>
+                  </Link>
                 )}
               </div>
             </div>
@@ -1633,11 +1595,11 @@ function HomePage({ currentBlogIndex, setCurrentBlogIndex, isPaperVisible, setIs
         <div className="flex justify-center py-10">
           <Link
             to="/blogs"
-            className="group inline-flex items-center gap-3 px-8 py-4 border-2 border-[#2c2a25]/20 rounded-sm bg-[#e8dcc8]/50 hover:bg-[#2c2a25] hover:text-[#e8dcc8] text-[#2c2a25] transition-all duration-500"
+            className="group inline-flex items-center gap-3 px-8 py-4 border-2 border-[#2c2a25] rounded-sm bg-[#2c2a25] text-[#e8dcc8] hover:bg-transparent hover:text-[#2c2a25] transition-all duration-500"
             style={{ fontFamily: '"Courier Prime", monospace' }}
           >
             <span className="text-sm uppercase tracking-[0.2em] group-hover:tracking-[0.3em] transition-all duration-500">
-              Read the Diary &rarr;
+              Browse All Blogs &rarr;
             </span>
           </Link>
         </div>

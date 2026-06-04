@@ -1,11 +1,38 @@
 [
   {
+    "title": "Understanding REST API Design",
+    "slug": "understanding-rest-api-design",
+    "folder": "Understanding REST API Design",
+    "thumbnail": "/blogs/Understanding%20REST%20API%20Design/thumbnail.svg",
+    "date": "2026-06-03T08:00:00.000Z",
+    "excerpt": "REST is the backbone of modern web APIs. But \"RESTful\" means more than just returning JSON over HTTP. Nouns, not verbs. /users not /getUsers....",
+    "images": []
+  },
+  {
+    "title": "Git Workflow Strategies",
+    "slug": "git-workflow-strategies",
+    "folder": "Git Workflow Strategies",
+    "thumbnail": "/blogs/Git%20Workflow%20Strategies/thumbnail.svg",
+    "date": "2026-05-28T04:00:00.000Z",
+    "excerpt": "Choosing the right Git workflow can make or break your team's productivity. Here's a practical comparison. Every feature gets its own branch. Merge...",
+    "images": []
+  },
+  {
     "title": "Building Event Driven Systems",
     "slug": "building-event-driven-systems",
     "folder": "Building Event Driven Systems",
     "thumbnail": "/blogs/Building%20Event%20Driven%20Systems/thumbnail.svg",
     "date": "2026-05-20T08:00:00.000Z",
     "excerpt": "Event-driven architecture transforms how systems communicate. Instead of synchronous request-response chains that cascade failures, events create...",
+    "images": []
+  },
+  {
+    "title": "Microservices Communication Patterns",
+    "slug": "microservices-communication-patterns",
+    "folder": "Microservices Communication Patterns",
+    "thumbnail": null,
+    "date": "2026-05-15T06:00:00.000Z",
+    "excerpt": "How your services talk to each other determines your system's resilience, performance, and debuggability. Service A calls Service B and waits. Simple...",
     "images": []
   },
   {
@@ -18,12 +45,30 @@
     "images": []
   },
   {
+    "title": "Caching Strategies Explained",
+    "slug": "caching-strategies-explained",
+    "folder": "Caching Strategies Explained",
+    "thumbnail": "/blogs/Caching%20Strategies%20Explained/thumbnail.svg",
+    "date": "2026-04-25T09:00:00.000Z",
+    "excerpt": "Caching is the easiest way to improve performance — and the easiest way to introduce bugs. Here's how to do it right. The application checks the...",
+    "images": []
+  },
+  {
     "title": "Psychology of Code Reviews",
     "slug": "psychology-of-code-reviews",
     "folder": "Psychology of Code Reviews",
     "thumbnail": "/blogs/Psychology%20of%20Code%20Reviews/thumbnail.svg",
     "date": "2026-04-18T10:00:00.000Z",
     "excerpt": "Code reviews are as much about people as they are about code. Understanding the psychology behind them transforms reviews from adversarial...",
+    "images": []
+  },
+  {
+    "title": "Introduction to Observability",
+    "slug": "introduction-to-observability",
+    "folder": "Introduction to Observability",
+    "thumbnail": null,
+    "date": "2026-04-10T05:00:00.000Z",
+    "excerpt": "Monitoring tells you when something broke. Observability tells you why. Discrete events with timestamps. Great for debugging specific issues. Numeric...",
     "images": []
   },
   {
@@ -36,12 +81,39 @@
     "images": []
   },
   {
+    "title": "Writing Effective Unit Tests",
+    "slug": "writing-effective-unit-tests",
+    "folder": "Writing Effective Unit Tests",
+    "thumbnail": "/blogs/Writing%20Effective%20Unit%20Tests/thumbnail.svg",
+    "date": "2026-03-15T03:30:00.000Z",
+    "excerpt": "Unit tests are your safety net. But bad tests are worse than no tests — they give false confidence and slow you down. Test what the function does,...",
+    "images": []
+  },
+  {
+    "title": "CI CD Pipeline Best Practices",
+    "slug": "ci-cd-pipeline-best-practices",
+    "folder": "CI CD Pipeline Best Practices",
+    "thumbnail": "/blogs/CI%20CD%20Pipeline%20Best%20Practices/thumbnail.svg",
+    "date": "2026-02-28T08:00:00.000Z",
+    "excerpt": "A good CI/CD pipeline catches problems early, deploys safely, and gives you confidence to ship every day. Every commit triggers an automated build...",
+    "images": []
+  },
+  {
     "title": "Docker in Production Lessons Learned",
     "slug": "docker-in-production-lessons-learned",
     "folder": "Docker in Production Lessons Learned",
     "thumbnail": "/blogs/Docker%20in%20Production%20Lessons%20Learned/thumbnail.svg",
     "date": "2026-02-10T07:30:00.000Z",
     "excerpt": "Docker makes it easy to run things locally. Running containers in production is a different sport. Here's what I wish someone told me before our...",
+    "images": []
+  },
+  {
+    "title": "API Gateway Pattern Deep Dive",
+    "slug": "api-gateway-pattern-deep-dive",
+    "folder": "API Gateway Pattern Deep Dive",
+    "thumbnail": "/blogs/API%20Gateway%20Pattern%20Deep%20Dive/thumbnail.svg",
+    "date": "2026-02-05T10:00:00.000Z",
+    "excerpt": "An API gateway is the single entry point for all client requests. It handles cross-cutting concerns so your services don't have to. - Routing: Maps...",
     "images": []
   },
   {
@@ -54,12 +126,30 @@
     "images": []
   },
   {
+    "title": "Event Sourcing vs CQRS",
+    "slug": "event-sourcing-vs-cqrs",
+    "folder": "Event Sourcing vs CQRS",
+    "thumbnail": null,
+    "date": "2026-01-15T04:00:00.000Z",
+    "excerpt": "These two patterns often appear together, but they solve different problems. Understanding them separately prevents over-engineering. Instead of...",
+    "images": []
+  },
+  {
     "title": "Database Indexing A Complete Guide",
     "slug": "database-indexing-a-complete-guide",
     "folder": "Database Indexing A Complete Guide",
     "thumbnail": "/blogs/Database%20Indexing%20A%20Complete%20Guide/thumbnail.svg",
     "date": "2026-01-05T02:45:00.000Z",
     "excerpt": "Indexes are the difference between a query that takes 50 milliseconds and one that takes 50 seconds. Understanding how they work is non-negotiable...",
+    "images": []
+  },
+  {
+    "title": "Software Estimation Techniques",
+    "slug": "software-estimation-techniques",
+    "folder": "Software Estimation Techniques",
+    "thumbnail": "/blogs/Software%20Estimation%20Techniques/thumbnail.svg",
+    "date": "2025-12-20T07:00:00.000Z",
+    "excerpt": "Every engineer hates estimation. But it's a skill, not a talent — and it improves with practice. - Unknown unknowns (hidden complexity) - Optimism...",
     "images": []
   },
   {

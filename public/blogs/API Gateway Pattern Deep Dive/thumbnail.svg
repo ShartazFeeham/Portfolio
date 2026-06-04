@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 400">
+  <defs>
+    <linearGradient id="gbg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1A237E"/>
+      <stop offset="100%" stop-color="#283593"/>
+    </linearGradient>
+    <linearGradient id="gcyan" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00E5FF"/>
+      <stop offset="100%" stop-color="#18FFFF"/>
+    </linearGradient>
+    <linearGradient id="gdoor" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00BCD4"/>
+      <stop offset="100%" stop-color="#00E5FF"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="250" height="400" rx="12" fill="url(#gbg2)"/>
+  <!-- Decorative circuit lines -->
+  <g stroke="#00E5FF" stroke-width="0.5" opacity="0.1">
+    <line x1="0" y1="80" x2="250" y2="80"/>
+    <line x1="0" y1="160" x2="250" y2="160"/>
+    <line x1="0" y1="320" x2="250" y2="320"/>
+    <line x1="80" y1="0" x2="80" y2="400"/>
+    <line x1="170" y1="0" x2="170" y2="400"/>
+  </g>
+  <!-- Gateway/door shape -->
+  <!-- Outer arch -->
+  <path d="M60,200 L60,100 Q125,40 190,100 L190,200" fill="none" stroke="url(#gdoor)" stroke-width="5" stroke-linecap="round"/>
+  <!-- Inner arch -->
+  <path d="M80,200 L80,110 Q125,65 170,110 L170,200" fill="none" stroke="url(#gdoor)" stroke-width="2" opacity="0.5"/>
+  <!-- Door fill -->
+  <path d="M62,200 L62,102 Q125,44 188,102 L188,200 Z" fill="#00BCD4" opacity="0.08"/>
+  <!-- Keystone -->
+  <circle cx="125" cy="65" r="10" fill="#1A237E" stroke="url(#gcyan)" stroke-width="2.5"/>
+  <text x="125" y="69" font-family="monospace" font-size="9" fill="#00E5FF" text-anchor="middle">GW</text>
+  <!-- Gateway pillars -->
+  <rect x="56" y="200" width="12" height="50" rx="2" fill="#00BCD4" opacity="0.4"/>
+  <rect x="182" y="200" width="12" height="50" rx="2" fill="#00BCD4" opacity="0.4"/>
+  <!-- Incoming arrows (left side - clients) -->
+  <g opacity="0.8">
+    <!-- Client icons -->
+    <rect x="10" y="85" width="28" height="18" rx="4" fill="#1A237E" stroke="#00E5FF" stroke-width="1.5"/>
+    <text x="24" y="98" font-family="monospace" font-size="7" fill="#00E5FF" text-anchor="middle">App</text>
+    <line x1="40" y1="94" x2="56" y2="120" stroke="#00E5FF" stroke-width="1.5" stroke-linecap="round"/>
+    <circle cx="48" cy="107" r="2" fill="#00E5FF"/>
+
+    <rect x="10" y="120" width="28" height="18" rx="4" fill="#1A237E" stroke="#00E5FF" stroke-width="1.5"/>
+    <text x="24" y="133" font-family="monospace" font-size="7" fill="#00E5FF" text-anchor="middle">Web</text>
+    <line x1="40" y1="129" x2="56" y2="140" stroke="#00E5FF" stroke-width="1.5" stroke-linecap="round"/>
+    <circle cx="48" cy="134" r="2" fill="#00E5FF"/>
+
+    <rect x="10" y="155" width="28" height="18" rx="4" fill="#1A237E" stroke="#00E5FF" stroke-width="1.5"/>
+    <text x="24" y="168" font-family="monospace" font-size="7" fill="#00E5FF" text-anchor="middle">IoT</text>
+    <line x1="40" y1="164" x2="56" y2="160" stroke="#00E5FF" stroke-width="1.5" stroke-linecap="round"/>
+    <circle cx="48" cy="162" r="2" fill="#00E5FF"/>
+  </g>
+  <!-- Outgoing arrows (right side - services) -->
+  <g opacity="0.8">
+    <line x1="194" y1="120" x2="210" y2="90" stroke="#18FFFF" stroke-width="1.5" stroke-linecap="round"/>
+    <rect x="212" y="80" width="30" height="18" rx="4" fill="#1A237E" stroke="#18FFFF" stroke-width="1.5"/>
+    <text x="227" y="93" font-family="monospace" font-size="7" fill="#18FFFF" text-anchor="middle">Svc1</text>
+
+    <line x1="194" y1="140" x2="210" y2="130" stroke="#18FFFF" stroke-width="1.5" stroke-linecap="round"/>
+    <rect x="212" y="120" width="30" height="18" rx="4" fill="#1A237E" stroke="#18FFFF" stroke-width="1.5"/>
+    <text x="227" y="133" font-family="monospace" font-size="7" fill="#18FFFF" text-anchor="middle">Svc2</text>
+
+    <line x1="194" y1="160" x2="210" y2="170" stroke="#18FFFF" stroke-width="1.5" stroke-linecap="round"/>
+    <rect x="212" y="160" width="30" height="18" rx="4" fill="#1A237E" stroke="#18FFFF" stroke-width="1.5"/>
+    <text x="227" y="173" font-family="monospace" font-size="7" fill="#18FFFF" text-anchor="middle">Svc3</text>
+  </g>
+  <!-- Shield icon (security) -->
+  <path d="M125,215 L110,225 L110,240 Q110,255 125,262 Q140,255 140,240 L140,225 Z" fill="none" stroke="#00E5FF" stroke-width="2" opacity="0.6"/>
+  <text x="125" y="245" font-family="monospace" font-size="8" fill="#00E5FF" text-anchor="middle" opacity="0.6">SSL</text>
+  <!-- Rate limit icon -->
+  <g transform="translate(85,275)" opacity="0.5">
+    <rect x="0" y="0" width="80" height="20" rx="4" fill="#1A237E" stroke="#00E5FF" stroke-width="1"/>
+    <rect x="2" y="2" width="30" height="16" rx="3" fill="#00E5FF" opacity="0.3"/>
+    <text x="40" y="14" font-family="monospace" font-size="7" fill="#00E5FF" text-anchor="middle">Rate Limit</text>
+  </g>
+  <!-- Title -->
+  <text x="125" y="340" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#00E5FF" text-anchor="middle" letter-spacing="1">API GATEWAY</text>
+  <text x="125" y="358" font-family="Arial, sans-serif" font-size="11" fill="#18FFFF" text-anchor="middle" letter-spacing="1" opacity="0.7">PATTERN</text>
+  <!-- Accent bar -->
+  <rect x="60" y="375" width="130" height="4" rx="2" fill="url(#gcyan)" opacity="0.4"/>
+</svg>

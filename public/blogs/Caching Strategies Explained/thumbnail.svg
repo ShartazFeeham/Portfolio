@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250">
+  <defs>
+    <linearGradient id="cbg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#B71C1C"/>
+      <stop offset="100%" stop-color="#D32F2F"/>
+    </linearGradient>
+    <linearGradient id="lightning" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFEE58"/>
+      <stop offset="50%" stop-color="#FFD600"/>
+      <stop offset="100%" stop-color="#FF8F00"/>
+    </linearGradient>
+    <linearGradient id="layer1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF8F00" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#FFB300" stop-opacity="0.9"/>
+    </linearGradient>
+    <linearGradient id="layer2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFD600" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#FFEE58" stop-opacity="0.7"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="400" height="250" rx="12" fill="url(#cbg)"/>
+  <!-- Radial glow behind lightning -->
+  <circle cx="200" cy="100" r="80" fill="#FF6F00" opacity="0.15"/>
+  <!-- Cache layers (stacked rounded rects) -->
+  <rect x="60" y="140" width="280" height="35" rx="8" fill="url(#layer2)" opacity="0.5"/>
+  <rect x="70" y="115" width="260" height="35" rx="8" fill="url(#layer1)" opacity="0.65"/>
+  <rect x="80" y="90" width="240" height="35" rx="8" fill="url(#lightning)" opacity="0.7"/>
+  <!-- Layer labels -->
+  <text x="200" y="113" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#B71C1C" text-anchor="middle">L1 CACHE</text>
+  <text x="200" y="138" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#B71C1C" text-anchor="middle" opacity="0.8">L2 CACHE</text>
+  <text x="200" y="163" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#B71C1C" text-anchor="middle" opacity="0.6">L3 CACHE</text>
+  <!-- Lightning bolt -->
+  <polygon points="195,25 215,25 205,60 230,60 185,110 195,75 170,75" fill="url(#lightning)" stroke="#FF8F00" stroke-width="1.5"/>
+  <!-- Speed lines -->
+  <line x1="240" y1="40" x2="275" y2="35" stroke="#FFEE58" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+  <line x1="245" y1="55" x2="285" y2="50" stroke="#FFEE58" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+  <line x1="240" y1="70" x2="270" y2="68" stroke="#FFEE58" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
+  <line x1="120" y1="38" x2="145" y2="35" stroke="#FFEE58" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+  <!-- Database icon bottom -->
+  <ellipse cx="200" cy="210" rx="35" ry="10" fill="none" stroke="#FFD600" stroke-width="2" opacity="0.7"/>
+  <rect x="165" y="200" width="70" height="10" fill="#B71C1C"/>
+  <ellipse cx="200" cy="200" rx="35" ry="10" fill="none" stroke="#FFD600" stroke-width="2" opacity="0.7"/>
+  <line x1="165" y1="200" x2="165" y2="210" stroke="#FFD600" stroke-width="2" opacity="0.7"/>
+  <line x1="235" y1="200" x2="235" y2="210" stroke="#FFD600" stroke-width="2" opacity="0.7"/>
+  <text x="200" y="207" font-family="Arial, sans-serif" font-size="9" fill="#FFD600" text-anchor="middle" opacity="0.8">DB</text>
+  <!-- Arrow from cache to DB -->
+  <line x1="200" y1="175" x2="200" y2="192" stroke="#FFD600" stroke-width="2" stroke-linecap="round" stroke-dasharray="4,3" opacity="0.7"/>
+  <!-- Title -->
+  <text x="200" y="240" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#FFEE58" text-anchor="middle" letter-spacing="1.5">CACHING STRATEGIES</text>
+</svg>

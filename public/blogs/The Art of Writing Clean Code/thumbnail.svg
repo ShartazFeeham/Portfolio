@@ -1,54 +1,70 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250">
-  <!-- Paper background -->
-  <rect width="400" height="250" fill="#e8dcc8"/>
-  <filter id="grain">
-    <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
-    <feColorMatrix type="saturate" values="0"/>
-    <feBlend in="SourceGraphic" mode="multiply"/>
-  </filter>
-  <rect width="400" height="250" fill="#d4c4a8" opacity="0.12" filter="url(#grain)"/>
-  <!-- Decorative double border -->
-  <rect x="8" y="8" width="384" height="234" fill="none" stroke="#3d2614" stroke-width="2"/>
-  <rect x="14" y="14" width="372" height="222" fill="none" stroke="#3d2614" stroke-width="0.5"/>
-  <!-- Top ornamental line -->
-  <line x1="40" y1="45" x2="360" y2="45" stroke="#3d2614" stroke-width="1"/>
-  <circle cx="200" cy="45" r="4" fill="#3d2614"/>
-  <line x1="40" y1="48" x2="360" y2="48" stroke="#3d2614" stroke-width="0.5"/>
-  <!-- Title -->
-  <text x="200" y="80" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="15" font-weight="bold" fill="#2c2a25" letter-spacing="1">THE ART OF WRITING</text>
-  <text x="200" y="98" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="15" font-weight="bold" fill="#2c2a25" letter-spacing="1">CLEAN CODE</text>
-  <!-- Fountain pen nib -->
-  <g transform="translate(200,155)" fill="#3d2614" opacity="0.85">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a0a2e"/>
+      <stop offset="100%" style="stop-color:#2d1b4e"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#7b2ff7"/>
+      <stop offset="100%" style="stop-color:#c77dff"/>
+    </linearGradient>
+    <linearGradient id="pen" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#9d4edd"/>
+      <stop offset="100%" style="stop-color:#7b2ff7"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="400" height="250" fill="url(#bg)"/>
+  <!-- Code line decorations -->
+  <g opacity="0.15">
+    <rect x="40" y="60" width="80" height="4" rx="2" fill="#c77dff"/>
+    <rect x="40" y="72" width="120" height="4" rx="2" fill="#9d4edd"/>
+    <rect x="40" y="84" width="60" height="4" rx="2" fill="#7b2ff7"/>
+    <rect x="40" y="96" width="100" height="4" rx="2" fill="#c77dff"/>
+    <rect x="280" y="170" width="80" height="4" rx="2" fill="#c77dff"/>
+    <rect x="260" y="182" width="100" height="4" rx="2" fill="#9d4edd"/>
+    <rect x="270" y="194" width="70" height="4" rx="2" fill="#7b2ff7"/>
+  </g>
+  <!-- Left bracket -->
+  <g fill="none" stroke="#9d4edd" stroke-width="3" opacity="0.3">
+    <path d="M60,80 L45,100 L60,120"/>
+  </g>
+  <!-- Right bracket -->
+  <g fill="none" stroke="#9d4edd" stroke-width="3" opacity="0.3">
+    <path d="M340,80 L355,100 L340,120"/>
+  </g>
+  <!-- Central pen icon -->
+  <g transform="translate(200,135) rotate(-30)">
     <!-- Pen body -->
-    <rect x="-4" y="-40" width="8" height="30" rx="2"/>
+    <rect x="-5" y="-50" width="10" height="55" rx="3" fill="url(#pen)"/>
     <!-- Pen nib -->
-    <polygon points="-6,-10 6,-10 0,10"/>
-    <!-- Nib slit -->
-    <line x1="0" y1="-10" x2="0" y2="8" stroke="#e8dcc8" stroke-width="1"/>
-    <!-- Pen top ornament -->
-    <circle cx="0" cy="-42" r="3" fill="#3d2614"/>
-    <!-- Ink drop -->
-    <ellipse cx="0" cy="16" rx="3" ry="4" fill="#3d2614" opacity="0.4"/>
+    <polygon points="-5,5 5,5 0,22" fill="#7b2ff7"/>
+    <!-- Nib detail -->
+    <line x1="0" y1="5" x2="0" y2="18" stroke="#1a0a2e" stroke-width="1"/>
+    <!-- Pen top -->
+    <rect x="-6" y="-55" width="12" height="8" rx="2" fill="#c77dff"/>
+    <!-- Pen clip -->
+    <rect x="5" y="-48" width="3" height="30" rx="1" fill="#c77dff" opacity="0.7"/>
+    <!-- Ink drop from nib -->
+    <ellipse cx="0" cy="28" rx="5" ry="7" fill="#c77dff" opacity="0.4"/>
+    <!-- Small ink splatter -->
+    <circle cx="-8" cy="35" r="2" fill="#9d4edd" opacity="0.3"/>
+    <circle cx="6" cy="38" r="1.5" fill="#c77dff" opacity="0.25"/>
   </g>
-  <!-- Code brackets on left -->
-  <g fill="none" stroke="#5a3a1a" stroke-width="1.5" opacity="0.5">
-    <path d="M80,130 L70,140 L80,150"/>
-    <path d="M100,125 L90,140 L100,155"/>
+  <!-- Sparkle effects -->
+  <g fill="#e0aaff" opacity="0.6">
+    <polygon points="130,65 132,60 134,65 132,67" transform="rotate(15,132,63)"/>
+    <polygon points="280,55 282,50 284,55 282,57" transform="rotate(-10,282,53)"/>
+    <polygon points="310,150 312,145 314,150 312,152" transform="rotate(20,312,148)"/>
+    <polygon points="90,170 92,165 94,170 92,172" transform="rotate(-15,92,168)"/>
   </g>
-  <!-- Code brackets on right -->
-  <g fill="none" stroke="#5a3a1a" stroke-width="1.5" opacity="0.5">
-    <path d="M320,130 L330,140 L320,150"/>
-    <path d="M300,125 L310,140 L300,155"/>
-  </g>
-  <!-- Ink swirl lines -->
-  <g fill="none" stroke="#8b6914" stroke-width="0.8" opacity="0.4">
-    <path d="M120,170 Q140,160 160,170 Q180,180 200,170"/>
-    <path d="M200,170 Q220,160 240,170 Q260,180 280,170"/>
-  </g>
-  <!-- Bottom ornamental line -->
-  <line x1="40" y1="200" x2="360" y2="200" stroke="#3d2614" stroke-width="0.5"/>
-  <line x1="40" y1="203" x2="360" y2="203" stroke="#3d2614" stroke-width="1"/>
-  <polygon points="100,201 104,198 108,201 104,204" fill="#3d2614" opacity="0.6"/>
-  <polygon points="292,201 296,198 300,201 296,204" fill="#3d2614" opacity="0.6"/>
-  <text x="200" y="228" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="8" fill="#8b7355" letter-spacing="3">PEN &amp; CODE</text>
+  <!-- Title -->
+  <text x="200" y="42" text-anchor="middle" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="17" font-weight="700" fill="#e0aaff" letter-spacing="1">THE ART OF WRITING</text>
+  <!-- Subtitle -->
+  <text x="200" y="62" text-anchor="middle" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="14" font-weight="600" fill="#c77dff" letter-spacing="2">CLEAN CODE</text>
+  <!-- Bottom accent line -->
+  <rect x="130" y="215" width="140" height="2" rx="1" fill="url(#accent)" opacity="0.5"/>
+  <!-- Badge -->
+  <rect x="155" y="222" width="90" height="18" rx="9" fill="#7b2ff7" opacity="0.15"/>
+  <text x="200" y="235" text-anchor="middle" font-family="'SF Pro Display', 'Segoe UI', Arial, sans-serif" font-size="7" fill="#c77dff" letter-spacing="2">CLEAN CODE</text>
 </svg>
