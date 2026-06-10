@@ -41,7 +41,7 @@ export default function DetectiveBoard({ boardRef, boardSize, hoveredNode, setHo
           onMouseLeave={() => setHoveredNode(null)}>
           <DetectiveNode id={node.id} icon={node.icon} label={node.label} rotation={node.rot} pinColor={node.pinColor}>
             {node.children.map((child, ci) => (
-              <DetectiveChildItem key={ci} text={child.text} type={child.type} rotation={child.rot} pinColor={node.pinColor} />
+              <DetectiveChildItem key={ci} text={child.text} type={child.type} rotation={child.rot} pinColor={ci % 2 === 0 ? '#cc2222' : '#1a4f7a'} />
             ))}
           </DetectiveNode>
         </div>
