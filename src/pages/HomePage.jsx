@@ -5,7 +5,7 @@ import QuickLinks from '../components/sections/QuickLinks';
 import NewspaperIndex from '../components/sections/NewspaperIndex';
 import SectionDivider from '../components/ui/SectionDivider';
 import { ProfessionalExperienceSection } from '../components/sections/ProfessionalExperienceSection';
-import DetectiveWall from '../components/sections/DetectiveWall';
+import Effect0Combined from '../components/crimeboard/Effect0Combined';
 import TypewriterBlogSection from '../components/sections/TypewriterBlogSection';
 import BrowseBlogsLink from '../components/sections/BrowseBlogsLink';
 import PersonalProjects from '../components/sections/PersonalProjects';
@@ -51,7 +51,12 @@ export default function HomePage({ issueDateLabel }) {
         <hr className="border-t-[3px] border-[#2c2a25] mt-2 mb-1" />
         <ProfessionalExperienceSection />
         <SectionDivider />
-        <DetectiveWall />
+        <section id="skills-expertise" className="flex flex-col gap-4">
+          <h2 className="font-headline font-black text-xl md:text-2xl uppercase leading-none text-[#2c2a25]">
+            <a href="#index">SKILLS &amp; EXPERTISE</a>
+          </h2>
+          <Effect0Combined />
+        </section>
         <SectionDivider />
         <TypewriterBlogSection />
         <BrowseBlogsLink />

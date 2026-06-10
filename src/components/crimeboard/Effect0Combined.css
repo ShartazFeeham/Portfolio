@@ -1,0 +1,54 @@
+.combined-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.combined-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 25;
+  pointer-events: none;
+  border-radius: 6px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(
+    circle 130px at var(--mx, -200px) var(--my, -200px),
+    transparent 0%,
+    transparent 35%,
+    rgba(0, 0, 0, 0.25) 55%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+}
+
+.combined-overlay.is-active {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .combined-overlay {
+    display: none;
+  }
+}
+
+.glow-thread-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+@keyframes thread-pulse {
+  0%, 100% { opacity: 0.3; stroke-width: 2; }
+  50%      { opacity: 1; stroke-width: 4; }
+}
+
+.pulse-thread {
+  animation: thread-pulse 1s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-thread { animation: none; opacity: 0.7; }
+  .combined-overlay { transition: none; }
+}

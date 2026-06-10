@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { MAIN_NODES, MAIN_CONNECTIONS } from '../../data/detectiveNodes';
 import RedThread from '../detective/RedThread';
 import DoodleArrow from '../detective/DoodleArrow';
@@ -13,6 +13,117 @@ export default function DetectiveBoard({ boardRef, boardSize, hoveredNode, setHo
     if (!node || !boardSize.w) return { x: 0, y: 0 };
     return { x: (node.x / 100) * boardSize.w + 70, y: (node.y / 100) * boardSize.h + 50 };
   }, [boardSize]);
+
+  /* Canvas-based collision sparks */
+  useEffect(() => {
+    const board = boardRef.current;
+    if (!board) return;
+
+    const canvas = document.createElement('canvas');
+    canvas.className = 'spark-canvas';
+    board.appendChild(canvas);
+    const ctx = canvas.getContext('2d');
+
+    const sparks = [];
+    const activeCollisions = new Set();
+    const COOLDOWN = 600;
+
+    const resize = () => {
+      canvas.width = board.offsetWidth;
+      canvas.height = board.offsetHeight;
+    };
+    resize();
+    const ro = new ResizeObserver(resize);
+    ro.observe(board);
+
+    function spawnSpark(x, y) {
+      const count = 5 + Math.floor(Math.random() * 5);
+      for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 0.4 + Math.random() * 1.2;
+        sparks.push({
+          x, y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - 0.5,
+          life: 1,
+          decay: 0.018 + Math.random() * 0.025,
+          size: 1.2 + Math.random() * 2,
+          hue: 20 + Math.random() * 30,
+        });
+      }
+    }
+
+    let running = true;
+    const lastSpark = new Map();
+
+    const tick = () => {
+      if (!running) return;
+      const now = Date.now();
+
+      const children = board.querySelectorAll('.detective-child');
+      const br = board.getBoundingClientRect();
+      const rects = [];
+      children.forEach((el, i) => {
+        const r = el.getBoundingClientRect();
+        rects.push({ left: r.left - br.left, right: r.right - br.left, top: r.top - br.top, bottom: r.bottom - br.top, idx: i });
+      });
+
+      for (let i = 0; i < rects.length; i++) {
+        for (let j = i + 1; j < rects.length; j++) {
+          const a = rects[i], b = rects[j];
+          const pairKey = i * 100 + j;
+          const colliding = a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+
+          if (colliding) {
+            const last = lastSpark.get(pairKey) || 0;
+            if (now - last > COOLDOWN) {
+              activeCollisions.add(pairKey);
+              lastSpark.set(pairKey, now);
+              const cx = (Math.max(a.left, b.left) + Math.min(a.right, b.right)) / 2;
+              const cy = (Math.max(a.top, b.top) + Math.min(a.bottom, b.bottom)) / 2;
+              spawnSpark(cx, cy);
+            }
+          } else {
+            activeCollisions.delete(pairKey);
+          }
+        }
+      }
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = sparks.length - 1; i >= 0; i--) {
+        const s = sparks[i];
+        s.x += s.vx;
+        s.y += s.vy;
+        s.vy += 0.03;
+        s.life -= s.decay;
+
+        if (s.life <= 0) { sparks.splice(i, 1); continue; }
+
+        ctx.globalAlpha = s.life;
+        ctx.fillStyle = `hsl(${s.hue}, 100%, ${50 + (1 - s.life) * 30}%)`;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.size * s.life, 0, Math.PI * 2);
+        ctx.fill();
+
+        /* tiny glow */
+        ctx.globalAlpha = s.life * 0.4;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.size * s.life * 2.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+
+      requestAnimationFrame(tick);
+    };
+
+    requestAnimationFrame(tick);
+
+    return () => {
+      running = false;
+      ro.disconnect();
+      canvas.remove();
+    };
+  }, [boardRef]);
 
   return (
     <div className="detective-board" ref={boardRef}>
