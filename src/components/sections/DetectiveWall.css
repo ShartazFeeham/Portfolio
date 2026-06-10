@@ -349,9 +349,30 @@
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
+  /* Switch to flex layout so nodes reflow instead of overlapping */
   .detective-board {
-    min-height: 500px;
-    padding: 15px;
+    min-height: 0;
+    padding: 20px 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  /* Override inline position styles — reflow into flex items */
+  .detective-node-wrapper {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+  }
+
+  /* Hide absolute-positioned decorations that don't suit flex layout */
+  .thread-svg,
+  .detective-annotation,
+  .evidence-stamp,
+  .question-circle {
+    display: none;
   }
 
   .polaroid-photo {
@@ -382,22 +403,12 @@
     padding: 3px 7px;
     min-width: 40px;
   }
-
-  .detective-annotation {
-    font-size: 10px;
-  }
-
-  .evidence-stamp {
-    font-size: 11px;
-    padding: 2px 8px;
-    border-width: 2px;
-  }
 }
 
 @media (max-width: 480px) {
   .detective-board {
-    min-height: 420px;
-    padding: 10px;
+    padding: 15px 10px;
+    gap: 14px;
   }
 
   .polaroid-photo {
@@ -427,12 +438,6 @@
   .detective-child--sticky {
     padding: 2px 5px;
     min-width: 32px;
-  }
-
-  .question-circle {
-    width: 22px;
-    height: 22px;
-    font-size: 14px;
   }
 }
 
