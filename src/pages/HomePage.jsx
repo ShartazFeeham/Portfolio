@@ -8,9 +8,7 @@ import { ProfessionalExperienceSection } from '../components/sections/Profession
 import Effect0Combined from '../components/crimeboard/Effect0Combined';
 import TypewriterBlogSection from '../components/sections/TypewriterBlogSection';
 import BrowseBlogsLink from '../components/sections/BrowseBlogsLink';
-import PersonalProjects from '../components/sections/PersonalProjects';
 import { ContactSection } from '../components/sections/ContactSection';
-import { OthersSection } from '../components/sections/OthersSection';
 import Footer from '../components/sections/Footer';
 import SkipToMain from '../components/ui/SkipToMain';
 
@@ -49,8 +47,6 @@ export default function HomePage({ issueDateLabel }) {
         </main>
 
         <hr className="border-t-[3px] border-[#2c2a25] mt-2 mb-1" />
-        <ProfessionalExperienceSection />
-        <SectionDivider />
         <section id="skills-expertise" className="flex flex-col gap-4">
           <h2 className="font-headline font-black text-xl md:text-2xl uppercase leading-none text-[#2c2a25]">
             <a href="#index">SKILLS &amp; EXPERTISE</a>
@@ -58,13 +54,12 @@ export default function HomePage({ issueDateLabel }) {
           <Effect0Combined />
         </section>
         <SectionDivider />
+        <ProfessionalExperienceSection />
+        <SectionDivider />
         <TypewriterBlogSection />
         <BrowseBlogsLink />
-        <PersonalProjects />
         <SectionDivider />
         <ContactSection />
-        <SectionDivider />
-        <OthersSection />
         <Footer />
       </div>
     </div>

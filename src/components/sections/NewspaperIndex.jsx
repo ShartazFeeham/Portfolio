@@ -1,14 +1,10 @@
 import { AnimatedIndex } from '../ui/AnimatedEntry';
 
 const INDEX_ITEMS = [
-  { label: 'Professional experience', href: '#professional-experience', page: 'P. 1', delay: '0s' },
-  { label: 'Skills & Expertise', href: '#skills-expertise', page: 'P. 2', delay: '0.5s' },
-  { label: 'Education', href: '#education', page: 'P. 3', delay: '1s' },
-  { label: 'Programming skills', href: '#programming-skills', page: 'P. 4', delay: '1.5s' },
-  { label: 'From the Press', href: '#blogs', page: 'P. 5', delay: '2s' },
-  { label: 'Personal projects', href: '#personal-projects', page: 'P. 6', delay: '2.5s' },
-  { label: 'Contact', href: '#contact', page: 'P. 7', delay: '3s' },
-  { label: 'Others', href: '#others', page: 'P. 8', delay: '3.5s' },
+  { label: 'Skills & Expertise', href: '#skills-expertise', page: 'P. 1', delay: '0s' },
+  { label: 'Professional experience', href: '#professional-experience', page: 'P. 2', delay: '0.5s' },
+  { label: 'From the Press', href: '#blogs-articles', page: 'P. 3', delay: '1s' },
+  { label: 'Contact', href: '#contact', page: 'P. 4', delay: '1.5s' },
 ];
 
 export default function NewspaperIndex() {

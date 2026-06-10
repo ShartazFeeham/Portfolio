@@ -56,9 +56,7 @@ export function A2() {
   return (<Link to="/blogs" ref={ref} className={`a2-link${visible?' a2-active':''}`}>
     <div className="a2-scene">{drops}
       <span className="a2-hover" aria-hidden="true">
-        <span style={{color:WORD_COLORS[0]}}>Go</span>
-        <span style={{color:WORD_COLORS[1]}}> To </span>
-        <span style={{color:WORD_COLORS[2]}}>Blogs</span>
+        <span className="a2-wood">Go To Blogs</span>
       </span>
     </div>
     <style>{`
@@ -67,11 +65,13 @@ export function A2() {
         display:grid;grid-template-columns:repeat(14,1fr);gap:0;align-items:center;width:100%;
         transition:transform .3s ease,box-shadow .3s ease;border-radius:8px}
       .a2-link:hover .a2-scene{transform:scale(1.03);box-shadow:0 0 30px rgba(44,42,37,.15)}
+      @media(max-width:768px){.a2-scene{box-shadow:0 0 30px rgba(44,42,37,.15);border:1px solid rgba(44,42,37,.08)}}
       .a2-drop{font-family:"Courier Prime",monospace;font-size:var(--sz);
         color:rgba(44,42,37,.25);text-align:center;transition:color .3s ease}
       .a2-active .a2-fly{animation:a2-loop var(--speed) var(--delay) linear infinite}
       .a2-active .a2-hold{animation:a2-stop 3s var(--delay) ease-out forwards,a2-shadow 1s calc(3s + var(--delay)) ease forwards}
       .a2-link:hover .a2-fly{animation-duration:calc(var(--speed) * .5);color:rgba(44,42,37,.45)}
+      @media(max-width:768px){.a2-active .a2-fly{animation-duration:calc(var(--speed) * .5);color:rgba(44,42,37,.45)}}
       @keyframes a2-loop{0%{opacity:0;transform:translateY(200px)}15%{opacity:.5}
         80%{opacity:.3}100%{opacity:0;transform:translateY(-120px)}}
       @keyframes a2-stop{0%{opacity:0;transform:translateY(200px)}40%{opacity:.7;transform:translateY(10px)}
@@ -80,10 +80,14 @@ export function A2() {
         transition:opacity .3s ease}
       .a2-link:hover .a2-hold{opacity:0!important}
       .a2-hover{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-        font-family:"Courier Prime",monospace;font-weight:700;font-size:2.5rem;
-        opacity:0;transition:opacity .3s ease;pointer-events:none;z-index:3;white-space:nowrap;
-        text-shadow:2px 2px 0 #888,4px 4px 0 #aaa}
+        opacity:0;transition:opacity .3s ease;pointer-events:none;z-index:3;white-space:nowrap}
       .a2-link:hover .a2-hover{opacity:1}
+      .a2-wood{font-family:"Courier Prime",monospace;font-weight:700;font-size:2.5rem;
+        background:linear-gradient(135deg,#8B5E3C,#A0724B,#6B3A1F,#C49A6C,#8B5E3C);
+        -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+        background-clip:text;
+        text-shadow:none;
+        filter:drop-shadow(1px 1px 0 rgba(60,30,10,.5)) drop-shadow(2px 2px 0 rgba(40,20,5,.3))}
       @keyframes a2-shadow{0%{text-shadow:none}100%{text-shadow:1px 1px 0 #999}}
       @keyframes a2-stop{0%{opacity:0;transform:translateY(200px)}40%{opacity:.7;transform:translateY(10px)}
         70%{opacity:.8;transform:translateY(-3px)}100%{opacity:1;transform:translateY(0);color:var(--wc)}}
