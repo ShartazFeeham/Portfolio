@@ -8,6 +8,7 @@ import SearchBar from '../components/sections/SearchBar';
 import SortDropdown from '../components/sections/SortDropdown';
 
 export default function BlogList() {
+  useEffect(() => { document.title = "Shartaz Feeham's Diary"; }, []);
   const [allPosts, setAllPosts] = useState([]);
   const [postContents, setPostContents] = useState({});
   const [visible, setVisible] = useState([]);

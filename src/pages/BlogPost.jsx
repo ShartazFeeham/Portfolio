@@ -20,6 +20,7 @@ export default function BlogPost() {
         const found = posts.find(p => p.slug === slug);
         if (!found) { setLoading(false); return; }
         setPost(found);
+        document.title = `Shartaz Feeham — ${found.title}`;
         const folder = encodeURIComponent(found.folder);
         return fetch(`/blogs/${folder}/post.md`).then(r => r.text());
       })
