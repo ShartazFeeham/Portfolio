@@ -31,7 +31,7 @@ export default function HomePage({ issueDateLabel }) {
   return (
     <div className="min-h-screen bg-[#f8f8f8] px-0 pt-0 pb-[5px] md:px-8 md:pb-8 md:pt-[10px] lg:px-12 lg:pb-12 lg:pt-[10px] flex justify-center items-start font-serif selection:bg-[#2c2a25] selection:text-[#e8e1cf]">
       <SkipToMain />
-      <div className="newspaper-texture text-[#2c2a25] w-full max-w-5xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-[#c1b59f] p-4 md:p-8 flex flex-col gap-4 relative overflow-hidden">
+      <div className="newspaper-texture text-[#2c2a25] w-full max-w-5xl shadow-[inset_5px_0_12px_-4px_rgba(0,0,0,0.35),inset_-5px_0_12px_-4px_rgba(0,0,0,0.35),inset_0_5px_12px_-4px_rgba(0,0,0,0.3),0_20px_50px_rgba(0,0,0,0.5)] border border-[#c1b59f] rounded-none p-4 md:p-8 flex flex-col gap-4 relative overflow-hidden">
         <h1 className="sr-only">Shartaz Feeham (Feeham) — Software Engineer Portfolio</h1>
         <EdgeShading />
         <Masthead issueDateLabel={issueDateLabel} />
