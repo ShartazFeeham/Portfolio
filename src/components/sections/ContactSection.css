@@ -7,7 +7,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
 }
 
 /* ── Mailbox body ── */
@@ -92,32 +91,39 @@
 }
 
 /* ── Slot (the mail opening) ── */
+@keyframes mailbox-flap-bob {
+  0%, 100% { transform: translateX(-50%) translateY(4px); }
+  20%, 45% { transform: translateX(-50%) translateY(-5px); }
+  65% { transform: translateX(-50%) translateY(4px); }
+}
+
 .mailbox-slot {
   position: absolute;
-  top: 14px;
+  top: 6px;
   left: 50%;
   transform: translateX(-50%);
   width: 140px;
-  height: 8px;
-  background: #1a0808;
+  height: 16px;
+  background: #d6d1c9;
   border-radius: 4px;
   box-shadow:
-    inset 0 2px 4px rgba(0,0,0,0.8),
+    inset 0 2px 4px rgba(0,0,0,0.4),
     0 1px 2px rgba(255,255,255,0.08);
 }
 
 /* Slot flap */
 .mailbox-slot-flap {
   position: absolute;
-  top: 10px;
+  top: -9px;
   left: 50%;
   transform: translateX(-50%);
   width: 150px;
-  height: 16px;
+  height: 22px;
   background: linear-gradient(180deg, #9e2020, #7a1515);
   border-radius: 2px 2px 8px 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-  transition: transform 0.3s ease;
+  animation: mailbox-flap-bob 3.5s ease-in-out infinite;
+  will-change: transform;
 }
 
 .mailbox:hover .mailbox-slot-flap {
@@ -157,61 +163,140 @@
   transform: rotate(-2deg) translateY(-2px);
 }
 
-/* ── Gold plaque / label ── */
-.mailbox-plaque {
+/* ═══════════════════════════════════════════════
+   Interactive panel — text + icons inside mailbox
+   ═══════════════════════════════════════════════ */
+.mailbox-panel {
   position: absolute;
-  top: 36px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(180deg, #d4a853 0%, #c49a3a 50%, #b8902e 100%);
-  color: #3a2510;
-  font-family: 'Playfair Display', serif;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  padding: 5px 20px;
-  border-radius: 3px;
-  box-shadow:
-    inset 0 1px 2px rgba(255,255,255,0.3),
-    0 2px 4px rgba(0,0,0,0.3);
-  white-space: nowrap;
-}
-
-/* ── Mailbox body address lines ── */
-.mailbox-body-info {
-  position: absolute;
-  bottom: 14px;
+  top: 30px;
   left: 0;
   right: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
+  gap: 12px;
+  z-index: 1;
+}
+
+/* ── Text plaque (FEEHAM or contact info) ── */
+.mailbox-panel-text {
+  background: linear-gradient(180deg, #faf6ee 0%, #f2ece0 50%, #e8e1d3 100%);
+  color: #8b3a3a;
+  font-family: 'Playfair Display', serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 20px;
+  border-radius: 3px;
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,0.3),
+    0 2px 4px rgba(0,0,0,0.3);
+  white-space: nowrap;
+  text-align: center;
+  max-width: calc(100% - 32px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: max-width 0.25s ease;
+}
+
+/* ── Action buttons (copy + action) ── */
+.mailbox-panel-actions {
+  display: flex;
+  gap: 6px;
+  animation: mailbox-actions-in 0.2s ease;
+}
+
+@keyframes mailbox-actions-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.mailbox-action-btn {
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 3px;
+  border: 1px solid rgba(180, 140, 60, 0.5);
+  background: rgba(100, 20, 20, 0.45);
+  color: rgba(255, 220, 160, 0.8);
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  white-space: nowrap;
+}
+
+.mailbox-action-btn:hover {
+  background: rgba(255, 220, 160, 0.85);
+  color: #8b1a1a;
+  border-color: rgba(255, 220, 160, 0.9);
+}
+
+.mailbox-action-btn--primary {
+  background: linear-gradient(180deg, #e6ce8e 0%, #ccae5f 100%);
+  color: #3a2510;
+  border-color: #ccae5f;
+}
+
+.mailbox-action-btn--primary:hover {
+  background: linear-gradient(180deg, #eedcab 0%, #d8bf78 100%);
+}
+
+/* ── Icon row ── */
+.mailbox-panel-icons {
+  display: flex;
+  gap: 8px;
+}
+
+.mailbox-icon-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid rgba(180, 140, 60, 0.5);
+  background: rgba(100, 20, 20, 0.45);
+  color: rgba(255, 220, 160, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mailbox-icon-btn svg {
+  width: 17px;
+  height: 17px;
   pointer-events: none;
 }
 
-.mailbox-body-line {
-  width: 180px;
-  height: 1px;
-  background: rgba(255, 220, 160, 0.15);
-}
-
-.mailbox-body-text {
-  font-family: 'Courier Prime', 'Courier New', monospace;
-  font-size: 8px;
-  color: rgba(255, 220, 160, 0.3);
-  letter-spacing: 1px;
-  text-transform: uppercase;
+.mailbox-icon-btn:hover,
+.mailbox-icon-btn--active {
+  background: rgba(255, 220, 160, 0.85);
+  color: #8b1a1a;
+  border-color: rgba(255, 220, 160, 0.9);
+  box-shadow: 0 0 10px rgba(255, 220, 160, 0.25);
+  transform: scale(1.12);
 }
 
 /* ── Sticker / postage stamp on the side ── */
 .mailbox-stamp {
   position: absolute;
-  bottom: 12px;
-  right: 16px;
-  width: 36px;
-  height: 44px;
+  bottom: 10px;
+  right: 14px;
+  width: 34px;
+  height: 42px;
   background: #fdf5e6;
   border: 2px dashed rgba(180, 150, 100, 0.4);
   border-radius: 2px;
@@ -224,7 +309,7 @@
 }
 
 .mailbox-stamp-inner {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1;
 }
 
@@ -264,123 +349,6 @@
   box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
 
-/* ── Contact cards (the letters below) ── */
-.mailbox-contact-cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  width: 100%;
-  max-width: 480px;
-  margin: 0 auto;
-}
-
-@media (max-width: 480px) {
-  .mailbox-contact-cards {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ── Individual letter card ── */
-.mailbox-letter-card {
-  position: relative;
-  background:
-    linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 100%),
-    #fdf5e6;
-  background-image:
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.04'/%3E%3C/svg%3E"),
-    linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 100%);
-  background-color: #fdf5e6;
-  border-radius: 4px;
-  padding: 14px 16px 14px 18px;
-  box-shadow:
-    0 2px 8px rgba(0,0,0,0.12),
-    1px 1px 0 rgba(0,0,0,0.04);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.mailbox-letter-card:hover {
-  transform: translateY(-2px) rotate(-0.5deg);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.18);
-}
-
-/* Paper tape strip at top */
-.mailbox-letter-card::before {
-  content: "";
-  position: absolute;
-  top: -3px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50px;
-  height: 10px;
-  background: rgba(255, 255, 240, 0.7);
-  border: 1px solid rgba(200, 180, 150, 0.25);
-  border-radius: 1px;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
-}
-
-/* Ruled lines */
-.mailbox-letter-card::after {
-  content: "";
-  position: absolute;
-  top: 16px;
-  bottom: 14px;
-  left: 14px;
-  width: 1px;
-  background: rgba(220, 80, 80, 0.2);
-}
-
-.mailbox-card-label {
-  font-family: 'Playfair Display', serif;
-  font-size: 9px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: #8b6e4e;
-  margin-bottom: 6px;
-}
-
-.mailbox-card-value {
-  font-family: 'Tinos', 'Times New Roman', serif;
-  font-size: 13px;
-  color: #2c2a25;
-  line-height: 1.4;
-}
-
-.mailbox-card-value a {
-  color: #2c2a25;
-  text-decoration: none;
-  border-bottom: 1px solid rgba(44, 42, 37, 0.3);
-  transition: border-color 0.2s ease;
-}
-
-.mailbox-card-value a:hover {
-  border-bottom-color: #2c2a25;
-}
-
-/* ── Wax seal on first card ── */
-.mailbox-seal {
-  position: absolute;
-  bottom: -8px;
-  right: 12px;
-  width: 28px;
-  height: 28px;
-  background: radial-gradient(circle at 40% 40%, #c0392b, #8b1a1a);
-  border-radius: 50%;
-  box-shadow:
-    0 2px 6px rgba(0,0,0,0.3),
-    inset 0 1px 2px rgba(255,255,255,0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.mailbox-seal-text {
-  font-family: 'Playfair Display', serif;
-  font-size: 11px;
-  font-weight: 900;
-  color: rgba(255, 220, 180, 0.6);
-}
-
 /* ── Responsive adjustments ── */
 @media (min-width: 640px) {
   .mailbox {
@@ -393,7 +361,7 @@
   .mailbox-lid {
     width: 332px;
   }
-  .mailbox-contact-cards {
-    max-width: 540px;
+  .mailbox-panel-text {
+    max-width: calc(100% - 40px);
   }
 }
