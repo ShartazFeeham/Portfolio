@@ -1,0 +1,49 @@
+.newspaper-texture {
+    background-color: #e8e1cf;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+.masthead-title {
+  font-size: clamp(1.5rem, 8vw, 5rem);
+}
+
+.drop-letter {
+  font-size: 1.35em;
+  vertical-align: middle;
+  margin-right: -0.05em;
+}
+
+.wax-seal {
+  background: radial-gradient(circle, #8b1a1a 60%, #5a0d0d 100%);
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.4), inset 0 0 10px rgba(0,0,0,0.5);
+  border: 2px solid #a31f1f;
+}
+
+/* Masthead ticker */
+@keyframes mastheadMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.masthead-ticker {
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.masthead-ticker__track {
+  display: flex;
+  width: max-content;
+  animation: mastheadMarquee 42s linear infinite;
+}
+
+.masthead-ticker__item {
+  flex: 0 0 auto;
+  padding-right: 48px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .masthead-ticker:hover .masthead-ticker__track {
+    animation-play-state: paused;
+  }
+}

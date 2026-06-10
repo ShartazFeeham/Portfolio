@@ -1,7 +1,11 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* Keyboard / screen-reader: jump past decorative chrome */
+/* Global styles */
+html, body, #root { height: 100%; }
+body { margin: 0; background: #f8f8f8; }
+
+/* Skip to main content */
 .skip-to-main {
   position: absolute;
   left: -9999px;
@@ -25,86 +29,36 @@
   outline-offset: 3px;
 }
 
-html,
-body,
-#root {
-  height: 100%;
-}
-
-body {
-  margin: 0;
-  background: #f8f8f8;
-}
-
-/* WANTED wax seal: hinged at top, bottom swings (pendulum in breeze) */
+/* Wanted seal pendulum animation */
 @keyframes wanted-seal-swing {
-  0%,
-  100% {
-    transform: rotate(-13deg);
-  }
-  50% {
-    transform: rotate(13deg);
-  }
+  0%, 100% { transform: rotate(-13deg); }
+  50% { transform: rotate(13deg); }
 }
-
 .wanted-seal-pendulum {
   transform-origin: 50% 0%;
   animation: wanted-seal-swing 3.2s ease-in-out infinite;
 }
-
 @media (prefers-reduced-motion: reduce) {
-  .wanted-seal-pendulum {
-    animation: none;
-    transform: rotate(12deg);
-  }
+  .wanted-seal-pendulum { animation: none; transform: rotate(12deg); }
 }
 
-
-/* Animations */
+/* Fade in animation */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+.animate-fade-in { animation: fadeIn 0.8s ease-out forwards; }
 
-.animate-fade-in {
-  animation: fadeIn 0.8s ease-out forwards;
-}
+/* Scroll reveal */
+.reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+.reveal.active { opacity: 1; transform: translateY(0); }
 
-/* Scroll reveal helper */
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s ease-out;
-}
-
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Keyboard / screen-reader: jump past decorative chrome */
-.skip-to-main {
-  position: absolute;
-  left: -9999px;
-  top: 0.75rem;
-  z-index: 10000;
-  padding: 0.45rem 0.85rem;
-  background: var(--primary);
-  color: var(--bg);
-  font-family: var(--font-serif);
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  text-decoration: none;
-  border: 2px solid var(--primary);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-}
-
-.skip-to-main:focus {
-  left: 0.75rem;
-  outline: 2px solid var(--text-primary);
-  outline-offset: 3px;
-}
-
-
+/* Extracted styles */
+@import "./styles/newspaper.css";
+@import "./styles/vintageLetter.css";
+@import "./styles/indexAnimations.css";
+@import "./styles/newspaperLayout.css";
+@import "./styles/fantasyBook.css";
+@import "./styles/quickLinks.css";
+@import "./styles/paper.css";
+@import "./styles/toast.css";

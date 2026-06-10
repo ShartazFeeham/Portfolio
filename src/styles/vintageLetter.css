@@ -1,0 +1,101 @@
+/* Handwritten letter note */
+.vintage-letter {
+  position: relative;
+  transform: rotate(-0.6deg);
+}
+
+.vintage-letter::after { content: none; }
+
+.vintage-letter__paper {
+  position: relative;
+  filter: none;
+  border-radius: 3px;
+}
+
+.vintage-letter__paper .vintage-letter__content { position: relative; }
+
+/* Bottom-right corner page stack (thin slivers, like right side) */
+.vintage-letter__paper .vintage-letter__content::after {
+  content: "";
+  position: absolute;
+  right: -6px;
+  bottom: -10px;
+  width: 3px;
+  height: 3px;
+  border-radius: 2px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0.12) 100%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.07'/%3E%3C/svg%3E");
+  background-color: #ead9b8;
+  box-shadow:
+    /* diagonal slivers extending left/down */
+    -2px 2px 0 rgba(0,0,0,0.10),
+    -4px 4px 0 rgba(0,0,0,0.08),
+    -6px 6px 0 rgba(0,0,0,0.06),
+    -8px 8px 0 rgba(0,0,0,0.05);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.vintage-letter__paper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 3px;
+  background-color: #efe2c6;
+  background-image:
+    /* slightly darker ruled lines */
+    repeating-linear-gradient(0deg, rgba(44,42,37,0.085) 0 1px, transparent 1px 22px),
+    /* mild paper aging */
+    radial-gradient(circle at 22% 18%, rgba(120, 70, 25, 0.10), transparent 60%),
+    radial-gradient(circle at 78% 28%, rgba(120, 70, 25, 0.08), transparent 64%),
+    radial-gradient(circle at 30% 86%, rgba(120, 70, 25, 0.07), transparent 68%),
+    linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.02) 55%, rgba(0,0,0,0.10) 100%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.18'/%3E%3C/svg%3E");
+  box-shadow:
+    0 14px 18px rgba(0,0,0,0.22),
+    0 1px 0 rgba(255,255,255,0.18) inset;
+  pointer-events: none;
+}
+
+.vintage-letter__paper::after {
+  content: "";
+  position: absolute;
+  /* stacked pages peeking ONLY on the right side */
+  top: 8px;
+  bottom: -8px;
+  right: -3px;
+  width: 3px;
+  border-radius: 3px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(0,0,0,0.10) 100%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.08'/%3E%3C/svg%3E");
+  background-color: #ead9b8;
+  box-shadow:
+    /* thin stacked page edges */
+    2px 2px 0 rgba(0,0,0,0.10),
+    4px 4px 0 rgba(0,0,0,0.08),
+    6px 6px 0 rgba(0,0,0,0.06),
+    8px 8px 0 rgba(0,0,0,0.05),
+    0 10px 14px rgba(0,0,0,0.12);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.vintage-letter__content {
+  font-family: 'Caveat', 'Tinos', 'Times New Roman', serif;
+  position: relative;
+  z-index: 2;
+  padding: 18px 20px;
+  font-size: 19px;
+  line-height: 1.18;
+  color: #2c2a25;
+  filter: sepia(0.62) saturate(0.75) contrast(1.08);
+}
+
+.vintage-letter__content::before { content: none; }
+
+.vintage-letter__content p { margin: 0; }
+.vintage-letter__content p + p { margin-top: 8px; }
+.vintage-letter__content ul { margin: 8px 0 0; padding-left: 18px; }
+.vintage-letter__content li { margin: 4px 0; }

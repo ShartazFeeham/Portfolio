@@ -1,0 +1,31 @@
+@keyframes indexSequenceMove {
+  0% { transform: translate3d(0, 0, 0); }
+  3% { transform: translate3d(6px, 0, 0); }
+  7% { transform: translate3d(-3px, 0, 0); }
+  11%, 100% { transform: translate3d(0, 0, 0); }
+}
+
+.index-item-text {
+  animation: indexSequenceMove 3.5s infinite ease-in-out;
+  display: flex;
+  width: 100%;
+  transition: color 0.3s ease;
+  will-change: transform;
+}
+
+.index-item-text:hover {
+  color: #1a3a5f !important;
+}
+
+.index-list:hover .index-item-text {
+  animation-play-state: paused;
+}
+
+.index-item-text span {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.index-item-text:hover span {
+  transform: scale(1.08);
+}

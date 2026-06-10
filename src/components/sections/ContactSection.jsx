@@ -1,64 +1,94 @@
+import './ContactSection.css';
+
 export function ContactSection() {
   return (
     <section id="contact" className="flex flex-col gap-4">
       <h2 className="font-headline font-black text-xl md:text-2xl uppercase leading-none text-[#2c2a25]">
         <a href="#index">CONTACT</a>
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-times text-[13px] md:text-[14px]">
-        <div className="md:border-r-2 md:border-[#2c2a25] md:pr-6">
-          <div className="flex justify-between border-b border-dashed border-[#2c2a25] py-2">
-            <span className="font-headline font-bold uppercase text-[11px] tracking-widest">E-mail</span>
-            <a className="underline font-bold" href="mailto:mdfeeham@gmail.com">
-              mdfeeham@gmail.com
-            </a>
+
+      <div className="mailbox-scene">
+        {/* ── Mailbox ── */}
+        <div className="mailbox">
+          {/* Lid / roof */}
+          <div className="mailbox-lid">
+            <div className="mailbox-slot" />
+            <div className="mailbox-slot-flap" />
+            {/* Letters peeking out */}
+            <div className="mailbox-letters-peek">
+              <div className="mailbox-letter-peek" />
+              <div className="mailbox-letter-peek" />
+              <div className="mailbox-letter-peek" />
+            </div>
           </div>
-          <div className="flex justify-between border-b border-dashed border-[#2c2a25] py-2">
-            <span className="font-headline font-bold uppercase text-[11px] tracking-widest">Phone</span>
-            <a className="underline font-bold" href="tel:+8801819853595">
-              +8801819853595
-            </a>
+
+          {/* Box body */}
+          <div className="mailbox-box">
+            {/* Gold plaque */}
+            <div className="mailbox-plaque">Feeham</div>
+
+            {/* Decorative body lines */}
+            <div className="mailbox-body-info">
+              <div className="mailbox-body-line" />
+              <div className="mailbox-body-text">Dhaka &middot; Bangladesh</div>
+              <div className="mailbox-body-line" />
+            </div>
+
+            {/* Postage stamp */}
+            <div className="mailbox-stamp">
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <span className="mailbox-stamp-inner">✉</span>
+                <span className="mailbox-stamp-text">Mail me</span>
+              </div>
+            </div>
+
+            {/* Flag */}
+            <div className="mailbox-flag">
+              <div className="mailbox-flag-banner" />
+              <div className="mailbox-flag-pole" />
+            </div>
           </div>
-          <div className="flex justify-between border-b border-dashed border-[#2c2a25] py-2">
-            <span className="font-headline font-bold uppercase text-[11px] tracking-widest">
-              Location
-            </span>
-            <span className="font-bold">Dhaka, Bangladesh</span>
-          </div>
+
+          {/* Post */}
+          <div className="mailbox-post" />
         </div>
-        <div className="md:pl-6">
-          <div className="flex justify-between border-b border-dashed border-[#2c2a25] py-2">
-            <span className="font-headline font-bold uppercase text-[11px] tracking-widest">GitHub</span>
-            <a
-              className="underline font-bold"
-              href="https://github.com/ShartazFeeham"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              github.com/ShartazFeeham
-            </a>
+
+        {/* ── Contact letter cards ── */}
+        <div className="mailbox-contact-cards">
+          <div className="mailbox-letter-card">
+            <div className="mailbox-card-label">E-mail</div>
+            <div className="mailbox-card-value">
+              <a href="mailto:mdfeeham@gmail.com">mdfeeham@gmail.com</a>
+            </div>
+            <div className="mailbox-seal"><span className="mailbox-seal-text">F</span></div>
           </div>
-          <div className="flex justify-between border-b border-dashed border-[#2c2a25] py-2">
-            <span className="font-headline font-bold uppercase text-[11px] tracking-widest">
-              LinkedIn
-            </span>
-            <a
-              className="underline font-bold"
-              href="https://www.linkedin.com/in/shartaz-feeham"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              linkedin.com/in/shartaz-feeham
-            </a>
+
+          <div className="mailbox-letter-card">
+            <div className="mailbox-card-label">Phone</div>
+            <div className="mailbox-card-value">
+              <a href="tel:+8801819853595">+880 1819 853595</a>
+            </div>
           </div>
-          <div className="flex justify-between border-b border-dashed border-[#2c2a25] py-2">
-            <span className="font-headline font-bold uppercase text-[11px] tracking-widest">
-              Date of birth
-            </span>
-            <span className="font-bold">13 July 2000</span>
+
+          <div className="mailbox-letter-card">
+            <div className="mailbox-card-label">GitHub</div>
+            <div className="mailbox-card-value">
+              <a href="https://github.com/ShartazFeeham" target="_blank" rel="noopener noreferrer">
+                github.com/ShartazFeeham
+              </a>
+            </div>
+          </div>
+
+          <div className="mailbox-letter-card">
+            <div className="mailbox-card-label">LinkedIn</div>
+            <div className="mailbox-card-value">
+              <a href="https://www.linkedin.com/in/shartaz-feeham" target="_blank" rel="noopener noreferrer">
+                linkedin.com/in/shartaz-feeham
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </section>
   );
 }
-
